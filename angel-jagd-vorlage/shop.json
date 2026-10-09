@@ -1,0 +1,166 @@
+{
+  "demo_modus": true,
+  "ersteller": "Philipp Nirnberger",
+  "website_url": "",
+
+  "name": "Petri & Pirsch",
+  "branche": "Angel- & Jagdbedarf",
+  "schema_typ": "SportingGoodsStore",
+  "slogan": "Alles fürs Wasser und den Wald.",
+  "kurzbeschreibung": "Fachgeschäft für Angler und Jäger in Rendsburg: Ruten, Köder, Optik und Jagdbedarf, dazu Angelkarten, Lebendköder und eine eigene Werkstatt. Online merken, im Laden abholen.",
+  "logo": "",
+
+  "farben": {
+    "akzent": "#E4572E",
+    "akzent_dunkel": ""
+  },
+
+  "kontakt": {
+    "telefon": "04331 000 55 12",
+    "email": "laden@petri-pirsch.example",
+    "whatsapp": "0160 000 55 12",
+    "adresse": {
+      "strasse": "Fischerstraße 12",
+      "plz": "24768",
+      "ort": "Rendsburg",
+      "land": "Deutschland"
+    }
+  },
+
+  "buchung_url": "",
+
+  "oeffnungszeiten": [
+    { "tag": "Montag", "zeiten": "09:00–18:00" },
+    { "tag": "Dienstag", "zeiten": "09:00–18:00" },
+    { "tag": "Mittwoch", "zeiten": "09:00–13:00" },
+    { "tag": "Donnerstag", "zeiten": "09:00–18:00" },
+    { "tag": "Freitag", "zeiten": "09:00–18:00" },
+    { "tag": "Samstag", "zeiten": "07:00–13:00" },
+    { "tag": "Sonntag", "zeiten": "geschlossen" }
+  ],
+
+  "highlights": [
+    { "icon": "fisch", "titel": "Lebendköder", "text": "Würmer & Maden täglich frisch, samstags ab 7 Uhr." },
+    { "icon": "ticket", "titel": "Angelkarten", "text": "Tages- und Wochenkarten für Eider & Kanal." },
+    { "icon": "werkzeug", "titel": "Eigene Werkstatt", "text": "Rollen-Service, Schnur, Messer schleifen." },
+    { "icon": "tuete", "titel": "Click & Collect", "text": "Online merken, im Laden abholen." }
+  ],
+
+  "bereiche": [
+    { "titel": "Angeln", "text": "Ruten, Rollen, Köder und Zubehör für Raubfisch, Friedfisch und Fliege.", "bild": { "datei": "bereich-angeln.jpg", "alt": "Angler mit Rute an einem herbstlichen Flussufer" }, "filter": "Angeln", "link_text": "Angelbedarf ansehen" },
+    { "titel": "Jagd", "text": "Optik, Munition, Messer und Ausrüstung für Ansitz und Pirsch.", "bild": { "datei": "bereich-jagd.jpg", "alt": "Hochsitz aus Holz zwischen hohen Kiefern" }, "filter": "Jagd", "link_text": "Jagdbedarf ansehen" }
+  ],
+
+  "shop": {
+    "nav": "Shop",
+    "eyebrow": "Shop · Click & Collect",
+    "titel": "Unser Sortiment",
+    "intro": "Ein Auszug aus unserem Laden. Artikel merken, Anfrage abschicken – wir legen alles zurück. Abholen und bezahlen im Laden.",
+    "hero_knopf": "Zum Sortiment",
+    "suche_platzhalter": "Was suchst du? z. B. Wobbler, Fernglas …",
+    "kategorien": ["Angeln", "Jagd", "Messer & Ausrüstung"],
+    "hinweis": "Alle Preise inkl. MwSt. Reservierung unverbindlich und kostenlos, Bezahlung bei Abholung. Kein Versand. Waffen und Munition nur gegen Vorlage der erforderlichen Erlaubnis."
+  },
+
+  "produkte": [
+    { "name": "Spinnrute „Hechtjäger“ 2,70 m", "kategorie": "Angeln", "beschreibung": "Wurfgewicht 20–60 g, Carbon, zweiteilig", "preis": 89.90, "preis_alt": 109.90, "lager": "auf Lager", "bild": "produkte/spinnrute.jpg", "bild_alt": "Angler hält eine Spinnrute mit Rolle über das Wasser" },
+    { "name": "Fliegenrolle Klasse 5/6", "kategorie": "Angeln", "beschreibung": "Aluminium, Large Arbor, mit Schnur", "preis": 64.90, "lager": "wenige", "bild": "produkte/fliegenrolle.jpg", "bild_alt": "Fliegenrolle an einer Rute in Nahaufnahme" },
+    { "name": "Wobbler-Set Raubfisch, 6 Stück", "kategorie": "Angeln", "beschreibung": "Für Hecht, Barsch und Zander, 7–12 cm", "preis": 34.90, "lager": "auf Lager", "neu": true, "bild": "produkte/wobbler-set.jpg", "bild_alt": "Bunte Wobbler nebeneinander auf Holz" },
+    { "name": "Spinner & Blinker, 10er-Sortiment", "kategorie": "Angeln", "beschreibung": "Größen 2–4, ideal für Forelle und Barsch", "preis": 19.90, "lager": "auf Lager", "bild": "produkte/spinner-set.jpg", "bild_alt": "Verschiedene Spinner und Blinker auf einem Holztisch" },
+    { "name": "Trockenfliegen, 12er-Box", "kategorie": "Angeln", "beschreibung": "Handgebunden, Hakengröße 12–16", "preis": 14.90, "lager": "auf Lager", "bild": "produkte/trockenfliegen.jpg", "bild_alt": "Mehrere Trockenfliegen auf hellem Untergrund" },
+    { "name": "Posen-Set Friedfisch, 8 Stück", "kategorie": "Angeln", "beschreibung": "1–4 g, für Rotauge, Brasse und Karpfen", "preis": 9.90, "lager": "wenige", "bild": "produkte/posen.jpg", "bild_alt": "Rot-weiße Posen in einer Köderbox" },
+
+    { "name": "Fernglas 8×42", "kategorie": "Jagd", "beschreibung": "Dämmerungstauglich, wasserdicht, mit Tasche", "preis": 349.00, "lager": "auf Lager", "bild": "produkte/fernglas.jpg", "bild_alt": "Schwarzes Fernglas auf einem aufgeschlagenen Buch" },
+    { "name": "Büchsenmunition .308 Win., 20 Stück", "kategorie": "Jagd", "beschreibung": "Teilmantel, 10,7 g – weitere Kaliber auf Anfrage", "preis": 42.90, "lager": "auf Lager", "nur_vor_ort": true },
+    { "name": "Schrotpatronen 12/70, 25 Stück", "kategorie": "Jagd", "beschreibung": "Bleifrei, 32 g, Körnung 3,0 mm", "preis": 16.90, "lager": "bestellbar", "nur_vor_ort": true },
+
+    { "name": "Jagdmesser mit Lederscheide", "kategorie": "Messer & Ausrüstung", "beschreibung": "Feststehende Klinge 11 cm, Holzgriff", "preis": 79.00, "lager": "auf Lager", "nur_vor_ort": true, "hinweis": "Abgabe nur an Personen ab 18 Jahren", "bild": "produkte/jagdmesser.jpg", "bild_alt": "Feststehendes Messer im Waldboden" },
+    { "name": "Klappmesser mit Holzgriff", "kategorie": "Messer & Ausrüstung", "beschreibung": "Einhandmesser, Klinge 8 cm, mit Clip", "preis": 39.90, "lager": "auf Lager", "bild": "produkte/klappmesser.jpg", "bild_alt": "Aufgeklapptes Messer mit Holzgriff auf dunklem Holz" },
+    { "name": "Outdoor-Rucksack 35 l", "kategorie": "Messer & Ausrüstung", "beschreibung": "Robust, wasserabweisend, mit Sitzkissen-Fach", "preis": 89.00, "lager": "bestellbar", "bild": "produkte/rucksack.jpg", "bild_alt": "Rucksack mit Isomatte an einem Baum im Herbstlaub" }
+  ],
+
+  "leistungen_nav": "Service",
+  "leistungen_titel": "Werkstatt, Angelkarten & mehr",
+  "leistungen": [
+    {
+      "kategorie": "Angelkarten",
+      "eintraege": [
+        { "name": "Tageskarte Eider", "beschreibung": "Nur mit gültigem Fischereischein", "preis": "8 €" },
+        { "name": "Wochenkarte Eider", "preis": "25 €" },
+        { "name": "Jahreskarte Nord-Ostsee-Kanal", "beschreibung": "Ausgabe im Laden", "preis": "auf Anfrage" },
+        { "name": "Vorbereitungslehrgang Fischereischein", "beschreibung": "Abends, 4 Termine, inkl. Lernmaterial", "preis": "129 €" }
+      ]
+    },
+    {
+      "kategorie": "Werkstatt",
+      "eintraege": [
+        { "name": "Schnur aufspulen", "beschreibung": "Zzgl. Schnur", "preis": "ab 3 €" },
+        { "name": "Rollen-Service", "beschreibung": "Reinigen, fetten, Funktionsprüfung", "preis": "ab 15 €" },
+        { "name": "Messer schleifen", "preis": "ab 6 €" },
+        { "name": "Zielfernrohr montieren", "beschreibung": "Inkl. Grundeinstellung", "preis": "ab 49 €" }
+      ]
+    },
+    {
+      "kategorie": "Frischköder",
+      "eintraege": [
+        { "name": "Tauwürmer, Dose", "preis": "3,90 €" },
+        { "name": "Mistwürmer, Dose", "preis": "3,50 €" },
+        { "name": "Maden, 0,25 l", "preis": "3,00 €" }
+      ]
+    }
+  ],
+  "preis_hinweis": "Alle Preise inkl. MwSt. Lebendköder solange Vorrat reicht – vorbestellen per WhatsApp lohnt sich.",
+
+  "hero_bild": { "datei": "hero.jpg", "alt": "Nebliger See bei Sonnenaufgang mit Bäumen am Ufer" },
+
+  "ueber_uns_titel": "Seit 1987 am Kanal",
+  "ueber_uns_text": "Petri & Pirsch ist ein Familienbetrieb in zweiter Generation. Wir angeln und jagen selbst und beraten so, wie wir es uns selbst wünschen würden: ehrlich, praxisnah und ohne Verkaufsdruck.\n\nOb erste Rute für den Nachwuchs, das passende Fernglas für den Ansitz oder der Köder, der an der Eider gerade läuft – bei uns bekommst du Ausrüstung und Erfahrung aus der Region.",
+  "ueber_uns_punkte": [
+    "Fachberatung von Anglern und Jägern",
+    "Angelkarten und Lebendköder vor Ort",
+    "Eigene Werkstatt für Rollen und Messer",
+    "Parkplätze direkt vor dem Laden"
+  ],
+  "ueber_uns_bild": { "datei": "ueber-uns.jpg", "alt": "Angler hält eine Bachforelle über einem Kescher" },
+
+  "team": [],
+
+  "google_bewertung": 4.8,
+  "google_anzahl": 187,
+  "google_link": "https://www.google.com/maps/search/?api=1&query=Petri%20%26%20Pirsch%20Rendsburg",
+  "bewertungen": [
+    { "autor": "Jens H.", "sterne": 5, "text": "Top Beratung, die wissen wovon sie reden. Hab genau den Wobbler bekommen, der an der Eider gerade fängt." },
+    { "autor": "Katrin M.", "sterne": 5, "text": "Fernglas für den Ansitz gekauft – in Ruhe ausprobieren dürfen, fairer Preis, super Service." },
+    { "autor": "Ole P.", "sterne": 5, "text": "Samstags um 7 frische Würmer und die Tageskarte gleich dazu. So muss ein Angelladen sein." }
+  ],
+
+  "galerie": [],
+
+  "anfahrt_hinweis": "Parkplätze direkt vor dem Laden · 5 Minuten vom Bahnhof Rendsburg",
+
+  "social": {
+    "instagram": "https://www.instagram.com/",
+    "facebook": "https://www.facebook.com/"
+  },
+
+  "bildnachweise": [
+    { "datei": "hero.jpg", "fotograf": "Alexandre Grégoire", "unsplash_link": "https://unsplash.com/photos/w-EAWnIgoM0" },
+    { "datei": "ueber-uns.jpg", "fotograf": "Matthew McBrayer", "unsplash_link": "https://unsplash.com/photos/jh8tvY_wY_U" },
+    { "datei": "bereich-angeln.jpg", "fotograf": "Declan P", "unsplash_link": "https://unsplash.com/photos/aCjuPl6oFwQ" },
+    { "datei": "bereich-jagd.jpg", "fotograf": "Oliver Paaske", "unsplash_link": "https://unsplash.com/photos/M5V7gxESmo0" },
+    { "datei": "produkte/spinnrute.jpg", "fotograf": "Mathieu Le Roux", "unsplash_link": "https://unsplash.com/photos/6_HqvY1E7NI" },
+    { "datei": "produkte/fliegenrolle.jpg", "fotograf": "Matthew McBrayer", "unsplash_link": "https://unsplash.com/photos/GcGz0yYy3bg" },
+    { "datei": "produkte/wobbler-set.jpg", "fotograf": "Anne Nygård", "unsplash_link": "https://unsplash.com/photos/viq9Ztqi3Vc" },
+    { "datei": "produkte/spinner-set.jpg", "fotograf": "Anne Nygård", "unsplash_link": "https://unsplash.com/photos/hfrWOhXxwHY" },
+    { "datei": "produkte/trockenfliegen.jpg", "fotograf": "Anne Nygård", "unsplash_link": "https://unsplash.com/photos/nE6C5irIbVY" },
+    { "datei": "produkte/posen.jpg", "fotograf": "Karsten Winegeart", "unsplash_link": "https://unsplash.com/photos/9WBFHJ1w_fg" },
+    { "datei": "produkte/fernglas.jpg", "fotograf": "Diane Helentjaris", "unsplash_link": "https://unsplash.com/photos/S8wI7myzAjE" },
+    { "datei": "produkte/jagdmesser.jpg", "fotograf": "Anis Rahman", "unsplash_link": "https://unsplash.com/photos/qFFjBvneV2k" },
+    { "datei": "produkte/klappmesser.jpg", "fotograf": "Igor bispo", "unsplash_link": "https://unsplash.com/photos/sV5JRC3t71M" },
+    { "datei": "produkte/rucksack.jpg", "fotograf": "Oriol Pascual", "unsplash_link": "https://unsplash.com/photos/l5VCmqQbP_g" }
+  ],
+
+  "impressum": "## Angaben gemäß § 5 DDG\n\nPetri & Pirsch\nInhaber: Hauke Jessen\nFischerstraße 12\n24768 Rendsburg\n\n## Kontakt\n\nTelefon: 04331 000 55 12\nE-Mail: laden@petri-pirsch.example\n\n## Umsatzsteuer-ID\n\nUmsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:\nDE 000 000 000\n\n## Erlaubnis nach Waffengesetz\n\nErlaubnis zum Waffenhandel gemäß § 21 WaffG, erteilt durch: [zuständige Waffenbehörde eintragen]\n\n## Verbraucherstreitbeilegung\n\nWir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.",
+
+  "datenschutz": "## 1. Verantwortliche Stelle\n\nPetri & Pirsch, Inhaber Hauke Jessen\nFischerstraße 12, 24768 Rendsburg\nE-Mail: laden@petri-pirsch.example\n\n## 2. Grundsätzliches\n\nDiese Website verwendet **keine Cookies**, **kein Tracking** und **keine Analyse-Werkzeuge**. Schriftarten und Bilder werden ausschließlich von unserem eigenen Server geladen. Der Merkzettel wird nur im Arbeitsspeicher deines Browsers gehalten und beim Schließen der Seite gelöscht – er wird nicht an uns übertragen, solange du ihn nicht selbst abschickst.\n\n## 3. Hosting und Server-Logfiles\n\nBeim Aufruf der Website speichert unser Hosting-Anbieter technisch notwendige Daten (z. B. IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browsertyp) in Server-Logfiles. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einem sicheren und stabilen Betrieb). Die Logfiles werden nach spätestens 14 Tagen gelöscht.\n\n## 4. Reservierungsanfragen und Kontakt\n\nWenn du uns eine Reservierungsanfrage per WhatsApp oder E-Mail schickst oder uns anrufst, verarbeiten wir deine Angaben (z. B. Name, gewünschte Artikel, Telefonnummer) zur Bearbeitung der Anfrage und zur Vorbereitung des Kaufs (Art. 6 Abs. 1 lit. b DSGVO). Bei Nutzung von WhatsApp gelten zusätzlich die Datenschutzbestimmungen der WhatsApp Ireland Limited.\n\n## 5. Externe Links\n\nUnsere Website enthält Links zu externen Angeboten (Google Maps, Instagram, Facebook, WhatsApp). Erst wenn du einen solchen Link anklickst, werden Daten an den jeweiligen Anbieter übertragen.\n\n## 6. Deine Rechte\n\nDu hast jederzeit das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung deiner Daten sowie auf Datenübertragbarkeit und Widerspruch (Art. 15–21 DSGVO). Außerdem kannst du dich bei einer Datenschutz-Aufsichtsbehörde beschweren, zum Beispiel beim Unabhängigen Landeszentrum für Datenschutz Schleswig-Holstein (ULD)."
+}

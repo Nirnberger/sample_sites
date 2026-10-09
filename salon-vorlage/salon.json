@@ -1,0 +1,134 @@
+{
+  "demo_modus": true,
+  "ersteller": "Philipp Nirnberger",
+  "website_url": "",
+
+  "name": "Atelier Haarwerk",
+  "slogan": "Haare mit Haltung.",
+  "kurzbeschreibung": "Ihr Friseursalon im Kieler Norden: präzise Schnitte, natürliche Farben und eine ruhige Atmosphäre, in der Sie sich Zeit für sich nehmen können.",
+  "logo": "",
+
+  "farben": {
+    "akzent": "#B08D57",
+    "akzent_dunkel": ""
+  },
+
+  "kontakt": {
+    "telefon": "0431 000 12 34",
+    "email": "hallo@atelier-haarwerk.example",
+    "whatsapp": "0152 000 12 34",
+    "adresse": {
+      "strasse": "Holtenauer Straße 112",
+      "plz": "24105",
+      "ort": "Kiel",
+      "land": "Deutschland"
+    }
+  },
+
+  "buchung_url": "https://booking.example/atelier-haarwerk",
+
+  "oeffnungszeiten": [
+    { "tag": "Montag", "zeiten": "geschlossen" },
+    { "tag": "Dienstag", "zeiten": "09:00–18:30" },
+    { "tag": "Mittwoch", "zeiten": "09:00–18:30" },
+    { "tag": "Donnerstag", "zeiten": "10:00–20:00" },
+    { "tag": "Freitag", "zeiten": "09:00–18:30" },
+    { "tag": "Samstag", "zeiten": "08:30–14:00" },
+    { "tag": "Sonntag", "zeiten": "geschlossen" }
+  ],
+
+  "leistungen": [
+    {
+      "kategorie": "Damen",
+      "eintraege": [
+        { "name": "Waschen, Schneiden, Föhnen – kurzes Haar", "beschreibung": "Inklusive Beratung und Kopfmassage", "preis": "ab 52 €", "dauer": "45 Min." },
+        { "name": "Waschen, Schneiden, Föhnen – mittellang bis lang", "beschreibung": "Inklusive Beratung und Kopfmassage", "preis": "ab 62 €", "dauer": "60 Min." },
+        { "name": "Trockenhaarschnitt", "preis": "ab 39 €", "dauer": "30 Min." },
+        { "name": "Föhnen & Styling", "beschreibung": "Glatt, wellig oder mit Volumen", "preis": "ab 32 €", "dauer": "30 Min." },
+        { "name": "Hochsteckfrisur", "beschreibung": "Für Hochzeit, Abiball und besondere Anlässe – gern mit Probetermin", "preis": "ab 69 €", "dauer": "60 Min." },
+        { "name": "Pony nachschneiden", "preis": "10 €", "dauer": "10 Min." }
+      ]
+    },
+    {
+      "kategorie": "Herren",
+      "eintraege": [
+        { "name": "Waschen, Schneiden, Styling", "preis": "36 €", "dauer": "30 Min." },
+        { "name": "Maschinenschnitt", "beschreibung": "Ein Aufsatz, ohne Waschen", "preis": "22 €", "dauer": "20 Min." },
+        { "name": "Bart in Form", "beschreibung": "Konturen mit Messer, Pflegeöl", "preis": "18 €", "dauer": "20 Min." },
+        { "name": "Kinderhaarschnitt bis 10 Jahre", "preis": "19 €", "dauer": "20 Min." }
+      ]
+    },
+    {
+      "kategorie": "Farbe",
+      "eintraege": [
+        { "name": "Ansatzfarbe", "beschreibung": "Zzgl. Schnitt oder Föhnen", "preis": "ab 45 €", "dauer": "60 Min." },
+        { "name": "Komplettfarbe", "preis": "ab 62 €", "dauer": "75 Min." },
+        { "name": "Foliensträhnen", "beschreibung": "Oberkopf oder komplett", "preis": "ab 75 €", "dauer": "90 Min." },
+        { "name": "Balayage", "beschreibung": "Freihand-Technik für weiche, natürliche Übergänge", "preis": "ab 140 €", "dauer": "3 Std." },
+        { "name": "Glossing", "beschreibung": "Mehr Glanz und Farbauffrischung", "preis": "ab 30 €", "dauer": "20 Min." }
+      ]
+    },
+    {
+      "kategorie": "Pflege",
+      "eintraege": [
+        { "name": "Bond-Repair-Behandlung", "beschreibung": "Stärkt das Haar von innen, ideal nach dem Blondieren", "preis": "35 €", "dauer": "20 Min." },
+        { "name": "Kopfhaut-Ritual", "beschreibung": "Peeling, Massage und Pflegemaske", "preis": "28 €", "dauer": "25 Min." },
+        { "name": "Keratin-Glättung", "beschreibung": "Bis zu 12 Wochen glattes, geschmeidiges Haar", "preis": "ab 180 €", "dauer": "2,5 Std." }
+      ]
+    }
+  ],
+
+  "hero_bild": { "datei": "hero.webp", "alt": "Heller Salonplatz mit Friseurstuhl vor einer weißen Wand" },
+
+  "ueber_uns_text": "Seit 2014 ist das Atelier Haarwerk ein ruhiger Ort mitten im Kieler Norden. Wir nehmen uns Zeit für eine ehrliche Beratung und arbeiten mit Schnitten, die auch nach Wochen noch gut fallen.\n\nUnsere Farben und Pflegeprodukte wählen wir sorgfältig aus: möglichst schonend, mit hochwertigen Inhaltsstoffen und passend zu Ihrem Haar. Bei uns gibt es keinen Zeitdruck, dafür einen guten Kaffee und Menschen, die ihr Handwerk lieben.",
+  "ueber_uns_punkte": [
+    "Meisterbetrieb seit 2014",
+    "Schonende Farben, vegane Pflegeserie",
+    "Barrierefreier Zugang"
+  ],
+  "ueber_uns_bild": { "datei": "ueber-uns.webp", "alt": "Friseurstuhl neben einer Grünpflanze in hellem Tageslicht" },
+
+  "team": [
+    { "name": "Lena Petersen", "rolle": "Inhaberin & Friseurmeisterin", "foto": "", "text": "Liebt präzise Bob-Schnitte und nimmt sich für jede Beratung die Zeit, die sie braucht." },
+    { "name": "Jonas Brandt", "rolle": "Stylist & Barber", "foto": "", "text": "Spezialist für Herrenschnitte, Fades und gepflegte Bärte." },
+    { "name": "Mira Hansen", "rolle": "Coloristin", "foto": "", "text": "Zaubert natürliche Blondtöne und weiche Balayage-Verläufe." }
+  ],
+
+  "google_bewertung": 4.9,
+  "google_anzahl": 127,
+  "google_link": "https://www.google.com/maps/search/?api=1&query=Atelier%20Haarwerk%20Kiel",
+  "bewertungen": [
+    { "autor": "Sabine K.", "sterne": 5, "text": "Endlich ein Salon, in dem man wirklich zugehört bekommt. Mein Schnitt sitzt auch nach sechs Wochen noch perfekt." },
+    { "autor": "Tim R.", "sterne": 5, "text": "Unkomplizierte Online-Buchung, pünktlicher Termin und ein richtig guter Fade. Komme gerne wieder." },
+    { "autor": "Anna-Lena M.", "sterne": 5, "text": "Mira hat meine Balayage so natürlich hinbekommen, dass alle fragen, ob ich im Urlaub war. Absolute Empfehlung!" }
+  ],
+
+  "galerie": [
+    { "datei": "galerie-foehnen.webp", "alt": "Friseurin föhnt die Haare einer Kundin mit Rundbürste" },
+    { "datei": "galerie-pflege.webp", "alt": "Drei Pflegeprodukte neben einer Pflanze" },
+    { "datei": "galerie-schnitt.webp", "alt": "Friseur schneidet einer Kundin die Haare mit der Schere" },
+    { "datei": "galerie-spiegel.webp", "alt": "Friseurstuhl vor einem großen Spiegel" },
+    { "datei": "galerie-styling.webp", "alt": "Friseurin mit Föhn bei der Arbeit" },
+    { "datei": "galerie-waschen.webp", "alt": "Haarwäsche am Waschbecken im Salon" }
+  ],
+
+  "social": {
+    "instagram": "https://www.instagram.com/",
+    "facebook": ""
+  },
+
+  "bildnachweise": [
+    { "datei": "hero.webp", "fotograf": "Giorgio Trovato", "unsplash_link": "https://unsplash.com/photos/T9u-Xr30FY8" },
+    { "datei": "ueber-uns.webp", "fotograf": "Kelly Sikkema", "unsplash_link": "https://unsplash.com/photos/Pvse_0mSm6Y" },
+    { "datei": "galerie-foehnen.webp", "fotograf": "Adam Winger", "unsplash_link": "https://unsplash.com/photos/FkAZqQJTbXM" },
+    { "datei": "galerie-styling.webp", "fotograf": "Adam Winger", "unsplash_link": "https://unsplash.com/photos/WXmHwPcFamo" },
+    { "datei": "galerie-waschen.webp", "fotograf": "Adam Winger", "unsplash_link": "https://unsplash.com/photos/WDmvpGs2060" },
+    { "datei": "galerie-pflege.webp", "fotograf": "Taylor Beach", "unsplash_link": "https://unsplash.com/photos/kwu9Ny5dKOE" },
+    { "datei": "galerie-spiegel.webp", "fotograf": "Giorgio Trovato", "unsplash_link": "https://unsplash.com/photos/gI9rvJK61L8" },
+    { "datei": "galerie-schnitt.webp", "fotograf": "Ionela Mat", "unsplash_link": "https://unsplash.com/photos/lps3FolQ6Ro" }
+  ],
+
+  "impressum": "## Angaben gemäß § 5 DDG\n\nAtelier Haarwerk\nInhaberin: Lena Petersen\nHoltenauer Straße 112\n24105 Kiel\n\n## Kontakt\n\nTelefon: 0431 000 12 34\nE-Mail: hallo@atelier-haarwerk.example\n\n## Umsatzsteuer-ID\n\nUmsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:\nDE 000 000 000\n\n## Berufsbezeichnung und berufsrechtliche Regelungen\n\nBerufsbezeichnung: Friseurmeisterin (verliehen in Deutschland)\nZuständige Kammer: Handwerkskammer Lübeck\nEintragung in der Handwerksrolle\nEs gilt die Handwerksordnung (HwO), einsehbar unter [gesetze-im-internet.de](https://www.gesetze-im-internet.de/hwo/).\n\n## Verbraucherstreitbeilegung\n\nWir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.",
+
+  "datenschutz": "## 1. Verantwortliche Stelle\n\nAtelier Haarwerk, Inhaberin Lena Petersen\nHoltenauer Straße 112, 24105 Kiel\nE-Mail: hallo@atelier-haarwerk.example\n\n## 2. Grundsätzliches\n\nDiese Website verwendet **keine Cookies**, **kein Tracking** und **keine Analyse-Werkzeuge**. Schriftarten und Bilder werden ausschließlich von unserem eigenen Server geladen. Es werden keine Daten an Dritte übertragen, solange Sie nicht selbst einen externen Link anklicken.\n\n## 3. Hosting und Server-Logfiles\n\nBeim Aufruf der Website speichert unser Hosting-Anbieter technisch notwendige Daten (z. B. IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browsertyp) in Server-Logfiles. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einem sicheren und stabilen Betrieb). Die Logfiles werden nach spätestens 14 Tagen gelöscht.\n\n## 4. Kontaktaufnahme\n\nWenn Sie uns per Telefon, E-Mail oder WhatsApp kontaktieren, verarbeiten wir Ihre Angaben zur Bearbeitung Ihrer Anfrage (Art. 6 Abs. 1 lit. b DSGVO). Bei Nutzung von WhatsApp gelten zusätzlich die Datenschutzbestimmungen der WhatsApp Ireland Limited.\n\n## 5. Externe Links\n\nUnsere Website enthält Links zu externen Angeboten (Online-Terminbuchung, Google Maps, Instagram). Erst wenn Sie einen solchen Link anklicken, werden Daten an den jeweiligen Anbieter übertragen. Für dessen Datenverarbeitung ist ausschließlich der jeweilige Anbieter verantwortlich.\n\n## 6. Ihre Rechte\n\nSie haben jederzeit das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer Daten sowie auf Datenübertragbarkeit und Widerspruch (Art. 15–21 DSGVO). Außerdem können Sie sich bei einer Datenschutz-Aufsichtsbehörde beschweren, zum Beispiel beim Unabhängigen Landeszentrum für Datenschutz Schleswig-Holstein (ULD)."
+}

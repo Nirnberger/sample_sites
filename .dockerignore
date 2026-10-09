@@ -1,0 +1,13 @@
+# Nur Vorlagen, Kunden-Inhalte und Build-Skripte gehören in das Image
+.git
+**/node_modules
+**/dist
+**/vorschau
+.bildcache
+**/.bildcache
+public
+.lead_cache
+leads_*.csv
+lead_auswertung_*
+lead_finder.py
+pitches

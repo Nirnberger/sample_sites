@@ -1,0 +1,12 @@
+{
+  "name": "angel-jagd-vorlage",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Statische Shop-Vorlage für Angel- und Jagdgeschäfte mit Sortiment und Merkzettel (Click & Collect) – Inhalte aus shop.json",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

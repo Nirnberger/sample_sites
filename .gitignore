@@ -1,0 +1,19 @@
+# Build-Ergebnisse (werden auf dem Server neu erzeugt)
+public/
+**/dist/
+.bildcache/
+**/.bildcache/
+**/vorschau/
+node_modules/
+**/__pycache__/
+
+# Vertriebsdaten und Caches – nicht ins Website-Repository
+leads_*.csv
+.lead_cache/
+lead_auswertung_*/lh_ergebnisse.json
+
+# Persönliche Vertriebsnotizen
+pitches/
+
+# Lokale Claude-Code-Einstellungen
+.claude/settings.local.json

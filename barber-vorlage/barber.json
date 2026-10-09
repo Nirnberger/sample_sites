@@ -1,0 +1,131 @@
+{
+  "demo_modus": true,
+  "ersteller": "Philipp Nirnberger",
+  "website_url": "",
+
+  "name": "Kante & Klinge",
+  "branche": "Barbershop",
+  "slogan": "Ehrlicher Schnitt. Fairer Preis.",
+  "kurzbeschreibung": "Barbershop in der Flensburger Neustadt: saubere Fades, klassische Schnitte und Rasur mit dem Messer. Mit Termin oder einfach reinkommen.",
+  "logo": "",
+
+  "farben": {
+    "akzent": "#A8502E",
+    "akzent_dunkel": ""
+  },
+
+  "kontakt": {
+    "telefon": "0461 000 47 11",
+    "email": "moin@kante-klinge.example",
+    "whatsapp": "0151 000 47 11",
+    "adresse": {
+      "strasse": "Neustadt 27",
+      "plz": "24939",
+      "ort": "Flensburg",
+      "land": "Deutschland"
+    }
+  },
+
+  "buchung_url": "https://booking.example/kante-klinge",
+
+  "oeffnungszeiten": [
+    { "tag": "Montag", "zeiten": "geschlossen" },
+    { "tag": "Dienstag", "zeiten": "10:00–19:00" },
+    { "tag": "Mittwoch", "zeiten": "10:00–19:00" },
+    { "tag": "Donnerstag", "zeiten": "10:00–20:00" },
+    { "tag": "Freitag", "zeiten": "10:00–20:00" },
+    { "tag": "Samstag", "zeiten": "09:00–15:00" },
+    { "tag": "Sonntag", "zeiten": "geschlossen" }
+  ],
+
+  "leistungen_titel": "Die Preisliste",
+  "leistungen": [
+    {
+      "kategorie": "Haare",
+      "eintraege": [
+        { "name": "Herrenhaarschnitt", "beschreibung": "Waschen, Schneiden, Styling", "preis": "29 €", "dauer": "30 Min." },
+        { "name": "Skin Fade / Taper", "beschreibung": "Übergang bis auf die Haut, sauber ausrasiert", "preis": "32 €", "dauer": "40 Min." },
+        { "name": "Maschinenschnitt", "beschreibung": "Ein Aufsatz rundum, ohne Waschen", "preis": "17 €", "dauer": "15 Min." },
+        { "name": "Langhaar / Schere", "beschreibung": "Komplett mit der Schere", "preis": "ab 35 €", "dauer": "45 Min." },
+        { "name": "Kids bis 12 Jahre", "preis": "19 €", "dauer": "20 Min." },
+        { "name": "Konturen nachziehen", "beschreibung": "Nacken und Seiten zwischendurch", "preis": "10 €", "dauer": "10 Min." }
+      ]
+    },
+    {
+      "kategorie": "Bart",
+      "eintraege": [
+        { "name": "Bart trimmen", "beschreibung": "Form, Länge, Konturen mit dem Messer", "preis": "18 €", "dauer": "20 Min." },
+        { "name": "Klassische Nassrasur", "beschreibung": "Heiße Tücher, Rasierschaum, Messer, Aftershave", "preis": "25 €", "dauer": "30 Min." },
+        { "name": "Bart färben", "preis": "15 €", "dauer": "15 Min." }
+      ]
+    },
+    {
+      "kategorie": "Kombi",
+      "eintraege": [
+        { "name": "Haare & Bart", "beschreibung": "Herrenhaarschnitt plus Bart trimmen", "preis": "42 €", "dauer": "50 Min." },
+        { "name": "Fade & Bart", "beschreibung": "Skin Fade plus Bart trimmen", "preis": "45 €", "dauer": "60 Min." },
+        { "name": "Vater & Sohn", "beschreibung": "Herrenhaarschnitt plus Kids-Schnitt", "preis": "44 €", "dauer": "50 Min." }
+      ]
+    }
+  ],
+  "preis_hinweis": "Alle Preise inkl. MwSt. Bezahlen kannst du bar oder mit Karte. Ohne Termin? Komm rein – wenn ein Stuhl frei ist, geht's direkt los.",
+
+  "hero_bild": { "datei": "hero.jpg", "alt": "Barber setzt mit dem Rasiermesser die Konturen am Nacken eines Kunden", "fokus": "center 30%" },
+
+  "ueber_uns_titel": "Kein Schnickschnack",
+  "ueber_uns_text": "Kante & Klinge gibt's seit 2017 in der Neustadt. Wir sind ein kleiner Laden mit drei Stühlen, einer Kaffeemaschine und einer klaren Idee: Du sollst so rausgehen, wie du es dir vorgestellt hast – ohne Gelaber und ohne Wucherpreise.\n\nWir hören zu, fragen nach und nehmen uns die Zeit, die ein guter Schnitt braucht. Ob Fade, Klassiker oder einfach mal wieder ordentlich: Hier sitzt jeder richtig.",
+  "ueber_uns_punkte": [
+    "Ohne Termin? Einfach reinkommen",
+    "Kartenzahlung möglich",
+    "Kaffee und Wasser gehen aufs Haus"
+  ],
+  "ueber_uns_bild": { "datei": "ueber-uns.jpg", "alt": "Alter Barberstuhl im Sonnenlicht vor einer offenen Tür" },
+
+  "team_titel": "Wer hier die Maschine schwingt",
+  "team": [
+    { "name": "Deniz Aydın", "rolle": "Inhaber & Barber", "foto": "", "text": "Seit 15 Jahren am Stuhl. Fades, Konturen und ehrliche Beratung." },
+    { "name": "Mats Jensen", "rolle": "Barber", "foto": "", "text": "Zuständig für Bärte aller Längen und die beste Nassrasur der Stadt." },
+    { "name": "Lea Brodersen", "rolle": "Barberin", "foto": "", "text": "Scherenschnitte, längeres Haar und alles, was nicht nach Schema F geht." }
+  ],
+
+  "google_bewertung": 4.8,
+  "google_anzahl": 214,
+  "google_link": "https://www.google.com/maps/search/?api=1&query=Kante%20%26%20Klinge%20Flensburg",
+  "bewertungen": [
+    { "autor": "Jonas P.", "sterne": 5, "text": "Bester Fade in Flensburg. Kein Gequatsche, faire Preise, und der Kaffee ist auch gut." },
+    { "autor": "Hauke M.", "sterne": 5, "text": "Samstagmorgen ohne Termin rein, nach zehn Minuten saß ich auf dem Stuhl. So muss das." },
+    { "autor": "Erik S.", "sterne": 5, "text": "Nassrasur bei Mats ist jeden Euro wert. Heiße Tücher, ruhige Hand, fertig." }
+  ],
+
+  "galerie_titel": "Aus dem Laden",
+  "galerie": [
+    { "datei": "galerie-fade.jpg", "alt": "Barber schneidet mit der Maschine einen Fade am Hinterkopf" },
+    { "datei": "galerie-bart.jpg", "alt": "Bart wird mit der Schere in Form gebracht" },
+    { "datei": "galerie-werkzeug.jpg", "alt": "Scheren, Rasiermesser und Haarschneidemaschinen auf einem Holztisch" },
+    { "datei": "galerie-rasur.jpg", "alt": "Kunde bei der Nassrasur mit Rasierschaum, schwarz-weiß" },
+    { "datei": "galerie-stuhl.jpg", "alt": "Schwarzer Barberstuhl vor einer Ziegelwand im Abendlicht" },
+    { "datei": "galerie-schere.jpg", "alt": "Barber schneidet mit Kamm und Schere das Deckhaar" }
+  ],
+
+  "anfahrt_hinweis": "Zwei Minuten vom ZOB · Parkhaus Neustadt direkt gegenüber",
+
+  "social": {
+    "instagram": "https://www.instagram.com/",
+    "facebook": ""
+  },
+
+  "bildnachweise": [
+    { "datei": "hero.jpg", "fotograf": "Agustin Fernandez", "unsplash_link": "https://unsplash.com/photos/1Pmp9uxK8X8" },
+    { "datei": "ueber-uns.jpg", "fotograf": "Ten", "unsplash_link": "https://unsplash.com/photos/4y50IXfnaIo" },
+    { "datei": "galerie-fade.jpg", "fotograf": "Victor Sirbu", "unsplash_link": "https://unsplash.com/photos/a04Xt_QI8c8" },
+    { "datei": "galerie-bart.jpg", "fotograf": "Mr Shave", "unsplash_link": "https://unsplash.com/photos/4k60yfGy7fU" },
+    { "datei": "galerie-werkzeug.jpg", "fotograf": "František Čaník", "unsplash_link": "https://unsplash.com/photos/Xb_6OTCCnXo" },
+    { "datei": "galerie-rasur.jpg", "fotograf": "Arthur Humeau", "unsplash_link": "https://unsplash.com/photos/Twd3yaqA2NM" },
+    { "datei": "galerie-stuhl.jpg", "fotograf": "Fito García", "unsplash_link": "https://unsplash.com/photos/tLKzShLoPDQ" },
+    { "datei": "galerie-schere.jpg", "fotograf": "Nate Johnston", "unsplash_link": "https://unsplash.com/photos/tgPrIYnW3g4" }
+  ],
+
+  "impressum": "## Angaben gemäß § 5 DDG\n\nKante & Klinge\nInhaber: Deniz Aydın\nNeustadt 27\n24939 Flensburg\n\n## Kontakt\n\nTelefon: 0461 000 47 11\nE-Mail: moin@kante-klinge.example\n\n## Umsatzsteuer-ID\n\nUmsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:\nDE 000 000 000\n\n## Berufsbezeichnung und berufsrechtliche Regelungen\n\nBerufsbezeichnung: Friseurmeister (verliehen in Deutschland)\nZuständige Kammer: Handwerkskammer Flensburg\nEintragung in der Handwerksrolle\nEs gilt die Handwerksordnung (HwO), einsehbar unter [gesetze-im-internet.de](https://www.gesetze-im-internet.de/hwo/).\n\n## Verbraucherstreitbeilegung\n\nWir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.",
+
+  "datenschutz": "## 1. Verantwortliche Stelle\n\nKante & Klinge, Inhaber Deniz Aydın\nNeustadt 27, 24939 Flensburg\nE-Mail: moin@kante-klinge.example\n\n## 2. Grundsätzliches\n\nDiese Website verwendet **keine Cookies**, **kein Tracking** und **keine Analyse-Werkzeuge**. Schriftarten und Bilder werden ausschließlich von unserem eigenen Server geladen. Es werden keine Daten an Dritte übertragen, solange du nicht selbst einen externen Link anklickst.\n\n## 3. Hosting und Server-Logfiles\n\nBeim Aufruf der Website speichert unser Hosting-Anbieter technisch notwendige Daten (z. B. IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browsertyp) in Server-Logfiles. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einem sicheren und stabilen Betrieb). Die Logfiles werden nach spätestens 14 Tagen gelöscht.\n\n## 4. Kontaktaufnahme\n\nWenn du uns per Telefon, E-Mail oder WhatsApp kontaktierst, verarbeiten wir deine Angaben zur Bearbeitung deiner Anfrage (Art. 6 Abs. 1 lit. b DSGVO). Bei Nutzung von WhatsApp gelten zusätzlich die Datenschutzbestimmungen der WhatsApp Ireland Limited.\n\n## 5. Externe Links\n\nUnsere Website enthält Links zu externen Angeboten (Online-Terminbuchung, Google Maps, Instagram). Erst wenn du einen solchen Link anklickst, werden Daten an den jeweiligen Anbieter übertragen. Für dessen Datenverarbeitung ist ausschließlich der jeweilige Anbieter verantwortlich.\n\n## 6. Deine Rechte\n\nDu hast jederzeit das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung deiner Daten sowie auf Datenübertragbarkeit und Widerspruch (Art. 15–21 DSGVO). Außerdem kannst du dich bei einer Datenschutz-Aufsichtsbehörde beschweren, zum Beispiel beim Unabhängigen Landeszentrum für Datenschutz Schleswig-Holstein (ULD)."
+}

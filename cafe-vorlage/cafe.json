@@ -1,0 +1,152 @@
+{
+  "demo_modus": true,
+  "ersteller": "Philipp Nirnberger",
+  "website_url": "",
+
+  "name": "Café Feldliebe",
+  "branche": "Café & Frühstück",
+  "schema_typ": "CafeOrCoffeeShop",
+  "kueche": "Frühstück, Kaffee, Kuchen",
+  "slogan": "Frühstück, Kaffee & Kuchen – den ganzen Tag.",
+  "kurzbeschreibung": "Gemütliches Frühstückscafé im Kieler Blücherviertel: Siebträgerkaffee, große Frühstücksteller und Kuchen, die jeden Morgen frisch aus unserem Ofen kommen.",
+  "logo": "",
+
+  "farben": {
+    "akzent": "#2F6B57",
+    "akzent_dunkel": ""
+  },
+
+  "kontakt": {
+    "telefon": "0431 000 98 76",
+    "email": "hallo@cafe-feldliebe.example",
+    "whatsapp": "0157 000 98 76",
+    "adresse": {
+      "strasse": "Feldstraße 41",
+      "plz": "24105",
+      "ort": "Kiel",
+      "land": "Deutschland"
+    }
+  },
+
+  "buchung_url": "https://booking.example/cafe-feldliebe",
+  "buchung_text": "Tisch reservieren",
+  "bestell_url": "",
+  "bestell_text": "Online bestellen",
+
+  "oeffnungszeiten": [
+    { "tag": "Montag", "zeiten": "geschlossen" },
+    { "tag": "Dienstag", "zeiten": "08:00–17:00" },
+    { "tag": "Mittwoch", "zeiten": "08:00–17:00" },
+    { "tag": "Donnerstag", "zeiten": "08:00–17:00" },
+    { "tag": "Freitag", "zeiten": "08:00–18:00" },
+    { "tag": "Samstag", "zeiten": "09:00–18:00" },
+    { "tag": "Sonntag", "zeiten": "09:00–17:00" }
+  ],
+
+  "highlights": [
+    { "icon": "sonne", "titel": "Frühstück bis 15 Uhr", "text": "Auch am Wochenende – ausschlafen erlaubt." },
+    { "icon": "kuchen", "titel": "Kuchen aus eigenem Ofen", "text": "Jeden Morgen frisch, wechselnde Sorten." },
+    { "icon": "blatt", "titel": "Vegan & vegetarisch", "text": "Hafer-, Soja- und Mandeldrink ohne Aufpreis." },
+    { "icon": "pfote", "titel": "Hunde willkommen", "text": "Wassernapf und Leckerli stehen bereit." }
+  ],
+
+  "leistungen_nav": "Speisekarte",
+  "leistungen_titel": "Was es bei uns gibt",
+  "leistungen": [
+    {
+      "kategorie": "Frühstück",
+      "eintraege": [
+        { "name": "Feldliebe-Frühstück", "beschreibung": "Zwei Brötchen, Butter, Käse, Aufschnitt, Ei, Marmelade, Obst", "preis": "13,90 €", "merkmale": ["Klassiker"] },
+        { "name": "Avocado-Stulle", "beschreibung": "Sauerteigbrot, Avocado, pochiertes Ei, Chili, Kresse", "preis": "11,50 €", "merkmale": ["vegetarisch"] },
+        { "name": "Porridge", "beschreibung": "Haferflocken, Haferdrink, Apfel-Zimt, Nüsse", "preis": "7,90 €", "merkmale": ["vegan"] },
+        { "name": "Rührei vom Hof", "beschreibung": "Drei Eier, Schnittlauch, Brot, Butter", "preis": "8,50 €", "merkmale": ["vegetarisch"] },
+        { "name": "Süßes Frühstück", "beschreibung": "Croissant, Marmelade, Nutella, Joghurt mit Granola", "preis": "9,80 €", "merkmale": ["vegetarisch"] },
+        { "name": "Frühstück für zwei", "beschreibung": "Etagere mit allem, was satt macht, inkl. zwei Heißgetränken", "preis": "34,00 €" }
+      ]
+    },
+    {
+      "kategorie": "Kaffee & Co.",
+      "eintraege": [
+        { "name": "Espresso", "preis": "2,40 €" },
+        { "name": "Cappuccino", "preis": "3,60 €" },
+        { "name": "Flat White", "preis": "3,90 €" },
+        { "name": "Latte Macchiato", "preis": "4,10 €" },
+        { "name": "Chai Latte", "beschreibung": "Hausgemachter Gewürzsirup", "preis": "4,30 €", "merkmale": ["hausgemacht"] },
+        { "name": "Frischer Minztee", "preis": "3,50 €", "merkmale": ["vegan"] }
+      ]
+    },
+    {
+      "kategorie": "Kuchen",
+      "eintraege": [
+        { "name": "Käsekuchen", "beschreibung": "Nach Omas Rezept", "preis": "4,20 €", "merkmale": ["hausgemacht"] },
+        { "name": "Orangen-Rosmarin-Kuchen", "preis": "4,40 €", "merkmale": ["hausgemacht", "neu"] },
+        { "name": "Schoko-Brownie", "beschreibung": "Mit Meersalz", "preis": "3,80 €", "merkmale": ["vegan"] },
+        { "name": "Zimtschnecke", "preis": "3,20 €", "merkmale": ["hausgemacht"] }
+      ]
+    },
+    {
+      "kategorie": "Mittag",
+      "eintraege": [
+        { "name": "Suppe des Tages", "beschreibung": "Mit Brot – fragt an der Theke", "preis": "6,90 €" },
+        { "name": "Bowl Feldliebe", "beschreibung": "Quinoa, Ofengemüse, Hummus, Granatapfel", "preis": "11,90 €", "merkmale": ["vegan"] },
+        { "name": "Quiche mit Salat", "beschreibung": "Wechselnde Füllung", "preis": "10,50 €", "merkmale": ["vegetarisch"] }
+      ]
+    }
+  ],
+  "preis_hinweis": "Alle Preise in Euro inkl. MwSt. Infos zu Allergenen bekommst du gern an der Theke. Kartenzahlung möglich.",
+
+  "hero_bild": { "datei": "hero.jpg", "alt": "Frühstücksteller mit Brot, Ei und Pesto auf einem Holztisch am Fenster" },
+
+  "ueber_uns_titel": "Ein Café wie ein Wohnzimmer",
+  "ueber_uns_text": "Seit 2019 sind wir im Blücherviertel zu Hause. Was als kleiner Kaffeetresen angefangen hat, ist heute ein Ort zum Frühstücken, Quatschen, Arbeiten und Ankommen.\n\nUnseren Kaffee rösten Freunde aus Schleswig-Holstein, Brot und Brötchen kommen vom Bäcker um die Ecke, die Kuchen backen wir selbst. Komm vorbei – mit Freunden, Laptop oder Hund.",
+  "ueber_uns_punkte": [
+    "Kaffee aus regionaler Röstung",
+    "Kostenloses WLAN",
+    "Barrierefrei",
+    "Terrasse im Sommer"
+  ],
+  "ueber_uns_bild": { "datei": "ueber-uns.jpg", "alt": "Café-Theke mit Glühbirnen, Kuchenvitrine und langem Holztisch" },
+
+  "team": [],
+
+  "google_bewertung": 4.8,
+  "google_anzahl": 312,
+  "google_link": "https://www.google.com/maps/search/?api=1&query=Caf%C3%A9%20Feldliebe%20Kiel",
+  "bewertungen": [
+    { "autor": "Merle K.", "sterne": 5, "text": "Bestes Frühstück im Viertel. Die Avocado-Stulle ist ein Traum und der Flat White richtig gut." },
+    { "autor": "Tobias W.", "sterne": 5, "text": "Super freundlich, auch mit Hund und Kinderwagen kein Problem. Der Käsekuchen ist unschlagbar." },
+    { "autor": "Sina R.", "sterne": 5, "text": "Gemütlich, hell und nie gehetzt. Mein Lieblingsplatz zum Arbeiten am Vormittag." }
+  ],
+
+  "galerie_titel": "Ein Blick hinein",
+  "galerie": [
+    { "datei": "galerie-latte.jpg", "alt": "Cappuccino mit Latte Art auf einem Holztisch im Sonnenlicht" },
+    { "datei": "galerie-brunch.jpg", "alt": "Gedeckter Brunch-Tisch mit Waffeln, Eiern und Kaffee von oben" },
+    { "datei": "galerie-kuchen.jpg", "alt": "Stück Orangenkuchen mit Rosmarin auf einem weißen Teller" },
+    { "datei": "galerie-barista.jpg", "alt": "Barista bereitet an der Theke Kaffee zu, von oben fotografiert" },
+    { "datei": "galerie-ecke.jpg", "alt": "Sitzecke mit blauer Bank, Bistrotischen und Fliesenboden" },
+    { "datei": "galerie-runde.jpg", "alt": "Vier Tassen Latte Art auf einem runden Holztisch" }
+  ],
+
+  "anfahrt_hinweis": "Bus 31 und 32, Haltestelle Blücherplatz · Fahrradbügel vor der Tür",
+
+  "social": {
+    "instagram": "https://www.instagram.com/",
+    "facebook": ""
+  },
+
+  "bildnachweise": [
+    { "datei": "hero.jpg", "fotograf": "Toa Heftiba", "unsplash_link": "https://unsplash.com/photos/loS68zG8P38" },
+    { "datei": "ueber-uns.jpg", "fotograf": "Clifford", "unsplash_link": "https://unsplash.com/photos/VobvKmG-StA" },
+    { "datei": "galerie-latte.jpg", "fotograf": "tabitha turner", "unsplash_link": "https://unsplash.com/photos/3n3mPoGko8g" },
+    { "datei": "galerie-brunch.jpg", "fotograf": "Ali Inay", "unsplash_link": "https://unsplash.com/photos/y3aP9oo9Pjc" },
+    { "datei": "galerie-kuchen.jpg", "fotograf": "Vishal Chokkala", "unsplash_link": "https://unsplash.com/photos/LuXjrFK9PgE" },
+    { "datei": "galerie-barista.jpg", "fotograf": "Lee Campbell", "unsplash_link": "https://unsplash.com/photos/31QfYo1h32o" },
+    { "datei": "galerie-ecke.jpg", "fotograf": "Klara Kulikova", "unsplash_link": "https://unsplash.com/photos/yjQDnOhGE34" },
+    { "datei": "galerie-runde.jpg", "fotograf": "Nathan Dumlao", "unsplash_link": "https://unsplash.com/photos/ikU3J1nr52w" }
+  ],
+
+  "impressum": "## Angaben gemäß § 5 DDG\n\nCafé Feldliebe\nInhaberin: Johanna Thiessen\nFeldstraße 41\n24105 Kiel\n\n## Kontakt\n\nTelefon: 0431 000 98 76\nE-Mail: hallo@cafe-feldliebe.example\n\n## Umsatzsteuer-ID\n\nUmsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:\nDE 000 000 000\n\n## Verbraucherstreitbeilegung\n\nWir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.",
+
+  "datenschutz": "## 1. Verantwortliche Stelle\n\nCafé Feldliebe, Inhaberin Johanna Thiessen\nFeldstraße 41, 24105 Kiel\nE-Mail: hallo@cafe-feldliebe.example\n\n## 2. Grundsätzliches\n\nDiese Website verwendet **keine Cookies**, **kein Tracking** und **keine Analyse-Werkzeuge**. Schriftarten und Bilder werden ausschließlich von unserem eigenen Server geladen. Es werden keine Daten an Dritte übertragen, solange du nicht selbst einen externen Link anklickst.\n\n## 3. Hosting und Server-Logfiles\n\nBeim Aufruf der Website speichert unser Hosting-Anbieter technisch notwendige Daten (z. B. IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browsertyp) in Server-Logfiles. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einem sicheren und stabilen Betrieb). Die Logfiles werden nach spätestens 14 Tagen gelöscht.\n\n## 4. Kontaktaufnahme und Reservierung\n\nWenn du uns per Telefon, E-Mail oder WhatsApp kontaktierst oder einen Tisch reservierst, verarbeiten wir deine Angaben zur Bearbeitung deiner Anfrage (Art. 6 Abs. 1 lit. b DSGVO). Bei Nutzung von WhatsApp gelten zusätzlich die Datenschutzbestimmungen der WhatsApp Ireland Limited.\n\n## 5. Externe Links\n\nUnsere Website enthält Links zu externen Angeboten (Online-Reservierung, Google Maps, Instagram). Erst wenn du einen solchen Link anklickst, werden Daten an den jeweiligen Anbieter übertragen. Für dessen Datenverarbeitung ist ausschließlich der jeweilige Anbieter verantwortlich.\n\n## 6. Deine Rechte\n\nDu hast jederzeit das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung deiner Daten sowie auf Datenübertragbarkeit und Widerspruch (Art. 15–21 DSGVO). Außerdem kannst du dich bei einer Datenschutz-Aufsichtsbehörde beschweren, zum Beispiel beim Unabhängigen Landeszentrum für Datenschutz Schleswig-Holstein (ULD)."
+}

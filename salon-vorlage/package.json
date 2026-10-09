@@ -1,0 +1,12 @@
+{
+  "name": "salon-vorlage",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Statische Website-Vorlage für Friseursalons – Inhalte aus salon.json",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

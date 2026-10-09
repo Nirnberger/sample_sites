@@ -1,0 +1,12 @@
+{
+  "name": "barber-vorlage",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Statische Website-Vorlage für Barbershops (bodenständig) – Inhalte aus barber.json",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

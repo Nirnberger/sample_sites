@@ -1,0 +1,9 @@
+{
+  "_hinweis": "Jede Seite erscheint unter https://<domain>/<pfad>/. 'daten' und 'bilder' sind relativ zu diesem Ordner. Neue Kunden-Seiten unter kunden/<pfad>/ anlegen.",
+  "sites": [
+    { "pfad": "atelier-haarwerk", "vorlage": "salon-vorlage",      "daten": "salon-vorlage/salon.json",      "bilder": "salon-vorlage/images" },
+    { "pfad": "kante-klinge",     "vorlage": "barber-vorlage",     "daten": "barber-vorlage/barber.json",    "bilder": "barber-vorlage/images" },
+    { "pfad": "cafe-feldliebe",   "vorlage": "cafe-vorlage",       "daten": "cafe-vorlage/cafe.json",        "bilder": "cafe-vorlage/images" },
+    { "pfad": "petri-pirsch",     "vorlage": "angel-jagd-vorlage", "daten": "angel-jagd-vorlage/shop.json",  "bilder": "angel-jagd-vorlage/images" }
+  ]
+}
