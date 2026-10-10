@@ -4,6 +4,7 @@ Alle Seiten aus `sites.json` laufen in **einem** Container unter einer Domain, j
 eigenen Unterverzeichnis:
 
 ```
+https://demo.deine-domain.at/                    ← Hub mit den Beispielprojekten
 https://demo.deine-domain.at/petri-pirsch/
 https://demo.deine-domain.at/kante-klinge/
 https://demo.deine-domain.at/michis-angelshop/   ← neue Kundenseite
@@ -78,9 +79,15 @@ Eine Seite entfernen: Eintrag aus `sites.json` löschen und pushen.
 
 ## Gut zu wissen
 
-- **Die Wurzel `/` zeigt absichtlich nichts (404)**, damit Interessenten nicht die Demos
-  der anderen sehen. Die Pfade sind trotzdem erratbar – für Demos ruhig etwas Eindeutiges
-  wählen, z. B. `michis-angelshop-x7k2`.
+- **Die Startseite `/` ist ein Hub** mit Karten zu den Beispielprojekten (erzeugt von
+  `hub.js`). Gezeigt werden **nur Einträge mit `"hub"`-Block** in `sites.json` – Kunden-Demos
+  ohne diesen Block erscheinen dort nicht. Ihre Pfade sind aber erratbar, für Demos daher
+  ruhig etwas Eindeutiges wählen, z. B. `michis-angelshop-x7k2`.
+- **Hub anpassen** über den Block `"hub"` oben in `sites.json`: `titel`, `untertitel`,
+  `intro`, `kontakt_email` (zeigt einen Anfrage-Knopf) und `noindex` (Standard `true` =
+  für Suchmaschinen gesperrt; auf `false` setzen, wenn der Hub bei Google erscheinen soll).
+  Pro Seite: `hub.branche`, `hub.stil`, `hub.beschreibung`, `hub.merkmale`. Das Kartenbild
+  ist automatisch das Hero-Bild der Seite.
 - **robots.txt** wird automatisch erzeugt: Seiten mit `"demo_modus": true` sind für
   Suchmaschinen gesperrt (zusätzlich `noindex` im HTML).
 - **Eigene Domain für einen Kunden** (z. B. `michis-angelshop.at`) ist später möglich:

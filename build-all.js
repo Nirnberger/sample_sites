@@ -4,7 +4,7 @@
  * Baut alle Seiten aus sites.json nach public/<pfad>/ – für das Hosting unter einer Domain
  * mit Unterverzeichnissen (z. B. https://demo.example.com/petri-pirsch/).
  *
- *   node build-all.js                     -> alle Seiten
+ *   node build-all.js                     -> alle Seiten + Startseite (Hub, siehe hub.js)
  *   node build-all.js petri-pirsch        -> nur diese Seite(n)
  *   BASIS_URL=https://demo.example.com node build-all.js
  *       setzt website_url je Seite auf BASIS_URL/<pfad>, falls in der JSON leer
@@ -22,7 +22,8 @@ const ROOT = __dirname;
 const PUBLIC = path.join(ROOT, 'public');
 const BASIS_URL = (process.env.BASIS_URL || '').replace(/\/+$/, '');
 
-const { sites } = JSON.parse(fs.readFileSync(path.join(ROOT, 'sites.json'), 'utf8'));
+const { sites, hub } = JSON.parse(fs.readFileSync(path.join(ROOT, 'sites.json'), 'utf8'));
+const { erzeugeHub } = require('./hub');
 const nur = process.argv.slice(2);
 const auswahl = nur.length ? sites.filter((s) => nur.includes(s.pfad)) : sites;
 if (nur.length && auswahl.length !== nur.length) {
@@ -76,8 +77,11 @@ for (const s of sites) {
   robots.push(`${d.demo_modus === true ? 'Disallow' : 'Allow'}: /${s.pfad}/`);
   fs.rmSync(path.join(PUBLIC, s.pfad, 'robots.txt'), { force: true });
 }
-robots.push('Disallow: /$');
+robots.push(`${hub && hub.noindex === false ? 'Allow' : 'Disallow'}: /$`);
 fs.writeFileSync(path.join(PUBLIC, 'robots.txt'), robots.join('\n') + '\n');
 
-console.log(`\n${fehler ? '✖' : '✔'} ${auswahl.length - fehler}/${auswahl.length} Seiten gebaut → public/`);
+// Startseite (/) mit allen Seiten, die einen "hub"-Eintrag haben
+const imHub = erzeugeHub({ ROOT, PUBLIC, hub, sites });
+
+console.log(`\n${fehler ? '✖' : '✔'} ${auswahl.length - fehler}/${auswahl.length} Seiten gebaut → public/  (Startseite mit ${imHub} Beispielen)`);
 process.exit(fehler ? 1 : 0);

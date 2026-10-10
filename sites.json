@@ -1,9 +1,32 @@
 {
-  "_hinweis": "Jede Seite erscheint unter https://<domain>/<pfad>/. 'daten' und 'bilder' sind relativ zu diesem Ordner. Neue Kunden-Seiten unter kunden/<pfad>/ anlegen.",
+  "_hinweis": "Jede Seite erscheint unter https://<domain>/<pfad>/. 'daten' und 'bilder' sind relativ zu diesem Ordner. Neue Kunden-Seiten unter kunden/<pfad>/ anlegen. Nur Seiten mit 'hub'-Eintrag werden auf der Startseite (/) gezeigt – Kunden-Demos daher ohne 'hub' eintragen.",
+  "hub": {
+    "titel": "Websites für lokale Betriebe",
+    "untertitel": "Beispielprojekte",
+    "intro": "Schnelle, moderne Websites für Handwerk, Gastronomie und Fachhandel – ohne Cookie-Banner, ohne Baukasten, optimiert für das Smartphone. Hier vier Beispiele aus verschiedenen Branchen.",
+    "kontakt_email": "",
+    "noindex": true
+  },
   "sites": [
-    { "pfad": "atelier-haarwerk", "vorlage": "salon-vorlage",      "daten": "salon-vorlage/salon.json",      "bilder": "salon-vorlage/images" },
-    { "pfad": "kante-klinge",     "vorlage": "barber-vorlage",     "daten": "barber-vorlage/barber.json",    "bilder": "barber-vorlage/images" },
-    { "pfad": "cafe-feldliebe",   "vorlage": "cafe-vorlage",       "daten": "cafe-vorlage/cafe.json",        "bilder": "cafe-vorlage/images" },
-    { "pfad": "petri-pirsch",     "vorlage": "angel-jagd-vorlage", "daten": "angel-jagd-vorlage/shop.json",  "bilder": "angel-jagd-vorlage/images" }
+    {
+      "pfad": "atelier-haarwerk", "vorlage": "salon-vorlage",
+      "daten": "salon-vorlage/salon.json", "bilder": "salon-vorlage/images",
+      "hub": { "branche": "Friseursalon", "stil": "elegant & modern", "beschreibung": "Ruhiger, hochwertiger Auftritt mit Preisliste in Tabs, Team, Galerie und Online-Terminbuchung.", "merkmale": ["Preisliste", "Terminbuchung", "Galerie"] }
+    },
+    {
+      "pfad": "kante-klinge", "vorlage": "barber-vorlage",
+      "daten": "barber-vorlage/barber.json", "bilder": "barber-vorlage/images",
+      "hub": { "branche": "Barbershop", "stil": "bodenständig", "beschreibung": "Kräftige Typografie, Vollbild-Foto und klare Preistafel – für Läden mit Charakter.", "merkmale": ["Preistafel", "Walk-in-Hinweis", "Du-Ansprache"] }
+    },
+    {
+      "pfad": "cafe-feldliebe", "vorlage": "cafe-vorlage",
+      "daten": "cafe-vorlage/cafe.json", "bilder": "cafe-vorlage/images",
+      "hub": { "branche": "Café & Bistro", "stil": "hell & herzlich", "beschreibung": "Speisekarte mit Vegan-Kennzeichnung, Live-Öffnungsstatus und Tischreservierung.", "merkmale": ["Speisekarte", "Jetzt geöffnet", "Reservierung"] }
+    },
+    {
+      "pfad": "petri-pirsch", "vorlage": "angel-jagd-vorlage",
+      "daten": "angel-jagd-vorlage/shop.json", "bilder": "angel-jagd-vorlage/images",
+      "hub": { "branche": "Fachhandel mit Shop", "stil": "modern & outdoor", "beschreibung": "Sortiment mit Filter, Suche und Merkzettel – Click & Collect per WhatsApp oder E-Mail.", "merkmale": ["Sortiment", "Merkzettel", "Click & Collect"] }
+    }
   ]
 }
