@@ -75,6 +75,8 @@ ul { margin: 0; }
 address { font-style: normal; }
 
 h1, h2, h3 {
+  overflow-wrap: break-word;
+  hyphens: auto;
   font-family: var(--serif);
   font-weight: 600;
   font-variation-settings: "SOFT" 100, "WONK" 0;

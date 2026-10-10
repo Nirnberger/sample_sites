@@ -61,6 +61,8 @@ address { font-style: normal; }
 button, input { font: inherit; color: inherit; }
 
 h1, h2, h3 {
+  overflow-wrap: break-word;
+  hyphens: auto;
   font-weight: 800;
   font-stretch: 118%;
   line-height: 1.02;

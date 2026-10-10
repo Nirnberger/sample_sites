@@ -68,6 +68,8 @@ ul { margin: 0; }
 address { font-style: normal; }
 
 h1, h2, h3 {
+  overflow-wrap: break-word;
+  hyphens: auto;
   font-family: var(--kopf);
   font-weight: 600;
   line-height: 1.05;
