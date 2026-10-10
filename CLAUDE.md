@@ -73,6 +73,17 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 - API-Schlüssel stehen als Umgebungsvariablen bereit (z. B. `GOOGLE_API_KEY`). Schlüssel nie in Dateien schreiben oder ausgeben.
 - Sprache für Erklärungen und Kommentare: Deutsch.
 
+## Fortschritt dokumentieren
+- Lies zu Beginn jeder Session PROGRESS.md im Projektordner.
+- Aktualisiere PROGRESS.md nach jedem abgeschlossenen Arbeitsschritt
+  (nicht erst am Ende).
+- Format:
+  - **Erledigt:** kurze Stichpunkte mit Datum
+  - **In Arbeit:** woran gerade gearbeitet wird
+  - **Nächste Schritte:** konkrete To-dos
+  - **Entscheidungen/Notizen:** z. B. gewählte Farben, Plugins, Kundenwünsche
+- Halte die Datei kurz; fasse alte Einträge unter "Erledigt" zusammen.
+
 ## Projekte
 
 - **Hosting:** Der Workspace ist ein Git-Repository, das Coolify per Dockerfile deployt. Alle Seiten aus `sites.json` laufen unter einer Domain als `/<pfad>/`. `node build-all.js` baut alles nach `public/`, inkl. Hub-Startseite `/` (`hub.js`, zeigt nur Einträge mit `"hub"`-Block). Neue Kundenseiten unter `kunden/<pfad>/` anlegen und in `sites.json` eintragen. Details in `HOSTING.md`.

@@ -17,3 +17,6 @@ pitches/
 
 # Lokale Claude-Code-Einstellungen
 .claude/settings.local.json
+
+# Kundenrecherche (personenbezogene Daten, fremde Fotos)
+recherche/
