@@ -1,0 +1,86 @@
+# Pipeline: prüfen → (nur auf main und nur bei Erfolg) Coolify-Deploy auslösen.
+#
+# Einmalig in GitHub unter Settings → Secrets and variables → Actions anlegen:
+#   COOLIFY_WEBHOOK  Deploy-Webhook der Ressource (Coolify → Ressource → Webhooks → „Deploy Webhook“)
+#   COOLIFY_TOKEN    API-Token mit Recht „deploy“ (Coolify → Keys & Tokens → API tokens)
+# und in Coolify bei der Ressource „Auto Deploy“ ausschalten (sonst deployt Coolify ungeprüft selbst).
+# Ohne die Secrets läuft nur die Prüfung, der Deploy-Schritt wird übersprungen.
+
+name: Prüfen & Deployen
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:        # manuell starten: Actions → „Prüfen & Deployen“ → Run workflow
+
+concurrency:
+  group: pipeline-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pruefen:
+    name: Build, Docker & Smoke-Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: sites.json prüfen
+        run: node -e "JSON.parse(require('fs').readFileSync('sites.json','utf8')); console.log('sites.json ok')"
+
+      # Genau der Build, der auch auf dem Server läuft (Dockerfile → node build-all.js → nginx)
+      - name: Docker-Image bauen
+        run: docker build -t sites:ci .
+
+      - name: Container starten
+        run: |
+          docker run -d --name sites -p 8080:80 sites:ci
+          for i in $(seq 1 30); do
+            curl -sf http://localhost:8080/robots.txt >/dev/null && echo "Container läuft" && exit 0
+            sleep 1
+          done
+          echo "Container antwortet nicht"; docker logs sites; exit 1
+
+      - name: Playwright installieren
+        run: |
+          npm install --no-save --no-package-lock playwright@1.48.2
+          npx playwright install --with-deps chromium
+
+      - name: Smoke-Test (alle Seiten, mobil + Desktop)
+        run: node tests/smoke.js http://localhost:8080
+
+      - name: Fertige Seiten als Artefakt speichern
+        if: always()
+        run: docker cp sites:/usr/share/nginx/html ./public-ci
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: website-build
+          path: public-ci
+          retention-days: 7
+
+  deployen:
+    name: Coolify-Deploy
+    needs: pruefen
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Deploy auslösen
+        env:
+          WEBHOOK: ${{ secrets.COOLIFY_WEBHOOK }}
+          TOKEN: ${{ secrets.COOLIFY_TOKEN }}
+        run: |
+          if [ -z "$WEBHOOK" ] || [ -z "$TOKEN" ]; then
+            echo "::warning::COOLIFY_WEBHOOK/COOLIFY_TOKEN fehlen – Deploy übersprungen (siehe Kommentar oben in pipeline.yml)."
+            exit 0
+          fi
+          code=$(curl -s -o antwort.txt -w "%{http_code}" -H "Authorization: Bearer $TOKEN" "$WEBHOOK")
+          cat antwort.txt; echo
+          if [ "$code" -ge 300 ]; then echo "::error::Coolify antwortete mit HTTP $code"; exit 1; fi
+          echo "Deploy in Coolify gestartet."

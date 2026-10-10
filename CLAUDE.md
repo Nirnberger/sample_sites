@@ -76,6 +76,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 ## Projekte
 
 - **Hosting:** Der Workspace ist ein Git-Repository, das Coolify per Dockerfile deployt. Alle Seiten aus `sites.json` laufen unter einer Domain als `/<pfad>/`. `node build-all.js` baut alles nach `public/`, inkl. Hub-Startseite `/` (`hub.js`, zeigt nur Einträge mit `"hub"`-Block). Neue Kundenseiten unter `kunden/<pfad>/` anlegen und in `sites.json` eintragen. Details in `HOSTING.md`.
+  - **CI/CD:** `.github/workflows/pipeline.yml` baut das Docker-Image, prüft mit `tests/smoke.js` (alle Seiten mobil+Desktop) und löst nur bei Erfolg auf `main` den Coolify-Deploy aus (Secrets `COOLIFY_WEBHOOK`, `COOLIFY_TOKEN`). Live: https://sample.seitenschwung.com
 
 - `lead_finder.py` – findet gut bewertete Unternehmen (Schleswig-Holstein, Wien) mit schwachen Websites. Ausgabe: CSV mit Priorität und Mängelliste. Start klein testen: `python3 lead_finder.py --orte "Rendsburg" --branchen "Tischlerei" --max-queries 1`
   - **Achtung:** Die PageSpeed-API ist im Google-Cloud-Projekt des Schlüssels nicht aktiviert (HTTP 403) – alle bisherigen CSVs haben daher keine PageSpeed-Werte. Nach dem Aktivieren `.lead_cache/sites/` löschen, sonst bleiben die leeren Ergebnisse 14 Tage im Cache. Ersatz: lokale Lighthouse-Messung in `lead_auswertung_angel_jagd/lh_messen.py`.

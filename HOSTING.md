@@ -99,3 +99,34 @@ Eine Seite entfernen: Eintrag aus `sites.json` löschen und pushen.
 - **Build lokal wie auf dem Server testen** (mit Docker):
   `docker build -t websites . && docker run --rm -p 8080:80 websites`
   → http://localhost:8080/petri-pirsch/
+
+## Automatische Pipeline (GitHub Actions)
+
+`.github/workflows/pipeline.yml` läuft bei jedem Push und jedem Pull Request:
+
+1. **Docker-Image bauen** – exakt wie auf dem Server (Dockerfile, `build-all.js`, nginx).
+2. **Container starten** und mit **`tests/smoke.js`** prüfen: Hub und alle Seiten inkl.
+   Impressum/Datenschutz, mobil (360 px) und Desktop – Status 200, keine JavaScript-Fehler,
+   keine fehlenden Dateien/Bilder, kein seitliches Scrollen, Hub-Links und Weiterleitung korrekt.
+3. **Nur auf `main` und nur wenn alles grün ist:** Coolify-Deploy per Webhook auslösen.
+
+Bei Pull Requests wird nur geprüft, nicht deployt. Die fertig gebauten Seiten liegen 7 Tage als
+Artefakt „website-build“ beim Lauf.
+
+### Einrichten (einmalig)
+1. **Coolify → Keys & Tokens → API tokens:** Token mit Recht **deploy** erstellen, kopieren.
+2. **Coolify → Ressource → Webhooks:** die **Deploy Webhook**-URL kopieren
+   (Form: `https://coolify.seitenschwung.com/api/v1/deploy?uuid=…&force=false`).
+3. **GitHub → Repository → Settings → Secrets and variables → Actions → New repository secret:**
+   - `COOLIFY_WEBHOOK` = URL aus Schritt 2
+   - `COOLIFY_TOKEN` = Token aus Schritt 1
+4. **Coolify → Ressource → Advanced:** **Auto Deploy ausschalten** – sonst deployt Coolify
+   zusätzlich ungeprüft bei jedem Push.
+
+Fehlen die Secrets, läuft nur die Prüfung (mit Warnung), es wird nichts deployt.
+
+### Smoke-Test lokal oder gegen die Live-Seite
+```bash
+npm install --no-save playwright && npx playwright install chromium
+node tests/smoke.js https://sample.seitenschwung.com
+```

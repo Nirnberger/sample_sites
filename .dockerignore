@@ -11,3 +11,6 @@ leads_*.csv
 lead_auswertung_*
 lead_finder.py
 pitches
+.github
+tests
+HOSTING.md
