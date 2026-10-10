@@ -1,5 +1,6 @@
 # Formular im Browser: GitHub → Actions → „Neue Seite anlegen“ → Run workflow
 # Legt kunden/<pfad>/ aus einer Vorlage an und öffnet einen Pull Request. Erst der Merge geht live.
+# Nur der Name ist Pflicht; ungültige Angaben werden übersprungen und im Pull Request aufgelistet.
 #
 # Einmalig nötig: Settings → Actions → General → Workflow permissions →
 #   „Allow GitHub Actions to create and approve pull requests“ anhaken.
@@ -14,27 +15,27 @@ on:
   workflow_dispatch:
     inputs:
       pfad:
-        description: "Pfad in der URL (a-z, 0-9, Bindestriche), z. B. cafe-sonnenschein"
-        required: true
+        description: "Pfad in der URL, z. B. cafe-sonnenschein (optional – sonst aus dem Namen)"
+        required: false
       vorlage:
         description: "Vorlage"
-        required: true
+        required: false
         type: choice
         options: [cafe, salon, barber, angel-jagd]
       name:
         description: "Name des Betriebs"
         required: true
       adresse:
-        description: "Adresse: Straße Nr, PLZ Ort – z. B. Neubaugasse 12, 1070 Wien"
-        required: true
+        description: "Adresse: Straße Nr, PLZ Ort – z. B. Neubaugasse 12, 1070 Wien (optional)"
+        required: false
       land:
         description: "Land"
-        required: true
+        required: false
         type: choice
         options: [Österreich, Deutschland, Schweiz]
       telefon:
-        description: "Telefon"
-        required: true
+        description: "Telefon (optional)"
+        required: false
       email:
         description: "E-Mail (optional)"
         required: false
@@ -84,9 +85,9 @@ jobs:
         id: pr
         uses: peter-evans/create-pull-request@v7
         with:
-          branch: seite/neu-${{ inputs.pfad }}
-          commit-message: "Neue Seite: ${{ inputs.name }} (/${{ inputs.pfad }}/)"
-          title: "Neue Seite: ${{ inputs.name }} (/${{ inputs.pfad }}/)"
+          branch: seite/neu-${{ steps.anlegen.outputs.pfad }}
+          commit-message: "Neue Seite: ${{ steps.anlegen.outputs.name }} (/${{ steps.anlegen.outputs.pfad }}/)"
+          title: "Neue Seite: ${{ steps.anlegen.outputs.name }} (/${{ steps.anlegen.outputs.pfad }}/)"
           body: |
             ${{ steps.anlegen.outputs.zusammenfassung }}
 
@@ -102,7 +103,7 @@ jobs:
         if: steps.pr.outputs.pull-request-number
         env:
           GH_TOKEN: ${{ github.token }}
-          BRANCH: seite/neu-${{ inputs.pfad }}
+          BRANCH: seite/neu-${{ steps.anlegen.outputs.pfad }}
         run: gh workflow run pipeline.yml --ref "$BRANCH"
 
       - name: Ergebnis

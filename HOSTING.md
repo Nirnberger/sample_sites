@@ -97,8 +97,9 @@ PFAD=cafe-test BESTAETIGUNG=cafe-test node scripts/seite-loeschen.js
 ## Sicherheit
 
 - **Eingaben** aus den Formularen gehen nur als Umgebungsvariablen an die Skripte und werden dort
-  streng geprüft (Pfad nur `a-z0-9-`, keine Spitzklammern/Steuerzeichen, Formate für PLZ,
-  Telefon, E-Mail). Sie werden nie direkt in Shell-Befehle eingesetzt.
+  bereinigt: Pfad nur `a-z0-9-` (sonst aus dem Namen gebildet), Spitzklammern/Steuerzeichen
+  entfernt, ungültige PLZ/Telefon/E-Mail werden weggelassen und im Pull Request aufgelistet.
+  Nur der Name ist Pflicht. Eingaben werden nie direkt in Shell-Befehle eingesetzt.
 - **Inhalte:** Alle Texte werden HTML-maskiert, Roh-HTML im Impressum/Datenschutz ist
   abgeschaltet, Links nur `http(s)`, `mailto`, `tel`. SVG-Uploads werden ignoriert.
 - **Server:** Content-Security-Policy (Skripte/Schriften/Bilder nur von dieser Domain),

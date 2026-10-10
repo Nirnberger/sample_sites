@@ -4,8 +4,9 @@
  * Legt eine neue Seite aus einer Vorlage an: kunden/<pfad>/<daten>.json + Eintrag in sites.json.
  * Wird vom GitHub-Workflow „Neue Seite“ aufgerufen, funktioniert aber auch lokal.
  *
- * Eingaben kommen ausschließlich über Umgebungsvariablen (nie in Shell-Befehle eingesetzt):
- *   PFAD, VORLAGE (salon|barber|cafe|angel-jagd), NAME, LAND, TELEFON, EMAIL, WHATSAPP, INHABER,
+ * Eingaben kommen ausschließlich über Umgebungsvariablen (nie in Shell-Befehle eingesetzt).
+ * Nur NAME ist Pflicht; ungültige optionale Angaben werden ignoriert und im Pull Request gemeldet:
+ *   NAME (Pflicht), PFAD (sonst aus dem Namen), VORLAGE (salon|barber|cafe|angel-jagd, sonst cafe), LAND, TELEFON, EMAIL, WHATSAPP, INHABER,
  *   IM_HUB (true/false), dazu ADRESSE ("Straße Nr, PLZ Ort") oder einzeln STRASSE/PLZ/ORT
  *   und GOOGLE ("4.8 (210)") oder einzeln GOOGLE_BEWERTUNG/GOOGLE_ANZAHL.
  *
@@ -15,6 +16,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { slug } = require('../salon-vorlage/src/lib/helfer');
 
 const ROOT = path.join(__dirname, '..');
 const VORLAGEN = {
@@ -26,60 +28,74 @@ const VORLAGEN = {
 const LAENDER = ['Deutschland', 'Österreich', 'Schweiz'];
 
 const e = (k) => String(process.env[k] || '').trim();
-const fehler = [];
+const fehler = [];   // brechen ab (nur Pfad, Vorlage, Name)
+const hinweise = []; // ungültige optionale Angaben werden ignoriert und im Pull Request aufgelistet
 function pruefe(bedingung, text) { if (!bedingung) fehler.push(text); }
-// Nur druckbare Zeichen, keine Steuerzeichen/Spitzklammern, begrenzte Länge
-const textOk = (t, max = 120) => t.length <= max && !/[\u0000-\u001f<>]/.test(t);
+// Steuerzeichen und Spitzklammern entfernen (Schutz vor eingeschleustem HTML), Länge begrenzen
+const sauber = (t, max = 120) => t.replace(/[\u0000-\u001f<>]/g, '').trim().slice(0, max);
+// Optionale Angabe: gültig → übernehmen, sonst Hinweis und leer lassen
+function optional(wert, gueltig, text) {
+  if (!wert) return '';
+  if (gueltig(wert)) return wert;
+  hinweise.push(`${text} („${sauber(wert, 60)}“) – ignoriert, bitte in der JSON-Datei nachtragen`);
+  return '';
+}
+const nummer = (t) => /^[+\d][\d /()-]{5,24}$/.test(t);
 
 // Zusammengefasste Formularfelder zerlegen: ADRESSE = "Straße Nr, PLZ Ort", GOOGLE = "4.8 (210)"
-const adresse = e('ADRESSE').match(/^(.+?),\s*(\d{4,5})\s+(.+)$/) || [];
+const adresseRoh = sauber(e('ADRESSE'));
+const adresse = adresseRoh.match(/^(.+?),\s*(\d{4,5})\s+(.+)$/) || [];
+if (adresseRoh && !adresse.length) hinweise.push(`Adresse „${adresseRoh}“ nicht im Format „Straße Nr, PLZ Ort“ – als Straße übernommen, PLZ/Ort bitte nachtragen`);
 const google = e('GOOGLE').match(/^\s*(\d(?:[.,]\d)?)\s*(?:\(?\s*(\d{1,6})\s*\)?)?\s*$/) || [];
-pruefe(!e('ADRESSE') || adresse.length, 'Adresse bitte im Format "Straße Nr, PLZ Ort", z. B. "Neubaugasse 12, 1070 Wien"');
-pruefe(!e('GOOGLE') || google.length, 'Google bitte im Format "4.8 (210)" – Bewertung und Anzahl');
+if (e('GOOGLE') && !google.length) hinweise.push(`Google-Bewertung „${sauber(e('GOOGLE'), 30)}“ nicht im Format „4.8 (210)“ – ignoriert`);
 
 const ein = {
   pfad: e('PFAD').toLowerCase().replace(/^\/+|\/+$/g, ''),
-  vorlage: e('VORLAGE'),
-  name: e('NAME'),
-  strasse: e('STRASSE') || (adresse[1] || '').trim(),
-  plz: e('PLZ') || adresse[2] || '',
-  ort: e('ORT') || (adresse[3] || '').trim(),
-  land: e('LAND') || 'Deutschland',
-  telefon: e('TELEFON'),
-  email: e('EMAIL'),
-  whatsapp: e('WHATSAPP'),
-  inhaber: e('INHABER'),
-  bewertung: (e('GOOGLE_BEWERTUNG') || google[1] || '').replace(',', '.'),
-  anzahl: e('GOOGLE_ANZAHL') || google[2] || '',
+  vorlage: VORLAGEN[e('VORLAGE')] ? e('VORLAGE') : 'cafe',
+  name: sauber(e('NAME'), 80),
+  strasse: sauber(e('STRASSE')) || (adresse.length ? adresse[1].trim() : adresseRoh) || '[Straße eintragen]',
+  plz: optional(e('PLZ') || adresse[2] || '', (t) => /^\d{4,5}$/.test(t), 'PLZ ungültig') || '[PLZ]',
+  ort: sauber(e('ORT'), 60) || (adresse[3] || '').trim() || '[Ort]',
+  land: LAENDER.includes(e('LAND')) ? e('LAND') : 'Deutschland',
+  telefon: optional(e('TELEFON'), nummer, 'Telefonnummer ungültig'),
+  email: optional(e('EMAIL'), (t) => /^[^\s@<>"']+@[^\s@<>"']+\.[a-z]{2,}$/i.test(t), 'E-Mail ungültig'),
+  whatsapp: optional(e('WHATSAPP'), nummer, 'WhatsApp-Nummer ungültig'),
+  inhaber: sauber(e('INHABER'), 80),
+  bewertung: optional((e('GOOGLE_BEWERTUNG') || google[1] || '').replace(',', '.'), (t) => /^\d(\.\d)?$/.test(t) && +t >= 1 && +t <= 5, 'Google-Bewertung muss zwischen 1 und 5 liegen'),
+  anzahl: optional(e('GOOGLE_ANZAHL') || google[2] || '', (t) => /^\d{1,6}$/.test(t), 'Anzahl Bewertungen ungültig'),
   imHub: e('IM_HUB') === 'true',
 };
+if (e('LAND') && ein.land !== e('LAND')) hinweise.push(`Land „${sauber(e('LAND'), 30)}“ unbekannt – Deutschland verwendet`);
 
-pruefe(/^[a-z0-9]+(-[a-z0-9]+)*$/.test(ein.pfad) && ein.pfad.length <= 60, 'Pfad: nur a-z, 0-9 und Bindestriche (max. 60 Zeichen), z. B. "cafe-sonnenschein-wien"');
-pruefe(VORLAGEN[ein.vorlage], `Vorlage muss eine von ${Object.keys(VORLAGEN).join(', ')} sein`);
-pruefe(ein.name && textOk(ein.name, 80), 'Name fehlt oder enthält ungültige Zeichen (keine < oder >)');
-if (!e('ADRESSE') || adresse.length) {
-  pruefe(ein.strasse && textOk(ein.strasse), 'Straße fehlt oder ist ungültig');
-  pruefe(/^\d{4,5}$/.test(ein.plz), 'PLZ: 4 oder 5 Ziffern');
-  pruefe(ein.ort && textOk(ein.ort, 60), 'Ort fehlt oder ist ungültig');
-}
-pruefe(LAENDER.includes(ein.land), `Land muss eines von ${LAENDER.join(', ')} sein`);
-pruefe(/^[+\d][\d /()-]{5,24}$/.test(ein.telefon), 'Telefon: nur Ziffern, Leerzeichen, + / ( ) -');
-pruefe(!ein.email || /^[^\s@<>"]+@[^\s@<>"]+\.[a-z]{2,}$/i.test(ein.email), 'E-Mail ungültig');
-pruefe(!ein.whatsapp || /^[+\d][\d /()-]{5,24}$/.test(ein.whatsapp), 'WhatsApp-Nummer ungültig');
-pruefe(!ein.inhaber || textOk(ein.inhaber, 80), 'Inhaber enthält ungültige Zeichen');
-pruefe(!ein.bewertung || (/^\d(\.\d)?$/.test(ein.bewertung) && +ein.bewertung >= 1 && +ein.bewertung <= 5), 'Google-Bewertung: Zahl von 1 bis 5, z. B. 4.8');
-pruefe(!ein.anzahl || /^\d{1,6}$/.test(ein.anzahl), 'Anzahl Bewertungen: ganze Zahl');
+if (e('VORLAGE') && ein.vorlage !== e('VORLAGE')) hinweise.push(`Vorlage „${sauber(e('VORLAGE'), 30)}“ unbekannt – cafe verwendet`);
+pruefe(ein.name, 'Name fehlt');
 
+// Pfad: fehlt oder ungültig → aus dem Namen bilden; schon vergeben → -2, -3 … anhängen
 const sitesDatei = path.join(ROOT, 'sites.json');
 const sitesJson = JSON.parse(fs.readFileSync(sitesDatei, 'utf8'));
-pruefe(!sitesJson.sites.some((s) => s.pfad === ein.pfad), `Pfad "${ein.pfad}" ist bereits vergeben`);
+const pfadOk = (p) => /^[a-z0-9]+(-[a-z0-9]+)*$/.test(p) && p.length <= 60;
+if (!pfadOk(ein.pfad)) {
+  // Akzente entfernen (é → e), Umlaute macht slug() zu ae/oe/ue
+  const ascii = ein.name.toLowerCase().replace(/[^\u0000-\u007fäöüß]/g, (c) => c.normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
+  const neu = slug(ascii).slice(0, 55).replace(/-+$/, '') || 'seite';
+  if (ein.pfad) hinweise.push(`Pfad „${sauber(ein.pfad, 60)}“ ungültig – „${neu}“ verwendet`);
+  ein.pfad = neu;
+}
+const vergeben = (p) => sitesJson.sites.some((s) => s.pfad === p) || fs.existsSync(path.join(ROOT, 'kunden', p));
+if (vergeben(ein.pfad)) {
+  const basis = ein.pfad.slice(0, 55);
+  let n = 2;
+  while (vergeben(`${basis}-${n}`)) n++;
+  hinweise.push(`Pfad „${ein.pfad}“ schon vergeben – „${basis}-${n}“ verwendet`);
+  ein.pfad = `${basis}-${n}`;
+}
 const zielOrdner = path.join(ROOT, 'kunden', ein.pfad);
-pruefe(!fs.existsSync(zielOrdner), `Ordner kunden/${ein.pfad} existiert bereits`);
 
 if (fehler.length) {
   console.error('✖ Eingaben ungültig:\n  - ' + fehler.join('\n  - '));
   process.exit(1);
 }
+if (hinweise.length) console.warn('⚠ ' + hinweise.join('\n⚠ '));
 
 // --- Vorlagen-Daten laden und auf den neuen Betrieb umschreiben ---
 const v = VORLAGEN[ein.vorlage];
@@ -95,9 +111,9 @@ const ersetze = [
   [altAdr.strasse, ein.strasse],
   [altAdr.plz, ein.plz],
   [altAdr.ort, ein.ort],
-  [alt.telefon, ein.telefon],
+  [alt.telefon, ein.telefon || '[Telefon eintragen]'],
   [alt.email, ein.email || '[E-Mail eintragen]'],
-  [alt.whatsapp, ein.whatsapp || ein.telefon],
+  [alt.whatsapp, ein.whatsapp || ein.telefon || '[Telefon eintragen]'],
   [altInhaber, ein.inhaber || '[Inhaber/in eintragen]'],
 ].filter(([a, b]) => a && b && a !== b);
 const regexEsc = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -145,6 +161,7 @@ fs.writeFileSync(sitesDatei, JSON.stringify(sitesJson, null, 2) + '\n');
 const zusammenfassung = [
   `Neue Seite **${ein.name}** (${ein.ort}) aus der Vorlage \`${v.ordner}\` unter \`/${ein.pfad}/\`.`,
   '',
+  ...(hinweise.length ? ['**⚠ Ignorierte Angaben:**', ...hinweise.map((h) => `- ${h}`), ''] : []),
   '**Vor dem Zeigen beim Kunden prüfen:**',
   `- [ ] Texte in \`kunden/${ein.pfad}/${v.datei}\` anpassen (Slogan, Über uns, Leistungen/Preise, Öffnungszeiten)`,
   `- [ ] Eigene Fotos nach \`kunden/${ein.pfad}/images/\` hochladen (gleiche Dateinamen wie in der Vorlage)`,
@@ -153,6 +170,6 @@ const zusammenfassung = [
   ein.imHub ? '- [ ] Erscheint im Hub – `hub.stil` und `hub.merkmale` in `sites.json` ergänzen' : '- Erscheint **nicht** im Hub (nur direkt über den Pfad erreichbar)',
 ].join('\n');
 if (process.env.GITHUB_OUTPUT) {
-  fs.appendFileSync(process.env.GITHUB_OUTPUT, `zusammenfassung<<ENDE\n${zusammenfassung}\nENDE\n`);
+  fs.appendFileSync(process.env.GITHUB_OUTPUT, `pfad=${ein.pfad}\nname=${ein.name}\nzusammenfassung<<ENDE\n${zusammenfassung}\nENDE\n`);
 }
 console.log(`✔ kunden/${ein.pfad}/ angelegt und in sites.json eingetragen\n\n${zusammenfassung}`);
