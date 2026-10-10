@@ -38,11 +38,11 @@ function inlineMd(text) {
 }
 
 // Minimales Markdown: Überschriften (#), Listen (- / *), Absätze, Zeilenumbrüche,
-// **fett**, *kursiv*, [Link](url). Beginnt der Text mit "<", wird er als HTML übernommen.
+// **fett**, *kursiv*, [Link](url). HTML-Tags werden bewusst nicht übernommen (Sicherheit).
 // Die Seite selbst trägt die <h1>; Überschriften im Text beginnen daher bei <h2>.
 function markdown(quelle) {
   if (!quelle) return '';
-  if (/^\s*</.test(quelle)) return quelle;
+  // Kein Roh-HTML: alles wird maskiert, damit über die Inhalte kein Skript eingeschleust werden kann
   const zeilen = String(quelle).replace(/\r/g, '').split('\n');
   // Höchste vorkommende Ebene (# oder ##) wird zu <h2>, damit keine Ebene übersprungen wird
   const ebenen = zeilen.map((z) => (z.match(/^(#{1,4})\s/) || [])[1]).filter(Boolean).map((x) => x.length);

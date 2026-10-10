@@ -1,0 +1,113 @@
+# Formular im Browser: GitHub → Actions → „Neue Seite anlegen“ → Run workflow
+# Legt kunden/<pfad>/ aus einer Vorlage an und öffnet einen Pull Request. Erst der Merge geht live.
+#
+# Einmalig nötig: Settings → Actions → General → Workflow permissions →
+#   „Allow GitHub Actions to create and approve pull requests“ anhaken.
+#
+# Sicherheit: Eingaben werden NUR als Umgebungsvariablen an scripts/neue-seite.js übergeben und
+# dort geprüft – nie direkt in Shell-Befehle eingesetzt. Starten können nur Personen mit
+# Schreibrecht am Repository.
+
+name: Neue Seite anlegen
+
+on:
+  workflow_dispatch:
+    inputs:
+      pfad:
+        description: "Pfad in der URL (a-z, 0-9, Bindestriche), z. B. cafe-sonnenschein"
+        required: true
+      vorlage:
+        description: "Vorlage"
+        required: true
+        type: choice
+        options: [cafe, salon, barber, angel-jagd]
+      name:
+        description: "Name des Betriebs"
+        required: true
+      adresse:
+        description: "Adresse: Straße Nr, PLZ Ort – z. B. Neubaugasse 12, 1070 Wien"
+        required: true
+      land:
+        description: "Land"
+        required: true
+        type: choice
+        options: [Österreich, Deutschland, Schweiz]
+      telefon:
+        description: "Telefon"
+        required: true
+      email:
+        description: "E-Mail (optional)"
+        required: false
+      inhaber:
+        description: "Inhaber/in fürs Impressum (optional)"
+        required: false
+      google:
+        description: "Google-Bewertung und Anzahl, z. B. 4.8 (210) – optional"
+        required: false
+      im_hub:
+        description: "Auf der Startseite (Hub) zeigen?"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+jobs:
+  anlegen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Seite aus Vorlage anlegen
+        id: anlegen
+        env:
+          PFAD: ${{ inputs.pfad }}
+          VORLAGE: ${{ inputs.vorlage }}
+          NAME: ${{ inputs.name }}
+          ADRESSE: ${{ inputs.adresse }}
+          LAND: ${{ inputs.land }}
+          TELEFON: ${{ inputs.telefon }}
+          EMAIL: ${{ inputs.email }}
+          INHABER: ${{ inputs.inhaber }}
+          GOOGLE: ${{ inputs.google }}
+          IM_HUB: ${{ inputs.im_hub }}
+        run: node scripts/neue-seite.js
+
+      - name: Pull Request öffnen
+        id: pr
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: seite/neu-${{ inputs.pfad }}
+          commit-message: "Neue Seite: ${{ inputs.name }} (/${{ inputs.pfad }}/)"
+          title: "Neue Seite: ${{ inputs.name }} (/${{ inputs.pfad }}/)"
+          body: |
+            ${{ steps.anlegen.outputs.zusammenfassung }}
+
+            ---
+            Angelegt über den Workflow „Neue Seite anlegen“ von @${{ github.actor }}.
+            Die Prüf-Pipeline läuft automatisch. Nach dem **Merge** ist die Seite live.
+          labels: neue-seite
+          delete-branch: true
+
+      # PRs, die mit GITHUB_TOKEN erstellt werden, starten keine weiteren Workflows –
+      # die Prüf-Pipeline daher ausdrücklich für den neuen Branch starten.
+      - name: Prüf-Pipeline für den Pull Request starten
+        if: steps.pr.outputs.pull-request-number
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: seite/neu-${{ inputs.pfad }}
+        run: gh workflow run pipeline.yml --ref "$BRANCH"
+
+      - name: Ergebnis
+        if: steps.pr.outputs.pull-request-url
+        env:
+          URL: ${{ steps.pr.outputs.pull-request-url }}
+        run: |
+          echo "### Pull Request erstellt: $URL" >> "$GITHUB_STEP_SUMMARY"

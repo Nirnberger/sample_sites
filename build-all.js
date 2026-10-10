@@ -47,10 +47,47 @@ fs.mkdirSync(PUBLIC, { recursive: true });
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'sites-'));
 let fehler = 0;
 
+const ERLAUBTE_BILDER = /\.(jpe?g|png|webp)$/i; // bewusst kein SVG (kann Skripte enthalten)
+
+// Stellt die Bilder einer Seite zusammen. Ist "bilder" der Bilderordner der Vorlage selbst,
+// wird er direkt genutzt. Sonst: Vorlagenbilder kopieren, eigene Fotos darüberlegen.
+function bilderZusammenstellen(s, tmpOrdner) {
+  const eigenerOrdner = path.join(ROOT, s.bilder);
+  const vorlagenOrdner = path.join(ROOT, s.vorlage, 'images');
+  if (path.resolve(eigenerOrdner) === path.resolve(vorlagenOrdner)) return { ordner: vorlagenOrdner, eigene: new Set() };
+  fs.mkdirSync(tmpOrdner, { recursive: true });
+  // Zeitstempel der Vorlagenbilder behalten, damit der Bild-Cache greift
+  if (fs.existsSync(vorlagenOrdner)) fs.cpSync(vorlagenOrdner, tmpOrdner, { recursive: true, preserveTimestamps: true });
+  const eigene = new Set();
+  (function kopiere(von, rel) {
+    if (!fs.existsSync(von)) return;
+    for (const e of fs.readdirSync(von, { withFileTypes: true })) {
+      const r = rel ? `${rel}/${e.name}` : e.name;
+      if (e.isDirectory()) { kopiere(path.join(von, e.name), r); continue; }
+      if (!ERLAUBTE_BILDER.test(e.name)) {
+        if (!/\.md$/i.test(e.name)) console.warn(`⚠ ${s.pfad}: ${r} ignoriert – erlaubt sind nur JPG, PNG und WebP`);
+        continue;
+      }
+      fs.mkdirSync(path.join(tmpOrdner, rel), { recursive: true });
+      // Ohne Zeitstempel kopieren: neues Datum → Cache erzeugt die WebP-Varianten neu
+      fs.copyFileSync(path.join(von, e.name), path.join(tmpOrdner, r));
+      eigene.add(r);
+    }
+  })(eigenerOrdner, '');
+  return { ordner: tmpOrdner, eigene };
+}
+
 for (const s of auswahl) {
   const vorlage = path.join(ROOT, s.vorlage);
   const daten = JSON.parse(fs.readFileSync(path.join(ROOT, s.daten), 'utf8'));
   if (BASIS_URL && !daten.website_url) daten.website_url = `${BASIS_URL}/${s.pfad}`;
+
+  // Bilder: Vorlagenbilder als Grundlage, eigene Fotos (gleicher Dateiname) ersetzen sie.
+  const bilder = bilderZusammenstellen(s, path.join(tmp, `${s.pfad}-bilder`));
+  if (bilder.eigene.size) {
+    // Für ersetzte Bilder gilt der Unsplash-Nachweis der Vorlage nicht mehr
+    daten.bildnachweise = (daten.bildnachweise || []).filter((n) => !bilder.eigene.has(n.datei));
+  }
   const datei = path.join(tmp, `${s.pfad}.json`);
   fs.writeFileSync(datei, JSON.stringify(daten));
 
@@ -61,7 +98,7 @@ for (const s of auswahl) {
     stdio: 'inherit',
     env: {
       ...process.env,
-      BILDER_DIR: path.join(ROOT, s.bilder),
+      BILDER_DIR: bilder.ordner,
       DIST_DIR: ziel,
       CACHE_DIR: path.join(ROOT, '.bildcache', s.pfad), // eigener Cache je Seite, sonst kollidieren gleichnamige Bilder
     },

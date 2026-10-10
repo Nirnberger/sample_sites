@@ -1,0 +1,66 @@
+# Formular im Browser: GitHub → Actions → „Seite löschen“ → Run workflow
+# Entfernt kunden/<pfad>/ und den Eintrag in sites.json per Pull Request. Erst der Merge löscht live.
+# Beispielseiten der Vorlagen können hier nicht gelöscht werden.
+
+name: Seite löschen
+
+on:
+  workflow_dispatch:
+    inputs:
+      pfad:
+        description: "Pfad der Seite, z. B. cafe-sonnenschein"
+        required: true
+      bestaetigung:
+        description: "Zur Bestätigung den Pfad noch einmal eintippen"
+        required: true
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+jobs:
+  loeschen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Seite entfernen
+        env:
+          PFAD: ${{ inputs.pfad }}
+          BESTAETIGUNG: ${{ inputs.bestaetigung }}
+        run: node scripts/seite-loeschen.js
+
+      - name: Pull Request öffnen
+        id: pr
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: seite/loeschen-${{ inputs.pfad }}
+          commit-message: "Seite löschen: /${{ inputs.pfad }}/"
+          title: "Seite löschen: /${{ inputs.pfad }}/"
+          body: |
+            Entfernt `kunden/${{ inputs.pfad }}/` und den Eintrag in `sites.json`.
+            Nach dem **Merge** ist `/${{ inputs.pfad }}/` nicht mehr erreichbar.
+
+            Angefordert von @${{ github.actor }} über den Workflow „Seite löschen“.
+          labels: seite-loeschen
+          delete-branch: true
+
+      - name: Prüf-Pipeline für den Pull Request starten
+        if: steps.pr.outputs.pull-request-number
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: seite/loeschen-${{ inputs.pfad }}
+        run: gh workflow run pipeline.yml --ref "$BRANCH"
+
+      - name: Ergebnis
+        if: steps.pr.outputs.pull-request-url
+        env:
+          URL: ${{ steps.pr.outputs.pull-request-url }}
+        run: |
+          echo "### Pull Request erstellt: $URL" >> "$GITHUB_STEP_SUMMARY"

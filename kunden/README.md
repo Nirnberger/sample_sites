@@ -1,4 +1,7 @@
 # Kunden-Seiten
 
-Je Kunde ein Ordner `kunden/<pfad>/` mit der Inhaltsdatei der Vorlage (z. B. `shop.json`) und `images/`.
-Danach in `../sites.json` eintragen. Anleitung: `../HOSTING.md`.
+Je Seite ein Ordner `kunden/<pfad>/` mit der Inhaltsdatei der Vorlage (z. B. `cafe.json`) und
+`images/` für eigene Fotos (ersetzen gleichnamige Vorlagenbilder).
+
+Anlegen und löschen am einfachsten im Browser: **GitHub → Actions → „Neue Seite anlegen“ /
+„Seite löschen“**. Details in `../HOSTING.md`.

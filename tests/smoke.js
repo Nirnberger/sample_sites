@@ -12,6 +12,7 @@
  *   - kein seitliches Scrollen (Layout passt in die Breite)
  *   - alle Bilder lassen sich laden
  *   - Hub verlinkt genau die Seiten mit "hub"-Eintrag, /<pfad> leitet auf /<pfad>/ weiter
+ *   - keine CSP-Verstöße, Sicherheits-Header auf HTML/Bildern/Schriften, keine internen Dateien erreichbar
  * Benötigt Playwright (npm i playwright && npx playwright install chromium).
  */
 
@@ -36,6 +37,9 @@ const BREITEN = [['mobil', 360, 780], ['desktop', 1366, 900]];
     const page = await ctx.newPage();
     let aktuell = '';
     page.on('pageerror', (e) => fehler.push(`${aktuell} [${name}] JavaScript-Fehler: ${e.message}`));
+    page.on('console', (m) => {
+      if (m.type() === 'error' && /Content Security Policy|Refused to/i.test(m.text())) fehler.push(`${aktuell} [${name}] CSP-Verstoß: ${m.text().slice(0, 160)}`);
+    });
     page.on('response', (r) => {
       if (r.status() >= 400 && r.url().startsWith(BASIS)) fehler.push(`${aktuell} [${name}] ${r.status()} ${r.url().slice(BASIS.length)}`);
     });
@@ -71,6 +75,25 @@ const BREITEN = [['mobil', 360, 780], ['desktop', 1366, 900]];
   const links = await page.$$eval('.karte-link', (a) => a.map((x) => x.getAttribute('href')).sort());
   const soll = sites.filter((s) => s.hub).map((s) => `${s.pfad}/`).sort();
   if (JSON.stringify(links) !== JSON.stringify(soll)) fehler.push(`Hub-Links ${JSON.stringify(links)} ≠ erwartet ${JSON.stringify(soll)}`);
+
+  // Sicherheits-Header auf HTML, Bildern und Schriften (nginx erbt add_header nicht automatisch)
+  const pflichtHeader = ['content-security-policy', 'x-content-type-options', 'x-frame-options', 'referrer-policy'];
+  const s0 = sites[0];
+  const html = await page.request.get(`${BASIS}/${s0.pfad}/`);
+  const bild = (await html.text()).match(/src="(img\/[^"]+\.webp)"/);
+  const schrift = (await html.text()).match(/url\("?(fonts\/[^")]+\.woff2)/);
+  const pruefUrls = [`${BASIS}/`, `${BASIS}/${s0.pfad}/`, `${BASIS}/robots.txt`];
+  if (bild) pruefUrls.push(`${BASIS}/${s0.pfad}/${bild[1]}`);
+  if (schrift) pruefUrls.push(`${BASIS}/${s0.pfad}/${schrift[1]}`);
+  for (const u of pruefUrls) {
+    const h = (await page.request.get(u)).headers();
+    const fehlt = pflichtHeader.filter((k) => !h[k]);
+    if (fehlt.length) fehler.push(`${u.slice(BASIS.length) || '/'}: Sicherheits-Header fehlen: ${fehlt.join(', ')}`);
+  }
+  for (const geheim of ['/.git/config', '/.env', '/sites.json', '/build-all.js']) {
+    const st = (await page.request.get(BASIS + geheim)).status();
+    if (st !== 404) fehler.push(`${geheim} ist erreichbar (Status ${st}) – sollte 404 sein`);
+  }
 
   // Weiterleitung ohne Schrägstrich
   const r = await page.request.get(`${BASIS}/${sites[0].pfad}`, { maxRedirects: 0 });

@@ -13,6 +13,7 @@ RUN node build-all.js
 # --- 2) Auslieferung: nur die fertigen Dateien ---
 FROM nginx:1.27-alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx-sicherheit.conf /etc/nginx/snippets/sicherheit.conf
 COPY --from=build /app/public /usr/share/nginx/html
 EXPOSE 80
 HEALTHCHECK --interval=30s --timeout=3s CMD wget -qO- http://127.0.0.1/robots.txt >/dev/null || exit 1
