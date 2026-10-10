@@ -34,11 +34,11 @@ const textOk = (t, max = 120) => t.length <= max && !/[\u0000-\u001f<>]/.test(t)
 // Zusammengefasste Formularfelder zerlegen: ADRESSE = "Straße Nr, PLZ Ort", GOOGLE = "4.8 (210)"
 const adresse = e('ADRESSE').match(/^(.+?),\s*(\d{4,5})\s+(.+)$/) || [];
 const google = e('GOOGLE').match(/^\s*(\d(?:[.,]\d)?)\s*(?:\(?\s*(\d{1,6})\s*\)?)?\s*$/) || [];
-if (e('ADRESSE') && !adresse.length) { console.error('✖ Adresse bitte im Format "Straße Nr, PLZ Ort", z. B. "Neubaugasse 12, 1070 Wien"'); process.exit(1); }
-if (e('GOOGLE') && !google.length) { console.error('✖ Google bitte im Format "4.8 (210)" – Bewertung und Anzahl'); process.exit(1); }
+pruefe(!e('ADRESSE') || adresse.length, 'Adresse bitte im Format "Straße Nr, PLZ Ort", z. B. "Neubaugasse 12, 1070 Wien"');
+pruefe(!e('GOOGLE') || google.length, 'Google bitte im Format "4.8 (210)" – Bewertung und Anzahl');
 
 const ein = {
-  pfad: e('PFAD').toLowerCase(),
+  pfad: e('PFAD').toLowerCase().replace(/^\/+|\/+$/g, ''),
   vorlage: e('VORLAGE'),
   name: e('NAME'),
   strasse: e('STRASSE') || (adresse[1] || '').trim(),
@@ -56,10 +56,12 @@ const ein = {
 
 pruefe(/^[a-z0-9]+(-[a-z0-9]+)*$/.test(ein.pfad) && ein.pfad.length <= 60, 'Pfad: nur a-z, 0-9 und Bindestriche (max. 60 Zeichen), z. B. "cafe-sonnenschein-wien"');
 pruefe(VORLAGEN[ein.vorlage], `Vorlage muss eine von ${Object.keys(VORLAGEN).join(', ')} sein`);
-pruefe(ein.name && textOk(ein.name, 80), 'Name fehlt oder enthält ungültige Zeichen');
-pruefe(ein.strasse && textOk(ein.strasse), 'Straße fehlt oder ist ungültig');
-pruefe(/^\d{4,5}$/.test(ein.plz), 'PLZ: 4 oder 5 Ziffern');
-pruefe(ein.ort && textOk(ein.ort, 60), 'Ort fehlt oder ist ungültig');
+pruefe(ein.name && textOk(ein.name, 80), 'Name fehlt oder enthält ungültige Zeichen (keine < oder >)');
+if (!e('ADRESSE') || adresse.length) {
+  pruefe(ein.strasse && textOk(ein.strasse), 'Straße fehlt oder ist ungültig');
+  pruefe(/^\d{4,5}$/.test(ein.plz), 'PLZ: 4 oder 5 Ziffern');
+  pruefe(ein.ort && textOk(ein.ort, 60), 'Ort fehlt oder ist ungültig');
+}
 pruefe(LAENDER.includes(ein.land), `Land muss eines von ${LAENDER.join(', ')} sein`);
 pruefe(/^[+\d][\d /()-]{5,24}$/.test(ein.telefon), 'Telefon: nur Ziffern, Leerzeichen, + / ( ) -');
 pruefe(!ein.email || /^[^\s@<>"]+@[^\s@<>"]+\.[a-z]{2,}$/i.test(ein.email), 'E-Mail ungültig');
