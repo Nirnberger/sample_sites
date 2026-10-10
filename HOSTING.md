@@ -154,6 +154,26 @@ Artefakt „website-build“ beim Lauf.
 
 Fehlen die Secrets, läuft nur die Prüfung (mit Warnung), es wird nichts deployt.
 
+### Coolify nur im Tailnet (nicht öffentlich erreichbar)
+Der GitHub-Runner tritt für den Deploy kurz als kurzlebiges Gerät (`tag:ci`) dem Tailnet bei,
+ruft den Webhook auf und verschwindet danach automatisch.
+1. **Tailscale-Admin → Access controls:** Tag anlegen und `tag:ci` **nur** den Coolify-Port erlauben
+   (Server-IP/Port anpassen; die erste Regel erhält deinen eigenen Vollzugriff):
+   ```json
+   "tagOwners": { "tag:ci": ["autogroup:admin"] },
+   "grants": [
+     { "src": ["autogroup:member"], "dst": ["*"], "ip": ["*"] },
+     { "src": ["tag:ci"], "dst": ["100.x.y.z"], "ip": ["tcp:8000"] }
+   ]
+   ```
+   Steht dort noch die Standardregel „alles für alle“ (`"src": ["*"]`), diese ersetzen – sonst
+   kommt der Runner an alle Geräte im Tailnet.
+2. **Tailscale-Admin → Settings → OAuth clients → Generate:** Recht **Devices → Core: Write**
+   (Auth Keys: Write), Tag `tag:ci`. Client-ID und Secret kopieren.
+3. **GitHub-Secrets:** `TS_OAUTH_CLIENT_ID`, `TS_OAUTH_SECRET`.
+4. **`COOLIFY_WEBHOOK`** mit der Tailnet-Adresse, unter der du Coolify im Browser öffnest,
+   z. B. `http://100.x.y.z:8000/api/v1/deploy?uuid=…&force=false`.
+
 ### Smoke-Test lokal oder gegen die Live-Seite
 ```bash
 npm install --no-save playwright && npx playwright install chromium

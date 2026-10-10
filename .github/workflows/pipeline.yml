@@ -3,6 +3,9 @@
 # Einmalig in GitHub unter Settings → Secrets and variables → Actions anlegen:
 #   COOLIFY_WEBHOOK  Deploy-Webhook der Ressource (Coolify → Ressource → Webhooks → „Deploy Webhook“)
 #   COOLIFY_TOKEN    API-Token mit Recht „deploy“ (Coolify → Keys & Tokens → API tokens)
+#   TS_OAUTH_CLIENT_ID / TS_OAUTH_SECRET  Tailscale-OAuth-Client (Coolify ist nur im Tailnet erreichbar):
+#                    der Runner tritt kurz als kurzlebiges Gerät mit tag:ci bei, ruft den Webhook auf
+#                    und verschwindet danach wieder. Einrichtung siehe HOSTING.md.
 # und in Coolify bei der Ressource „Auto Deploy“ ausschalten (sonst deployt Coolify ungeprüft selbst).
 # Ohne die Secrets läuft nur die Prüfung, der Deploy-Schritt wird übersprungen.
 
@@ -70,7 +73,17 @@ jobs:
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    env:
+      TS_ID: ${{ secrets.TS_OAUTH_CLIENT_ID }}
     steps:
+      - name: Tailnet beitreten (Coolify ist nicht öffentlich erreichbar)
+        if: env.TS_ID != ''
+        uses: tailscale/github-action@v3
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:ci
+
       - name: Deploy auslösen
         env:
           WEBHOOK: ${{ secrets.COOLIFY_WEBHOOK }}
