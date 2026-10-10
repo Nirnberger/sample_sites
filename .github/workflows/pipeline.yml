@@ -93,7 +93,7 @@ jobs:
             echo "::warning::COOLIFY_WEBHOOK/COOLIFY_TOKEN fehlen – Deploy übersprungen (siehe Kommentar oben in pipeline.yml)."
             exit 0
           fi
-          code=$(curl -s -o antwort.txt -w "%{http_code}" -H "Authorization: Bearer $TOKEN" "$WEBHOOK")
+          code=$(curl -s -X POST -o antwort.txt -w "%{http_code}" -H "Authorization: Bearer $TOKEN" "$WEBHOOK")
           cat antwort.txt; echo
           if [ "$code" -ge 300 ]; then echo "::error::Coolify antwortete mit HTTP $code"; exit 1; fi
           echo "Deploy in Coolify gestartet."
