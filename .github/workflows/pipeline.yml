@@ -27,7 +27,7 @@ jobs:
   pruefen:
     name: Build, Docker & Smoke-Test
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
 
@@ -57,13 +57,23 @@ jobs:
           done
           echo "Container antwortet nicht"; docker logs sites; exit 1
 
-      - name: Playwright installieren
+      - name: Playwright und Lighthouse installieren
         run: |
-          npm install --no-save --no-package-lock playwright@1.48.2
+          npm install --no-save --no-package-lock playwright@1.48.2 lighthouse@12.2.1 chrome-launcher@1.1.2
           npx playwright install --with-deps chromium
 
       - name: Smoke-Test (alle Seiten, mobil + Desktop)
         run: node tests/smoke.js http://localhost:8080
+
+      # Mindestwerte stehen in tests/lighthouse.js (Leistung ≥ 80, Barrierefreiheit ≥ 90, Best Practices ≥ 90)
+      - name: Lighthouse (Leistung, Barrierefreiheit, Best Practices)
+        run: node tests/lighthouse.js http://localhost:8080 lighthouse-berichte
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse-berichte
+          path: lighthouse-berichte
+          retention-days: 14
 
       - name: Fertige Seiten als Artefakt speichern
         if: always()

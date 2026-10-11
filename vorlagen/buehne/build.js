@@ -500,6 +500,7 @@ ${zusatzHead}
 ${og}
 <meta name="twitter:card" content="summary_large_image">
 <style>${css}</style>
+<noscript><style>.programm{position:static;visibility:visible;opacity:1;padding-top:5rem}.programm-knopf{display:none}</style></noscript>
 <script src="js/main.js" defer></script>
 </head>
 <body id="top"${startseite ? ' class="startseite"' : ''}>

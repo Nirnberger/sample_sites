@@ -1,5 +1,6 @@
 # Build-Ergebnisse (werden auf dem Server neu erzeugt)
 public/
+lighthouse-berichte/
 **/dist/
 .bildcache/
 **/.bildcache/

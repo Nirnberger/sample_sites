@@ -135,6 +135,33 @@ node scripts/medien.js holen                    # Speicher → lokale Ordner (al
 Danach einen neuen Deploy auslösen (z. B. Pipeline in GitHub manuell starten), damit die Seite die
 neuen Fotos bekommt. Erlaubt: JPG, PNG, WebP (Fotos) sowie MP4, WebM, MP3, M4A, OGG/Opus, VTT, PDF (Medien).
 
+## Inhalte pflegen ohne JSON (Pages CMS)
+
+Kund:innen bearbeiten ihre Texte in Formularen auf **https://app.pagescms.org** statt in JSON.
+Die Formulare stehen in `.pages.yml` (deutsche Feldnamen, Auswahllisten, Prüfung von Links und
+E-Mail-Adressen). Jede gespeicherte Änderung ist ein Commit auf `main` → Pipeline prüft (Schema,
+Smoke-Test) → Coolify deployt. Ist eine Eingabe fehlerhaft, bleibt die alte Seite online.
+
+### Einmalig einrichten (Philipp)
+1. Auf https://app.pagescms.org mit GitHub anmelden und die **Pages CMS GitHub App** für das
+   Repository `sample_sites` installieren (nur dieses Repository auswählen).
+2. Repository in Pages CMS öffnen – die Menüpunkte aus `.pages.yml` erscheinen links
+   („Website Nora Solcher“ → Startseite, Über mich, Neuigkeiten, Vita …).
+3. **Settings → Collaborators → Invite:** Nora per E-Mail einladen. Sie braucht **kein
+   GitHub-Konto**; sie meldet sich per Link aus der E-Mail an und sieht nur die Formulare.
+
+### Gut zu wissen
+- **Fotos** werden nicht im CMS hochgeladen (Kundenfotos gehören nicht ins Repository). Neue Fotos
+  per `node scripts/medien.js hochladen <pfad>` in den Speicher legen und den Dateinamen in
+  `.pages.yml` bei den Foto-Auswahllisten ergänzen.
+- Mit `settings.content.merge` bleiben Felder erhalten, die nicht im Formular stehen. **Listen werden
+  beim Speichern aber vollständig ersetzt** – neue Felder in Listeneinträgen daher immer auch in
+  `.pages.yml` aufnehmen (notfalls mit `hidden: true`), sonst gehen sie beim ersten Speichern verloren.
+  Leere Felder entfernt Pages CMS beim Speichern; die Vorlagen kommen damit zurecht.
+- Eingeladene Personen sehen alle Menüpunkte dieses Repositorys. Bei mehreren Kund:innen deshalb
+  je Kunde ein eigenes Repository oder Pages CMS selbst hosten (Open Source, z. B. auf Coolify).
+- Pages CMS ist ein externer Dienst: Beim Bearbeiten laufen die Inhalte über dessen Server.
+
 ## Sicherheit
 
 - **Eingaben** aus den Formularen gehen nur als Umgebungsvariablen an die Skripte und werden dort
@@ -175,11 +202,19 @@ neuen Fotos bekommt. Erlaubt: JPG, PNG, WebP (Fotos) sowie MP4, WebM, MP3, M4A, 
 
 `.github/workflows/pipeline.yml` läuft bei jedem Push und jedem Pull Request:
 
-1. **Docker-Image bauen** – exakt wie auf dem Server (Dockerfile, `build-all.js`, nginx).
-2. **Container starten** und mit **`tests/smoke.js`** prüfen: Hub und alle Seiten inkl.
+1. **Inhalte prüfen** – `tests/inhalte.js` prüft jede Inhaltsdatei gegen das Schema ihrer Vorlage
+   (`vorlagen/<name>/schema.json` → `schemas/`) und nennt Fehler mit Pfad, z. B.
+   „vita[0].eintraege[1].jahr: erwartet Text, gefunden Zahl“.
+2. **Docker-Image bauen** – exakt wie auf dem Server (Dockerfile, `build-all.js`, nginx), inkl.
+   Kundenfotos aus dem Objektspeicher, falls die `MEDIEN_*`-Secrets gesetzt sind.
+3. **Container starten** und mit **`tests/smoke.js`** prüfen: Hub und alle Seiten inkl.
    Impressum/Datenschutz, mobil (360 px) und Desktop – Status 200, keine JavaScript-Fehler,
    keine fehlenden Dateien/Bilder, kein seitliches Scrollen, Hub-Links und Weiterleitung korrekt.
-3. **Nur auf `main` und nur wenn alles grün ist:** Coolify-Deploy per Webhook auslösen.
+4. **Lighthouse** (`tests/lighthouse.js`, Mobil-Profil): Leistung ≥ 80, Barrierefreiheit ≥ 90,
+   Best Practices ≥ 90 je Seite; SEO wird nur angezeigt (Demo-Seiten sind absichtlich „noindex“).
+   Bei Unterschreitung nennt der Test die größten Bremsen; die HTML-Berichte liegen 14 Tage als
+   Artefakt „lighthouse-berichte“ beim Lauf.
+5. **Nur auf `main` und nur wenn alles grün ist:** Coolify-Deploy per Webhook auslösen.
 
 Bei Pull Requests wird nur geprüft, nicht deployt. Die fertig gebauten Seiten liegen 7 Tage als
 Artefakt „website-build“ beim Lauf.

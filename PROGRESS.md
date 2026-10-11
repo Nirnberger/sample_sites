@@ -8,12 +8,21 @@
 - **2026-10-10:** Neue Vorlage `vorlagen/schauspiel/` + Seite `/nora-solcher/` (Inhalte `kunden/nora-solcher/schauspiel.json`, 16 Fotos). Lokal gebaut, Smoke-Test mit nginx grün (38 Aufrufe), Menü/Reiter/Lightbox geprüft
 - **2026-10-11:** Künstlerisches Redesign: neue Vorlage `vorlagen/buehne/` („Website als Theaterabend“ – Ouvertüre mit Scheinwerfer + Rollenwechsel, Besetzungszettel + Laufbänder, Akte Bühne/Kamera/Stimme/Feder, Kontaktbogen, Tickets, Vorhang). `/nora-solcher/` nutzt jetzt diese Vorlage; Inhalte um `hero_rollen`, `prolog`, `zitat`, `register`, `vita[].akt` ergänzt; neue Infos (Rezitation Villa Bonn, Frankfurter Spatzen). Smoke-Test grün, Screenshots in `recherche/nora-solcher/entwurf/`
 - **2026-10-11:** Ordner aufgeräumt: `vorlagen/` (alle Vorlagen, ohne „-vorlage“), `hosting/` (nginx), `vertrieb/` (Lead-Skripte, Leads, Pitches, Cache), neue `README.md` als Wegweiser; alle Pfade in `sites.json`, Skripten, Dockerfile, Doku angepasst. Build, Smoke-Test (nginx aus `hosting/`), Seite anlegen/löschen und Einzel-Builds geprüft
+- **2026-10-11:** Videos/Kundenfotos aus Git verbannt (`.gitignore`; Nora-Fotos aus den ungepushten Commits entfernt)
+- **2026-10-11:** Technik A–E umgesetzt und getestet:
+  - A: `lib/` (helfer, bilder) statt 6 Kopien (Ausgabe byte-gleich), Schemas + Prüfer (`tests/inhalte.js`, build-all, VS Code)
+  - D: AVIF zusätzlich zu WebP (Ø 26 % kleiner), Cache nach Prüfsumme, parallele Builds (kalt 267 s → 73 s)
+  - C: Kundenfotos/-medien im S3-Speicher (`lib/s3.js`, `scripts/medien.js`), Build holt automatisch; getestet mit SeaweedFS
+  - B: Pages CMS (`.pages.yml`) mit deutschen Formularen für Nora; Speicherverhalten anhand des Quellcodes simuliert – kein Datenverlust
+  - E: Lighthouse in der Pipeline (`tests/lighthouse.js`); fand Layout-Sprung auf Noras Seite (Leistung 74 → 97)
 - **2026-10-10:** Nach Neustart des Containers war alles aus dieser Session weg (Workspace war vorher nicht mit dem Mac-Ordner verbunden) → komplett wiederhergestellt in `/Users/deluxe/Documents/claude-box/workspace`
 
 ## In Arbeit
-- Website Nora Solcher: Entwurf fertig (Demo-Modus, noindex), wartet auf Freigabe durch Nora – Vorlage, Seite und `sites.json` noch nicht committet/deployt
+- Website Nora Solcher: Entwurf fertig (Demo-Modus, noindex), wartet auf Freigabe durch Nora. Commits liegen lokal auf `main`, noch nicht gepusht.
+- Einrichtung extern (nur Philipp): S3-Speicher auf Coolify (Garage/SeaweedFS statt MinIO, s. HOSTING.md) + Build-Variablen/Secrets `MEDIEN_*`; Pages CMS GitHub App installieren und Nora einladen
 
 ## Nächste Schritte
+0. Speicher einrichten, `node scripts/medien.js bucket` + `hochladen nora-solcher`, dann pushen (Pipeline mit Lighthouse prüft)
 1. Nora den Entwurf zeigen; Freigabe für Fotos (Rechte/Credits), „Über mich“-Text und offene Fragen aus `recherche/nora-solcher/info.md` klären
 2. Impressum (Anschrift) ergänzen, bessere „Hertopia“-Fotos (aktuell nur 960 px) und ggf. eigene E-Mail/Domain einholen
 3. Nach Freigabe committen → Pipeline → live; danach `demo_modus: false` und `website_url` setzen

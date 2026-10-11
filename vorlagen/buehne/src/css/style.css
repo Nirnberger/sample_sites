@@ -89,8 +89,8 @@ em, .kursiv { font-style: italic; }
 .programm a .mono { flex: 0 0 4.5rem; color: var(--rot-dunkel); }
 .programm a:hover { font-style: italic; color: var(--rot-dunkel); }
 .programm .kicker { max-width: var(--breite); margin: 0 auto 1.5rem; }
-html:not(.js) .programm { position: static; visibility: visible; opacity: 1; padding-top: 5rem; }
-html:not(.js) .programm-knopf { display: none; }
+/* Ohne JavaScript: Programm steht oben im Seitenfluss – per <noscript> im <head>, damit es mit JavaScript
+   nicht erst im Fluss erscheint und dann wegspringt (Layout-Verschiebung). */
 
 /* ---------- Ouvertüre ---------- */
 .ouvertuere {

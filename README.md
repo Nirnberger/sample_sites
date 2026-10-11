@@ -19,17 +19,21 @@ workspace/
 │   ├── angel-jagd/     Fachhandel mit Sortiment und Merkzettel
 │   ├── buehne/         künstlerisches Schauspiel-Portfolio („Website als Theaterabend“)
 │   └── schauspiel/     nüchternes Schauspiel-Portfolio (gleiches Datenformat wie buehne)
-├── kunden/             Kundenseiten – je Ordner eine JSON-Datei + images/ (überlagern Vorlagenbilder)
+├── lib/                gemeinsamer Code aller Vorlagen: helfer.js, bilder.js (WebP + AVIF),
+│                       schema.js (Inhaltsprüfung), s3.js + medien.js (Objektspeicher)
+├── schemas/            JSON-Schemas der Inhalte (Betrieb, Portfolio) – auch für VS Code
+├── kunden/             Kundenseiten – je Ordner eine JSON-Datei; Fotos/Medien im Objektspeicher
 ├── hosting/            nginx.conf, nginx-sicherheit.conf (vom Dockerfile kopiert)
-├── scripts/            neue-seite.js, seite-loeschen.js (auch als GitHub-Workflows)
-├── tests/              smoke.js – prüft alle Seiten mobil + Desktop
-├── .github/workflows/  Pipeline (Build, Test, Deploy), Seite anlegen/löschen
+├── scripts/            neue-seite.js, seite-loeschen.js (auch als GitHub-Workflows), medien.js
+├── tests/              inhalte.js (Schema), smoke.js (alle Seiten mobil + Desktop), lighthouse.js
+├── .github/workflows/  Pipeline (Prüfen, Build, Test, Lighthouse, Deploy), Seite anlegen/löschen
+├── .pages.yml          Formulare für Pages CMS (Kund:innen pflegen Inhalte ohne JSON)
 │
 ├── vertrieb/           Lead-Skripte; Leads (CSV), Cache und Pitches nur lokal
 ├── recherche/          Kundenrecherche (Fotos, Quellen) – nur lokal
 │
 ├── public/             Build-Ergebnis (wird erzeugt, nicht im Repo)
-└── .bildcache/         WebP-Cache je Seite (wird erzeugt, nicht im Repo)
+└── .bildcache/         Bild-Cache (WebP/AVIF nach Prüfsumme, wird erzeugt, nicht im Repo)
 ```
 
 Doku: `HOSTING.md` (Hosting, Workflows, Pipeline), `vorlagen/<name>/README.md` (Felder der Vorlage),
@@ -42,5 +46,6 @@ node build-all.js
 cd public && python3 -m http.server 8000
 ```
 
-Dann http://localhost:8000/ öffnen. Für verkleinerte WebP-Bilder `cwebp` installieren (`brew install webp`
-bzw. `apt-get install webp`), sonst werden die Originalbilder kopiert.
+Dann http://localhost:8000/ öffnen. Für verkleinerte Bilder `cwebp` und `avifenc` installieren
+(`brew install webp libavif` bzw. `apt-get install webp libavif-bin`), sonst werden die Originale kopiert.
+Kundenfotos holt der Build aus dem Objektspeicher, wenn `MEDIEN_ENDPUNKT` usw. gesetzt sind (siehe HOSTING.md).
