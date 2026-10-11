@@ -20,3 +20,17 @@ pitches/
 
 # Kundenrecherche (personenbezogene Daten, fremde Fotos)
 recherche/
+
+# Videos nie ins Repository (zu groß; Showreels später über Objektspeicher)
+*.mp4
+*.m4v
+*.mov
+*.webm
+*.avi
+*.mkv
+*.wmv
+*.mpg
+*.mpeg
+
+# Fotos von Nora Solcher erst nach Klärung der Bildrechte
+kunden/nora-solcher/images/
