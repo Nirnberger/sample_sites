@@ -14,6 +14,7 @@
   - E: Lighthouse in der Pipeline; alle Seiten 97–100 Leistung (Noras Layout-Sprung behoben: 74 → 97)
 - **2026-10-11:** Gepusht; Konflikt mit PR „Seite löschen: /test/“ gelöst (Testseite entfernt, Nora bleibt). Pipeline grün, Deploy läuft
 - **2026-10-11:** SeaweedFS auf Coolify (`https://medien.seitenschwung.com`, Port 8333 am Dienst seaweedfs-master), Bucket `kunden-medien`, Noras 16 Fotos hochgeladen, übersteht Neustart; `MEDIEN_*` als Coolify-Build-Variablen → Fotos live auf `/nora-solcher/`
+- **2026-10-11:** `node scripts/medien.js sync`: lädt neue/geänderte Fotos aller Kundenseiten hoch und startet die Pipeline (GitHub-Token via `gh` oder `GITHUB_TOKEN`) – lokal mit SeaweedFS + simuliertem GitHub getestet
 
 ## Offen
 - Noras Entwurf (Demo-Modus, noindex) wartet auf ihre Freigabe: Fotorechte/Credits, Texte, Impressum-Anschrift, ggf. Größe 163/165 cm, bessere „Hertopia“-Fotos (nur 960 px)

@@ -126,14 +126,25 @@ bzw. Platzhaltern gebaut – der Build bricht nicht ab.
    nginx-Image enthält sie nicht.
 
 ### Fotos hochladen
+Fotos in `kunden/<pfad>/images/` (bzw. Medien in `kunden/<pfad>/medien/`) legen, dann **ein Befehl**:
 ```bash
 export MEDIEN_ENDPUNKT=https://medien.seitenschwung.com MEDIEN_ZUGANG=… MEDIEN_GEHEIMNIS=…
-node scripts/medien.js hochladen nora-solcher   # kunden/nora-solcher/images + /medien → Speicher
+node scripts/medien.js sync                     # neue/geänderte Dateien aller Kundenseiten hochladen + Pipeline starten
+```
+`sync` lädt nur Neues bzw. Geändertes hoch und startet danach die Pipeline „Prüfen & Deployen“ auf `main`
+(baut mit den Fotos, testet, deployt nur bei Erfolg). Ist nichts neu, passiert nichts. Für den
+Pipeline-Start braucht es ein GitHub-Token: angemeldetes `gh` (`gh auth login`) oder `GITHUB_TOKEN`
+(Fine-grained Token nur für dieses Repository, Recht „Actions: Read and write“). Ohne Token werden die
+Fotos trotzdem hochgeladen; die Pipeline dann manuell starten (Actions → Run workflow).
+Gelöschte Fotos werden im Speicher nicht automatisch entfernt.
+
+Einzelbefehle:
+```bash
+node scripts/medien.js sync nora-solcher        # nur diese Seite
+node scripts/medien.js hochladen nora-solcher   # nur hochladen, ohne Pipeline-Start
 node scripts/medien.js liste nora-solcher
 node scripts/medien.js holen                    # Speicher → lokale Ordner (alle Kundenseiten)
-```
-Danach einen neuen Deploy auslösen (z. B. Pipeline in GitHub manuell starten), damit die Seite die
-neuen Fotos bekommt. Erlaubt: JPG, PNG, WebP (Fotos) sowie MP4, WebM, MP3, M4A, OGG/Opus, VTT, PDF (Medien).
+``` Erlaubt: JPG, PNG, WebP (Fotos) sowie MP4, WebM, MP3, M4A, OGG/Opus, VTT, PDF (Medien).
 
 ## Inhalte pflegen ohne JSON (Pages CMS)
 
