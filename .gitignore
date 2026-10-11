@@ -37,3 +37,7 @@ recherche/
 kunden/*/images/*
 !kunden/*/images/LIESMICH.md
 kunden/*/medien/
+
+# Lokale Zugangsdaten (MEDIEN_*, GITHUB_TOKEN) – nie committen
+.env
+.env.*

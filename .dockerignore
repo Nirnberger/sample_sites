@@ -12,3 +12,6 @@ recherche
 tests
 HOSTING.md
 scripts
+
+.env
+.env.*
