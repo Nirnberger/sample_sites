@@ -1,7 +1,7 @@
 # Bühnen-Vorlage
 
 Künstlerisches Portfolio für Schauspieler:innen und Sprecher:innen – die Website als Theaterabend.
-Erste Kundin: Nora Solcher – bis 2026-10-11, die Fassung liegt auf dem Branch `nora-buehne-archiv` (Nora nutzt jetzt `vorlagen/repertoire`).
+Erste Kundin: Nora Solcher – ihre erste Fassung läuft eingefroren unter `/nora-solcher/v1/` (`kunden/nora-solcher/v1.json`, auch Branch `nora-buehne-archiv`); gepflegt wird `/nora-solcher/v2/` mit `vorlagen/repertoire`.
 
 Gleiches Datenformat wie die nüchterne `vorlagen/schauspiel` – in `sites.json` lässt sich die Vorlage
 tauschen, ohne die Inhalte anzufassen. Zusätzliche, optionale Felder steuern die Inszenierung.
@@ -32,10 +32,10 @@ Cookie-Banner, die Content-Security-Policy bleibt „nur eigene Domain“.
 ## Bauen
 
 ```bash
-node build-all.js nora-solcher
+node build-all.js nora-solcher/v1
 ```
 
-Einzeln: `node vorlagen/buehne/build.js kunden/nora-solcher/schauspiel.json` (Fotos aus `images/`
+Einzeln: `node vorlagen/buehne/build.js kunden/nora-solcher/v1.json` (Fotos aus `images/`
 neben der JSON-Datei, Ausgabe in `vorlagen/buehne/dist/`). Fehlende Fotonachweise (`credit`) und
 Bilder unter 1000 px werden beim Bauen gemeldet.
 

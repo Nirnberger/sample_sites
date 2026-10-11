@@ -58,7 +58,7 @@ const { sites } = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'sites.j
           probleme.push(`${s.pfad || '/'}: ${k} ${werte[k]} < ${min}${gruende.length ? ` – u. a. ${gruende.join('; ')}` : ''}`);
         }
       }
-      if (BERICHTE) fs.writeFileSync(path.join(BERICHTE, `${s.pfad || 'startseite'}.html`), ergebnis.report);
+      if (BERICHTE) fs.writeFileSync(path.join(BERICHTE, `${(s.pfad || 'startseite').replace(/\//g, '-')}.html`), ergebnis.report);
     }
   } finally {
     await chrome.kill();

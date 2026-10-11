@@ -2,7 +2,7 @@
 
 Ruhiges, mehrseitiges Portfolio für Künstler:innen mit mehreren Arbeitsfeldern (Schauspiel, Film,
 Audio, Text, Unterricht …). Hell und gedeckt: Creme/Beige, Braun, Pastell-Mint; Fraunces + Manrope.
-Erste Kundin: Nora Solcher (`kunden/nora-solcher/`, unter `/nora-solcher/`).
+Erste Kundin: Nora Solcher (`kunden/nora-solcher/schauspiel.json`, unter `/nora-solcher/v2/`).
 
 ## Seiten
 
@@ -37,7 +37,7 @@ Kaum JavaScript: nur Lightbox für Fotos; keine Animationen.
 ## Bauen
 
 ```bash
-node build-all.js nora-solcher
+node build-all.js nora-solcher/v2
 ```
 
 Einzeln: `node vorlagen/repertoire/build.js kunden/nora-solcher/schauspiel.json` (Ausgabe in

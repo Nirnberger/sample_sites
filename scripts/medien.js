@@ -23,7 +23,7 @@ const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
 const { s3AusUmgebung } = require('../lib/s3');
-const { medienHolen, medienHochladen } = require('../lib/medien');
+const { medienHolen, medienHochladen, kundenOrdner } = require('../lib/medien');
 
 const ROOT = path.join(__dirname, '..');
 const [befehl, ...pfade] = process.argv.slice(2);
@@ -32,8 +32,9 @@ const abbruch = (t) => { console.error('✖ ' + t); process.exit(1); };
 const s3 = s3AusUmgebung();
 if (!s3) abbruch('MEDIEN_ENDPUNKT ist nicht gesetzt (siehe Kopf dieser Datei).');
 const { sites } = JSON.parse(fs.readFileSync(path.join(ROOT, 'sites.json'), 'utf8'));
-const kundenPfade = sites.filter((s) => String(s.daten).startsWith('kunden/')).map((s) => s.pfad);
-for (const p of pfade) if (!kundenPfade.includes(p)) abbruch(`"${p}" ist keine Kundenseite in sites.json.`);
+// Kundenordner (kunden/<ordner>/) – mehrere Seiten können sich einen Ordner teilen
+const kundenPfade = [...new Set(sites.map(kundenOrdner).filter(Boolean))];
+for (const p of pfade) if (!kundenPfade.includes(p)) abbruch(`"${p}" ist kein Kundenordner (kunden/<ordner>/) einer Seite in sites.json.`);
 
 // Startet „Prüfen & Deployen“ auf main: baut mit den neuen Fotos, testet und deployt nur bei Erfolg.
 async function pipelineStarten() {

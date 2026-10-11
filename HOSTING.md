@@ -140,7 +140,7 @@ Gelöschte Fotos werden im Speicher nicht automatisch entfernt.
 
 Einzelbefehle:
 ```bash
-node scripts/medien.js sync nora-solcher        # nur diese Seite
+node scripts/medien.js sync nora-solcher        # nur dieser Kundenordner (kunden/nora-solcher/, gilt für v1 und v2)
 node scripts/medien.js hochladen nora-solcher   # nur hochladen, ohne Pipeline-Start
 node scripts/medien.js liste nora-solcher
 node scripts/medien.js holen                    # Speicher → lokale Ordner (alle Kundenseiten)

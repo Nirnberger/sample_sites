@@ -29,7 +29,7 @@ const { sites, hub } = JSON.parse(fs.readFileSync(path.join(ROOT, 'sites.json'),
 const { erzeugeHub } = require('./hub');
 const { pruefe } = require('./lib/schema');
 const { s3AusUmgebung } = require('./lib/s3');
-const { medienHolen } = require('./lib/medien');
+const { medienHolen, kundenOrdner } = require('./lib/medien');
 const nur = process.argv.slice(2);
 const auswahl = nur.length ? sites.filter((s) => nur.includes(s.pfad)) : sites;
 if (nur.length && auswahl.length !== nur.length) {
@@ -37,15 +37,21 @@ if (nur.length && auswahl.length !== nur.length) {
   process.exit(1);
 }
 
-// Pfade prüfen: nur Kleinbuchstaben, Ziffern und Bindestriche, keine Doppelungen
+// Pfade prüfen: Kleinbuchstaben, Ziffern und Bindestriche, optional Unterordner (z. B. nora-solcher/v2),
+// keine Doppelungen und keine Seite im Ordner einer anderen (der Build würde sie löschen)
 const gesehen = new Set();
 for (const s of sites) {
-  if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(s.pfad)) {
-    console.error(`✖ Ungültiger pfad "${s.pfad}" – erlaubt: kleinbuchstaben-und-bindestriche`);
+  if (!/^[a-z0-9]+(-[a-z0-9]+)*(\/[a-z0-9]+(-[a-z0-9]+)*)*$/.test(s.pfad)) {
+    console.error(`✖ Ungültiger pfad "${s.pfad}" – erlaubt: kleinbuchstaben-und-bindestriche, Unterordner mit /`);
     process.exit(1);
   }
   if (gesehen.has(s.pfad)) { console.error(`✖ pfad "${s.pfad}" doppelt in sites.json`); process.exit(1); }
   gesehen.add(s.pfad);
+}
+for (const a of gesehen) {
+  for (const b of gesehen) {
+    if (b.startsWith(`${a}/`)) { console.error(`✖ pfad "${b}" liegt im Ordner der Seite "${a}" – nicht erlaubt`); process.exit(1); }
+  }
 }
 
 if (!nur.length) fs.rmSync(PUBLIC, { recursive: true, force: true });
@@ -115,9 +121,9 @@ function vorbereiten() {
 // Kundenfotos und -medien liegen nicht in Git, sondern im Objektspeicher – vor dem Bauen abgleichen
 async function medienAbgleichen() {
   const s3 = s3AusUmgebung();
-  const kunden = auswahl.filter((s) => String(s.daten).startsWith('kunden/')).map((s) => s.pfad);
+  const kunden = [...new Set(auswahl.map(kundenOrdner).filter(Boolean))];
   if (!s3) {
-    if (kunden.length) console.log('ℹ MEDIEN_ENDPUNKT nicht gesetzt – Kundenfotos nur aus den lokalen Ordnern kunden/<pfad>/images/');
+    if (kunden.length) console.log('ℹ MEDIEN_ENDPUNKT nicht gesetzt – Kundenfotos nur aus den lokalen Ordnern kunden/<ordner>/images/');
     return;
   }
   console.log('▶ Medien aus dem Objektspeicher abgleichen');
