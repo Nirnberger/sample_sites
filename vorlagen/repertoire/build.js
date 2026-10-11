@@ -466,7 +466,7 @@ function layout({ datei, titel, beschreibung, inhalt, aktiv = '', zusatzHead = '
   ].filter(Boolean).map(([p, v]) => `<meta property="${p}" content="${esc(v)}">`).join('\n');
   const navLink = (href, text, id) => `<li><a href="${href}"${aktiv === id ? ' aria-current="page"' : ''}>${esc(text)}</a></li>`;
   return `<!doctype html>
-<html lang="de">
+<html lang="de" data-farben-start="${esc(farbschema.laborStart('repertoire', s.farbschema))}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">

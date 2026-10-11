@@ -44,8 +44,11 @@ Links, Hover), übrige hellste = Flächen (Zitat, Marken, Kontakt-Band).
 Text- und Akzentfarben werden automatisch nachgedunkelt bzw. aufgehellt, bis der Kontrast reicht
 (WCAG AA). Leer = Standardfarben. Code: `lib/farbschema.js` (läuft beim Bauen und im Browser).
 
+Im Farb-Labor (feste Rollen) gibt es fünf Rollen: Hintergrund, **Abschnitte** (abgesetzte Abschnitte, Standard Sand),
+Schrift, Akzent, Flächen – ohne `Abschnitte` wird sie aus Hintergrund und Flächen gemischt.
+
 **Farb-Labor:** Seite mit `#farben` am Ende der Adresse öffnen (z. B. `…/nora-solcher/v2/#farben`) –
-Palette einfügen, „Anwenden“, die ganze Seite zeigt sofort die Farben. Reine Vorschau in diesem
+Es startet mit den aktuellen Farben der Seite (Farbschema bzw. Standardfarben) – per Farbwähler ändern oder eine Palette einfügen und „Anwenden“; die ganze Seite zeigt sofort die Farben, „Zurücksetzen“ stellt die Farben der Seite wieder her. Reine Vorschau in diesem
 Browser-Tab: nichts wird gesendet oder gespeichert, Besucher ohne `#farben` laden das Skript gar nicht.
 „Vorschau-Link kopieren“ erzeugt `…#farben=8c0902-e0c58f-…` zum Weitergeben. Dauerhaft wird ein
 Schema nur über das CMS gesetzt (Anmeldung über GitHub, Pipeline prüft vor dem Deploy). Sicherheit:

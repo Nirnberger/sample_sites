@@ -29,7 +29,7 @@ content:
         fields:
           - name: farbschema
             label: Farbschema (von coolors.co)
-            description: "Auf coolors.co Palette → Export → Code kopieren und hier einfügen (jedes Format geht, auch der Link). Leer = Standardfarben. Hellste Farbe = Hintergrund, dunkelste = Schrift, kräftigste = Akzent. Im Farb-Labor von Hand verteilte Rollen ({\"Hintergrund\": …}) werden genau so übernommen. Vorher ausprobieren: Website-Adresse mit #farben am Ende öffnen."
+            description: "Auf coolors.co Palette → Export → Code kopieren und hier einfügen (jedes Format geht, auch der Link). Leer = Standardfarben. Hellste Farbe = Hintergrund, dunkelste = Schrift, kräftigste = Akzent. Im Farb-Labor von Hand verteilte Rollen ({\"Hintergrund\": …, \"Abschnitte\": …, \"Schrift\": …}) werden genau so übernommen – dort hat auch der Hintergrund der abgesetzten Abschnitte eine eigene Farbe. Vorher ausprobieren: Website-Adresse mit #farben am Ende öffnen."
             type: text
           - name: hero_text
             label: Einleitung im Startbereich
@@ -110,7 +110,7 @@ content:
         fields:
           - name: farbschema
             label: Farbschema (von coolors.co)
-            description: "Auf coolors.co Palette → Export → Code kopieren und hier einfügen (jedes Format geht, auch der Link). Leer = Standardfarben. Dunkelste Farbe = Bühne, hellste = Papier, kräftigste = Vorhang. Im Farb-Labor von Hand verteilte Rollen ({\"Hintergrund\": …}) werden genau so übernommen. Vorher ausprobieren: Website-Adresse mit #farben am Ende öffnen."
+            description: "Auf coolors.co Palette → Export → Code kopieren und hier einfügen (jedes Format geht, auch der Link). Leer = Standardfarben. Dunkelste Farbe = Bühne und Schrift, hellste = Papier, kräftigste = Vorhang. Im Farb-Labor von Hand verteilte Rollen ({\"Hintergrund\": …, \"Bühne\": …, \"Schrift\": …}) werden genau so übernommen – dort lassen sich Bühne und Schrift getrennt wählen. Vorher ausprobieren: Website-Adresse mit #farben am Ende öffnen."
             type: text
 
       - name: nora-aktuell

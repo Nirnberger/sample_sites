@@ -185,7 +185,7 @@
     laborGeladen = true;
     var skript = d.createElement('script');
     skript.src = 'js/farbschema.js';
-    skript.onload = function () { window.Farbschema.labor('buehne'); };
+    skript.onload = function () { window.Farbschema.labor('buehne', d.documentElement.getAttribute('data-farben-start')); };
     d.head.appendChild(skript);
   };
   window.addEventListener('hashchange', laborPruefen);

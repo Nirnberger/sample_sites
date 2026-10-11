@@ -35,13 +35,15 @@ Cookie-Banner, die Content-Security-Policy bleibt „nur eigene Domain“.
 Optionales Feld `farbschema`: eine Palette von [coolors.co](https://coolors.co) in einem beliebigen
 Export-Format einfügen – CSV, „With #“, Array, Object, Extended Array, XML oder einfach der Link
 (`https://coolors.co/8c0902-e0c58f-f5f0e9-210100`). Die Reihenfolge ist egal:
-dunkelste Farbe = Bühne, hellste = Programmheft-Papier, kräftigste = Vorhang (ersetzt `farben.akzent`),
+dunkelste Farbe = Bühne und Schrift, hellste = Programmheft-Papier, kräftigste = Vorhang (ersetzt `farben.akzent`),
 übrige = Kontaktbogen-Beschriftung und Manuskript-Marker.
+Im Farb-Labor (feste Rollen) sind **Bühne** (dunkle Szenen) und **Schrift** (Text auf Papier) getrennt wählbar:
+`{"Hintergrund":…,"Bühne":…,"Schrift":…,"Akzent":…,"Flächen":…}` – ohne `Bühne` gilt die Schriftfarbe auch für die Bühne.
 Text- und Akzentfarben werden automatisch nachgedunkelt bzw. aufgehellt, bis der Kontrast reicht
 (WCAG AA). Leer = Standardfarben. Code: `lib/farbschema.js` (läuft beim Bauen und im Browser).
 
 **Farb-Labor:** Seite mit `#farben` am Ende der Adresse öffnen (z. B. `…/nora-solcher/v2/#farben`) –
-Palette einfügen, „Anwenden“, die ganze Seite zeigt sofort die Farben. Reine Vorschau in diesem
+Es startet mit den aktuellen Farben der Seite (Farbschema bzw. Standardfarben) – per Farbwähler ändern oder eine Palette einfügen und „Anwenden“; die ganze Seite zeigt sofort die Farben, „Zurücksetzen“ stellt die Farben der Seite wieder her. Reine Vorschau in diesem
 Browser-Tab: nichts wird gesendet oder gespeichert, Besucher ohne `#farben` laden das Skript gar nicht.
 „Vorschau-Link kopieren“ erzeugt `…#farben=8c0902-e0c58f-…` zum Weitergeben. Dauerhaft wird ein
 Schema nur über das CMS gesetzt (Anmeldung über GitHub, Pipeline prüft vor dem Deploy). Sicherheit:

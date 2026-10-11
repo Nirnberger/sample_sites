@@ -525,7 +525,7 @@ function layout({ titel, beschreibung, inhalt, startseite = false, pfad = '', zu
     ogBild && ['og:image', ogBild],
   ].filter(Boolean).map(([p, v]) => `<meta property="${p}" content="${esc(v)}">`).join('\n');
   return `<!doctype html>
-<html lang="de">
+<html lang="de" data-farben-start="${esc(farbschema.laborStart('buehne', s.farbschema, s.farben.akzent))}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
