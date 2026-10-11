@@ -74,8 +74,10 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 - Sprache für Erklärungen und Kommentare: Deutsch.
 
 ## Fortschritt dokumentieren
-- Lies zu Beginn jeder Session PROGRESS.md im Projektordner.
-- Aktualisiere PROGRESS.md nach jedem abgeschlossenen Arbeitsschritt
+- Es gibt mehrere PROGRESS-Dateien: `kunden/<ordner>/PROGRESS.md` für die Arbeit an einer Kundenseite,
+  `PROGRESS.md` im Wurzelordner nur für Gemeinsames (Hosting, Pipeline, `lib/`, Vorlagen, Vertrieb).
+- Lies zu Beginn jeder Session die gemeinsame PROGRESS.md und die des Projekts, an dem du arbeitest.
+- Aktualisiere die passende PROGRESS.md nach jedem abgeschlossenen Arbeitsschritt
   (nicht erst am Ende).
 - Format:
   - **Erledigt:** kurze Stichpunkte mit Datum
@@ -83,6 +85,14 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
   - **Nächste Schritte:** konkrete To-dos
   - **Entscheidungen/Notizen:** z. B. gewählte Farben, Plugins, Kundenwünsche
 - Halte die Datei kurz; fasse alte Einträge unter "Erledigt" zusammen.
+
+## Parallele Sessions (Worktrees)
+- Für ein Projekt mit eigener Claude-Session gibt es einen git worktree unter `.worktrees/<name>` auf Branch `<name>`
+  (z. B. `.worktrees/nora` → Branch `nora`, Projekt `kunden/nora-solcher/`). Dort nur an diesem Projekt arbeiten.
+- Live gehen Änderungen erst über `main` (Pipeline deployt nur `main`): im Worktree auf den eigenen Branch pushen,
+  dann Pull Request oder Merge nach `main`; vorher `git fetch && git rebase origin/main`.
+- Lokale, nicht versionierte Dateien sind im Worktree als Links eingebunden (`.env`, `recherche/`, Kundenfotos).
+  Neuer Worktree: `scripts/worktree.sh <name> <kundenordner>`.
 
 ## Projekte
 

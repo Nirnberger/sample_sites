@@ -1,0 +1,4 @@
+# PROGRESS-Dateien werden von mehreren Claude-Sessions (Worktrees, Branches) fortgeschrieben.
+# union = beim Mergen beide Seiten übernehmen statt Konflikt zu melden (danach ggf. aufräumen).
+PROGRESS.md merge=union
+**/PROGRESS.md merge=union

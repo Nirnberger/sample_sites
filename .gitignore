@@ -44,3 +44,6 @@ kunden/*/medien/
 
 # Von build-all.js erzeugte nginx-Serverblöcke für eigene Domains
 nginx-domains.conf
+
+# Weitere Arbeitsordner (git worktree) für parallele Claude-Sessions, z. B. .worktrees/nora
+.worktrees/

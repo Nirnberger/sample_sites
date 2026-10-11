@@ -1,0 +1,25 @@
+# PROGRESS – Nora Solcher (Website v1/v2)
+
+## Erledigt
+- **2026-10-10:** Auftrag Nora Solcher (Schauspielerin/Sprecherin): Recherche in `recherche/nora-solcher/` (nur lokal); nüchterne Vorlage `vorlagen/schauspiel/`. Nach Container-Neustart verlorene Arbeit vollständig wiederhergestellt (Workspace jetzt korrekt mit dem Mac-Ordner verbunden)
+- **2026-10-11:** Künstlerische Vorlage `vorlagen/buehne/` („Website als Theaterabend“) – `/nora-solcher/` nutzt sie
+- **2026-10-11:** Nora-Neufassung `vorlagen/repertoire` (mehrseitig, Menü Theater · Film · Audio · Schreiben · Unterrichten, ausführliche Kontaktseite, Creme/Braun/Mint, Projekte nach Filmmakers, Film als Projektkarten, Unterricht mit Angeboten/Referenzen). Beide Fassungen live: `/nora-solcher/v1/` (buehne, eingefroren in `v1.json`) und `/nora-solcher/v2/` (CMS); `/nora-solcher/` → 302 auf v2. `pfad` darf Unterordner haben, Medien-Sync nach Kundenordner, Smoke-Test prüft Unterseiten. Branch `nora-buehne-archiv` auf GitHub
+- **2026-10-11:** Nora v1 überarbeitet: Akte wie v2 (Theater · Film · Audio · Schreiben · Unterrichten), Fehlendes aus v2 übernommen, neuer Akt-Stil `unterricht` (buehne); Kamera-Akt ohne Animationen. Farb-Labor: Farbwähler für Palette/Rollen, Rollen tauschen/mischen, „Automatisch“, Kontrastanzeige; feste Rollen `{"Hintergrund":…,"Schrift":…,"Akzent":…,"Flächen":…}` gelten auch im Build/CMS, Link `#farben=r:…`. Gepusht (`7650210`)
+- **2026-10-11:** Nora v1 (buehne): neue Szene „Zuletzt“ direkt unter dem Hero (Hertopia groß mit Foto, „Innere Sicherheit“ und NARNIA klein; aus dem Prolog entfernt), Programm-Menü nur Theater · Film · Audio · Schreiben · Unterrichten · Kontakt, Filmklappen durch schlichte Karten ersetzt, voller Frankfurter-Spatzen-Text als Zitat im Akt Unterrichten. Danach: Rotstift-Kreise im Kontaktbogen entfernt (`markiert` raus), Akt Unterrichten neu gegliedert (Angebote 01–03 knapp + Erfolgshinweis, darunter „Wo Nora unterrichtet“ | „Stimme aus der Praxis“), Texte gekürzt; Überschriften „Kontaktbogen“ → „Galerie“, „Besetzung anfragen“ → „Kontakt aufnehmen“. Menü als immer sichtbare Reiterleiste oben (statt Programm-Knopf + Overlay), aktiver Abschnitt markiert. Hero: zwei Scheinwerfer (groß/klein), nach 2,5 s ohne Mausbewegung schwingen sie suchend hin und her. Standardfarben v1 per `farbschema` mit festen Rollen: Hintergrund `#f2e8cf`, Schrift `#223e28`, Akzent `#a7c957`, Flächen `#bc4749`. Danach: Szene „Einlass“ (Sehen & Hören) und Vorhang am Seitenende entfernt, Instagram als Knopf im Kontakt und in der Fußzeile, Akt Schreiben mit Foto links (`akt.bild`, Poetry-Slam-Foto aus der Mediathek Hessen, Credit vorläufig „Mediathek Hessen“), suchende Scheinwerfer klein und hell. Gepusht, Foto in S3. Live geprüft, Pipeline grün
+- **2026-10-11:** Texte v1/v2 ohne Gedankenstriche als Satzzeichen (weniger KI-typisch): Fließtexte in `v1.json`/`schauspiel.json` umformuliert, feste Vorlagentexte angepasst (repertoire: Kontakt-Hinweis, Auszeichnungen; buehne: Manuskript, Berufe-Zeile). Striche bleiben nur in Werktiteln, Jahresspannen, Größen, Agenturname, Paragrafen, Browser-Titeln. Gepusht
+
+## Offen
+- v1 (buehne) mit eigener Palette: großer Name nutzt Mischmodus „Differenz“ → bei rötlicher Bühne mintgrün statt beige (ggf. einfarbig setzen)
+- CMS-Formulare für Nora stark umgebaut (Bereiche, Farbschema, v1) – noch nie in Pages CMS selbst getestet
+- Fragen an Nora zur Neufassung: eigene E-Mail für Unterricht/Kooperationen (`kontakt.email_direkt`, bis dahin geht alles ans Management), Ort des Präsenzunterrichts, Rollengröße Tatort, Texte der Unterrichtsangebote freigeben, Film-Standbilder vorhanden?
+- Noras Entwurf (Demo-Modus, noindex) wartet auf ihre Freigabe: Fotorechte/Credits, Texte, Impressum-Anschrift, ggf. Größe 163/165 cm, bessere „Hertopia“-Fotos (nur 960 px)
+- Pages-CMS-Oberfläche erst nach Login prüfbar
+
+## Nächste Schritte
+1. Nora beide Fassungen zeigen (`/nora-solcher/v1/` und `/v2/`, Farb-Labor mit `#farben`) und Fragen klären: eigene E-Mail für Unterricht, Ort Präsenzunterricht, Texte der Angebote, Impressum-Anschrift, Fotorechte
+2. Pages CMS GitHub-App installieren und auf Branch `cms-test` testen (Bereiche-Listen, Farbschema-Feld, v1-Eintrag; danach `git diff` auf Datenverlust prüfen), dann Nora einladen
+
+## Entscheidungen/Notizen
+- **CMS:** Pages CMS, weil Nora kein JSON bearbeiten kann; Fotos nicht übers CMS. Listen werden beim Speichern ersetzt → neue Listenfelder immer auch in `.pages.yml` (ggf. `hidden: true`)
+- **Nora-Design (ab 2026-10-11, Vorlage repertoire):** Creme `#F6F1E9`, Sand `#ECE3D5`, Mint `#D5E8DD`/`#A9CBB8`, Salbei `#3D6651` (Text-Akzent), Braun `#3A2C24`/`#6B5242`; Fraunces + Manrope; Texte in 3. Person; Tanz läuft unter „Theater“ (Gruppe „Tanz & Choreografie“). Frühere Bühnen-Fassung (schwarz/rot, Instrument Serif) bleibt als v1 online, wird nicht mehr gepflegt
+- **Nora v1/v2:** v1 eingefroren (nur Farbschema änderbar; Gliederung am 2026-10-11 an v2 angeglichen), gepflegt wird v2; bisherige Links `/nora-solcher/` landen auf v2
