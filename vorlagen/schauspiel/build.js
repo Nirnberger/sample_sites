@@ -13,15 +13,14 @@
 
 const fs = require('fs');
 const path = require('path');
-const { spawnSync } = require('child_process');
-const h = require('./src/lib/helfer');
+const h = require('../../lib/helfer');
+const { bildVerarbeitung, bildTag, vorladen } = require('../../lib/bilder');
 
 const ROOT = __dirname;
 const DATEI = path.resolve(process.argv[2] || path.join(ROOT, 'schauspiel.json'));
 const BILDER = path.resolve(process.env.BILDER_DIR || path.join(path.dirname(DATEI), 'images'));
 const DIST = path.resolve(process.env.DIST_DIR || path.join(ROOT, 'dist'));
 const CACHE = path.resolve(process.env.CACHE_DIR || path.join(ROOT, '.bildcache'));
-const BREITEN = [480, 800, 1200, 1600, 2000];
 
 const warnungen = [];
 const warn = (text) => warnungen.push(text);
@@ -89,10 +88,7 @@ fs.copyFileSync(path.join(ROOT, 'src/js/main.js'), path.join(DIST, 'js/main.js')
 // 4. Bilder: responsive WebP-Varianten (mit Cache)
 // ---------------------------------------------------------------------------
 
-const hatCwebp = spawnSync('cwebp', ['-version']).status === 0;
-if (!hatCwebp) warn('cwebp nicht gefunden – Bilder werden ohne Größenvarianten kopiert.');
-
-const bildCache = new Map();
+const { verarbeite: verarbeiteBild } = bildVerarbeitung({ bilderDir: BILDER, distDir: DIST, cacheDir: CACHE, warn, qualitaet: 78, minBreite: 1000 });
 
 function normBild(ref) {
   if (!ref) return { datei: '', alt: '' };
@@ -103,71 +99,20 @@ function normBild(ref) {
 // Alle tatsächlich gezeigten Bilder mit Fotograf:in – für Fußzeile und Bildnachweise im Impressum
 const benutzt = new Map();
 
-function verarbeiteBild(datei) {
-  if (!datei) return null;
-  if (bildCache.has(datei)) return bildCache.get(datei);
-  const quelle = path.join(BILDER, datei);
-  let info = null;
-  const groesse = fs.existsSync(quelle) ? h.bildGroesse(quelle) : null;
-  if (!fs.existsSync(quelle)) {
-    warn(`Bild fehlt: images/${datei}`);
-  } else if (!groesse) {
-    warn(`Bildformat von images/${datei} nicht erkannt (erlaubt: JPG, PNG, WebP).`);
-  } else {
-    const ext = path.extname(datei).toLowerCase();
-    const basis = h.slug(path.basename(datei, ext));
-    if (!hatCwebp) {
-      fs.copyFileSync(quelle, path.join(DIST, 'img', basis + ext));
-      const src = `img/${basis}${ext}`;
-      info = { breite: groesse.breite, hoehe: groesse.hoehe, src, srcset: '', groesste: src };
-    } else {
-      const maxBreite = Math.min(groesse.breite, BREITEN[BREITEN.length - 1]);
-      const breiten = [...new Set([...BREITEN.filter((b) => b < maxBreite), maxBreite])];
-      const varianten = breiten.map((b) => {
-        const name = `${basis}-${b}.webp`;
-        const ziel = path.join(CACHE, name);
-        if (!fs.existsSync(ziel) || fs.statSync(ziel).mtimeMs < fs.statSync(quelle).mtimeMs) {
-          const args = ['-quiet', '-q', '78', '-metadata', 'none'];
-          if (b < groesse.breite) args.push('-resize', String(b), '0');
-          const r = spawnSync('cwebp', [...args, quelle, '-o', ziel]);
-          if (r.status !== 0) throw new Error(`cwebp-Fehler bei ${datei}: ${r.stderr}`);
-        }
-        fs.copyFileSync(ziel, path.join(DIST, 'img', name));
-        return { b, url: `img/${name}` };
-      });
-      const mittel = varianten.find((v) => v.b >= 1200) || varianten[varianten.length - 1];
-      info = {
-        breite: maxBreite,
-        hoehe: Math.round((groesse.hoehe * maxBreite) / groesse.breite),
-        src: mittel.url,
-        srcset: varianten.map((v) => `${v.url} ${v.b}w`).join(', '),
-        groesste: varianten[varianten.length - 1].url,
-      };
-    }
-    if (groesse.breite < 1000) warn(`images/${datei} ist nur ${groesse.breite} px breit – für große Darstellung ggf. bessere Datei anfragen.`);
-  }
-  bildCache.set(datei, info);
-  return info;
-}
-
 function bild(ref, { sizes = '100vw', eager = false, klasse = '' } = {}) {
   const r = normBild(ref);
   const info = verarbeiteBild(r.datei);
   if (!info) return `<div class="platzhalter" aria-hidden="true"></div>`;
   if (!r.credit) warn(`Kein Fotonachweis ("credit") für images/${r.datei}.`);
   benutzt.set(r.datei, r);
-  const attr = [
+  return bildTag(info, sizes, [
     klasse && `class="${klasse}"`,
-    `src="${info.src}"`,
-    info.srcset && `srcset="${info.srcset}"`,
-    info.srcset && `sizes="${sizes}"`,
     `width="${info.breite}" height="${info.hoehe}"`,
     `alt="${esc(r.alt)}"`,
     eager ? 'fetchpriority="high"' : 'loading="lazy"',
     'decoding="async"',
     r.fokus && `style="object-position:${esc(r.fokus)}"`,
-  ].filter(Boolean);
-  return `<img ${attr.join(' ')}>`;
+  ]);
 }
 
 // ---------------------------------------------------------------------------
@@ -462,9 +407,7 @@ const jsonLd = {
   award: s.auszeichnungen.map((p) => `${p.titel}${p.text ? ` ${p.text}` : ''} (${p.jahr})`),
   sameAs: s.profile.map((p) => p.url),
 };
-const heroPreload = heroInfo
-  ? `<link rel="preload" as="image" href="${heroInfo.src}"${heroInfo.srcset ? ` imagesrcset="${heroInfo.srcset}" imagesizes="100vw"` : ''} fetchpriority="high">`
-  : '';
+const heroPreload = vorladen(heroInfo, '100vw');
 
 fs.writeFileSync(path.join(DIST, 'index.html'), layout({
   titel: `${s.name} – ${berufText}${s.slogan ? ` | ${s.slogan}` : ''}`,

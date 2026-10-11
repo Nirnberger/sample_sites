@@ -1,0 +1,140 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Inhalte einer Portfolio-Website (Vorlagen buehne, schauspiel)",
+  "type": "object",
+  "required": ["name"],
+  "$defs": {
+    "vita_eintrag": {
+      "type": "object",
+      "required": ["titel"],
+      "properties": {
+        "jahr": { "type": "string" }, "titel": { "type": "string", "minLength": 1 }, "rolle": { "type": "string" },
+        "regie": { "type": "string" }, "ort": { "type": "string" }, "auszeichnung": { "type": "string" }
+      }
+    }
+  },
+  "properties": {
+    "demo_modus": { "type": "boolean" },
+    "ersteller": { "type": "string" },
+    "website_url": { "$ref": "gemeinsam.schema.json#/$defs/link" },
+    "name": { "type": "string", "minLength": 1 },
+    "berufe": { "type": "array", "items": { "type": "string" } },
+    "slogan": { "type": "string" },
+    "kurzbeschreibung": { "type": "string" },
+    "farben": { "type": "object", "properties": { "akzent": { "$ref": "gemeinsam.schema.json#/$defs/farbe" } } },
+    "hero_bild": { "$ref": "gemeinsam.schema.json#/$defs/bild" },
+    "hero_zeile": { "type": "string" },
+    "hero_rollen": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["rolle"],
+        "properties": {
+          "verb": { "type": "string" }, "rolle": { "type": "string" }, "werk": { "type": "string" },
+          "bild": { "$ref": "gemeinsam.schema.json#/$defs/bild" }
+        }
+      }
+    },
+    "prolog": { "type": "string" },
+    "zitat": { "type": "object", "properties": { "text": { "type": "string" }, "quelle": { "type": "string" } } },
+    "ueber_mich_bild": { "$ref": "gemeinsam.schema.json#/$defs/bild" },
+    "ueber_mich": { "type": ["string", "array"] },
+    "ueber_mich_fakten": {
+      "type": "array",
+      "items": { "type": "object", "properties": { "wert": { "type": "string" }, "text": { "type": "string" } } }
+    },
+    "aktuell": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["titel"],
+        "properties": {
+          "label": { "type": "string" }, "titel": { "type": "string" }, "text": { "type": "string" },
+          "bild": { "$ref": "gemeinsam.schema.json#/$defs/bild" }
+        }
+      }
+    },
+    "vita": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["kategorie", "eintraege"],
+        "properties": {
+          "kategorie": { "type": "string" },
+          "akt": {
+            "type": "object",
+            "properties": {
+              "nr": { "type": "string" }, "titel": { "type": "string" },
+              "stil": { "enum": ["buehne", "kamera", "stimme", "feder"] },
+              "intro": { "type": "string" }, "gehoert_zu": { "type": "string" }
+            }
+          },
+          "eintraege": { "type": "array", "items": { "$ref": "#/$defs/vita_eintrag" } }
+        }
+      }
+    },
+    "auszeichnungen": {
+      "type": "array",
+      "items": { "type": "object", "required": ["titel"], "properties": { "jahr": { "type": "string" }, "titel": { "type": "string" }, "text": { "type": "string" } } }
+    },
+    "steckbrief": {
+      "type": "array",
+      "items": { "type": "object", "required": ["label", "wert"], "properties": { "label": { "type": "string" }, "wert": { "type": "string" } } }
+    },
+    "register": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["gruppe", "werte"],
+        "properties": { "gruppe": { "type": "string" }, "werte": { "type": "array", "items": { "type": "string" } } }
+      }
+    },
+    "medien": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["titel", "url"],
+        "properties": {
+          "titel": { "type": "string" }, "text": { "type": "string" },
+          "url": { "type": "string", "pattern": "^https://", "description": "Link muss mit https:// beginnen" },
+          "art": { "enum": ["video", "audio"] }
+        }
+      }
+    },
+    "galerie": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["datei"],
+        "properties": {
+          "datei": { "$ref": "gemeinsam.schema.json#/$defs/bilddatei" }, "alt": { "type": "string" },
+          "credit": { "type": "string" }, "markiert": { "type": "boolean" }
+        }
+      }
+    },
+    "kontakt": {
+      "type": "object",
+      "properties": {
+        "text": { "type": "string" },
+        "email_direkt": { "type": "string" },
+        "agentur": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" }, "person": { "type": "string" }, "telefon": { "type": "string" },
+            "email": { "type": "string" }, "website": { "$ref": "gemeinsam.schema.json#/$defs/link" }
+          }
+        }
+      }
+    },
+    "profile": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "url"],
+        "properties": { "name": { "type": "string" }, "url": { "type": "string", "pattern": "^https://", "description": "Link muss mit https:// beginnen" } }
+      }
+    },
+    "impressum": { "type": "string" },
+    "datenschutz": { "type": "string" }
+  }
+}

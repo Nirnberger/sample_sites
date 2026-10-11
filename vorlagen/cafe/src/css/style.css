@@ -68,6 +68,8 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* <picture> (AVIF + WebP) verhält sich im Layout wie das <img> selbst */
+picture { display: contents; }
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; }
 p { margin: 0 0 1em; }
@@ -329,7 +331,7 @@ a.hero-badge:hover span { text-decoration: underline; }
 .stern { width: 1em; height: 1em; color: #E0A43A; flex: none; }
 
 .hero-bild { position: relative; aspect-ratio: 4 / 5; }
-.hero-bild > img, .hero-bild > .platzhalter {
+.hero-bild img, .hero-bild > .platzhalter {
   width: 100%; height: 100%;
   object-fit: cover;
   border-radius: 200px 200px var(--radius) var(--radius);

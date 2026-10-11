@@ -1,0 +1,134 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Inhalte einer Betriebs-Website (Vorlagen salon, barber, cafe, angel-jagd)",
+  "type": "object",
+  "required": ["name"],
+  "properties": {
+    "demo_modus": { "type": "boolean", "description": "true = Entwurf (Demo-Streifen, nicht indexierbar)" },
+    "ersteller": { "type": "string" },
+    "website_url": { "$ref": "gemeinsam.schema.json#/$defs/link" },
+    "name": { "type": "string", "minLength": 1 },
+    "branche": { "type": "string" },
+    "schema_typ": { "type": "string" },
+    "kueche": { "type": "string" },
+    "slogan": { "type": "string" },
+    "kurzbeschreibung": { "type": "string" },
+    "logo": { "$ref": "gemeinsam.schema.json#/$defs/bild" },
+    "farben": {
+      "type": "object",
+      "properties": {
+        "akzent": { "$ref": "gemeinsam.schema.json#/$defs/farbe" },
+        "akzent_dunkel": { "$ref": "gemeinsam.schema.json#/$defs/farbe" }
+      }
+    },
+    "kontakt": { "$ref": "gemeinsam.schema.json#/$defs/kontakt_basis" },
+    "buchung_url": { "$ref": "gemeinsam.schema.json#/$defs/link" },
+    "buchung_text": { "type": "string" },
+    "bestell_url": { "$ref": "gemeinsam.schema.json#/$defs/link" },
+    "bestell_text": { "type": "string" },
+    "oeffnungszeiten": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["tag"],
+        "properties": { "tag": { "type": "string" }, "zeiten": { "type": "string" } }
+      }
+    },
+    "highlights": {
+      "type": "array",
+      "items": { "type": "object", "properties": { "icon": { "type": "string" }, "titel": { "type": "string" }, "text": { "type": "string" } } }
+    },
+    "bereiche": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "titel": { "type": "string" }, "text": { "type": "string" }, "bild": { "$ref": "gemeinsam.schema.json#/$defs/bild" },
+          "filter": { "type": "string" }, "link_text": { "type": "string" }
+        }
+      }
+    },
+    "shop": {
+      "type": "object",
+      "properties": { "kategorien": { "type": "array", "items": { "type": "string" } } }
+    },
+    "produkte": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string" }, "kategorie": { "type": "string" }, "beschreibung": { "type": "string" },
+          "preis": { "type": ["number", "string"] }, "preis_alt": { "type": ["number", "string"] },
+          "lager": { "type": "string" }, "neu": { "type": "boolean" },
+          "bild": { "$ref": "gemeinsam.schema.json#/$defs/bild" }, "bild_alt": { "type": "string" }
+        }
+      }
+    },
+    "leistungen_nav": { "type": "string" },
+    "leistungen_titel": { "type": "string" },
+    "leistungen": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "kategorie": { "type": "string" },
+          "eintraege": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" }, "beschreibung": { "type": "string" },
+                "preis": { "type": ["string", "number"] }, "dauer": { "type": "string" },
+                "merkmale": { "type": "array", "items": { "type": "string" } }
+              }
+            }
+          }
+        }
+      }
+    },
+    "preis_hinweis": { "type": "string" },
+    "preisspanne": { "type": "string" },
+    "hero_bild": { "$ref": "gemeinsam.schema.json#/$defs/bild" },
+    "ueber_uns_titel": { "type": "string" },
+    "ueber_uns_text": { "type": ["string", "array"] },
+    "ueber_uns_punkte": { "type": "array", "items": { "type": "string" } },
+    "ueber_uns_bild": { "$ref": "gemeinsam.schema.json#/$defs/bild" },
+    "team_titel": { "type": "string" },
+    "team": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": { "name": { "type": "string" }, "rolle": { "type": "string" }, "foto": { "$ref": "gemeinsam.schema.json#/$defs/bild" }, "text": { "type": "string" } }
+      }
+    },
+    "google_bewertung": { "type": ["number", "null", "string"] },
+    "google_anzahl": { "type": ["integer", "null", "string"] },
+    "google_link": { "$ref": "gemeinsam.schema.json#/$defs/link" },
+    "bewertungen": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": { "autor": { "type": "string" }, "sterne": { "type": "number", "minimum": 1, "maximum": 5 }, "text": { "type": "string" } }
+      }
+    },
+    "galerie_titel": { "type": "string" },
+    "galerie": { "type": "array", "items": { "$ref": "gemeinsam.schema.json#/$defs/bild" } },
+    "anfahrt_hinweis": { "type": "string" },
+    "social": {
+      "type": "object",
+      "properties": { "instagram": { "$ref": "gemeinsam.schema.json#/$defs/link" }, "facebook": { "$ref": "gemeinsam.schema.json#/$defs/link" } }
+    },
+    "bildnachweise": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["datei"],
+        "properties": { "datei": { "type": "string" }, "fotograf": { "type": "string" }, "unsplash_link": { "$ref": "gemeinsam.schema.json#/$defs/link" } }
+      }
+    },
+    "impressum": { "type": "string" },
+    "datenschutz": { "type": "string" }
+  }
+}

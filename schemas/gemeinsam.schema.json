@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Gemeinsame Bausteine aller Inhaltsdateien",
+  "$defs": {
+    "text": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string",
+      "pattern": "^(https?://|mailto:|tel:)",
+      "description": "Link muss mit https://, http://, mailto: oder tel: beginnen (oder leer sein)"
+    },
+    "farbe": {
+      "type": "string",
+      "pattern": "^#[0-9A-Fa-f]{6}$",
+      "description": "Farbe als Hex-Wert, z. B. #A84B2A"
+    },
+    "bilddatei": {
+      "type": "string",
+      "pattern": "^[^/\\\\]+(/[^/\\\\]+)*\\.(jpe?g|png|webp|svg)$",
+      "description": "Dateiname eines Bildes in images/ (JPG, PNG, WebP oder SVG)"
+    },
+    "bild": {
+      "description": "Bild: Dateiname als Text oder Objekt mit datei, alt (Beschreibung), fokus, credit",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/bilddatei"
+        },
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "required": [
+            "datei"
+          ],
+          "properties": {
+            "datei": {
+              "$ref": "#/$defs/bilddatei"
+            },
+            "alt": {
+              "type": "string"
+            },
+            "fokus": {
+              "type": "string"
+            },
+            "credit": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "kontakt_basis": {
+      "type": "object",
+      "properties": {
+        "telefon": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+          "description": "E-Mail-Adresse, z. B. info@beispiel.de"
+        },
+        "whatsapp": {
+          "type": "string"
+        },
+        "adresse": {
+          "type": "object",
+          "properties": {
+            "strasse": {
+              "type": "string"
+            },
+            "plz": {
+              "type": "string"
+            },
+            "ort": {
+              "type": "string"
+            },
+            "land": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

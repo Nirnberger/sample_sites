@@ -16,7 +16,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { slug } = require('../vorlagen/salon/src/lib/helfer');
+const { slug } = require('../lib/helfer');
 
 const ROOT = path.join(__dirname, '..');
 const VORLAGEN = {

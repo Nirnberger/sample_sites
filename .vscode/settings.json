@@ -1,0 +1,13 @@
+{
+  "json.schemas": [
+    {
+      "fileMatch": ["vorlagen/*/salon.json", "vorlagen/*/barber.json", "vorlagen/*/cafe.json", "vorlagen/*/shop.json",
+                    "kunden/*/salon.json", "kunden/*/barber.json", "kunden/*/cafe.json", "kunden/*/shop.json"],
+      "url": "./schemas/betrieb.schema.json"
+    },
+    {
+      "fileMatch": ["kunden/*/schauspiel.json"],
+      "url": "./schemas/portfolio.schema.json"
+    }
+  ]
+}

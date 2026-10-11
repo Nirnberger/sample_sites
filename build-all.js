@@ -10,13 +10,14 @@
  *       setzt website_url je Seite auf BASIS_URL/<pfad>, falls in der JSON leer
  *       (für Canonical-Link und Open-Graph-Bilder).
  *
- * Keine npm-Abhängigkeiten. Nutzt die build.js der jeweiligen Vorlage.
+ * Keine npm-Abhängigkeiten. Nutzt die build.js der jeweiligen Vorlage; die Seiten werden parallel
+ * gebaut (so viele gleichzeitig wie CPU-Kerne), die Ausgabe erscheint je Seite am Stück.
  */
 
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
-const { spawnSync } = require('child_process');
+const { spawn } = require('child_process');
 
 const ROOT = __dirname;
 const PUBLIC = path.join(ROOT, 'public');
@@ -24,6 +25,7 @@ const BASIS_URL = (process.env.BASIS_URL || '').replace(/\/+$/, '');
 
 const { sites, hub } = JSON.parse(fs.readFileSync(path.join(ROOT, 'sites.json'), 'utf8'));
 const { erzeugeHub } = require('./hub');
+const { pruefe } = require('./lib/schema');
 const nur = process.argv.slice(2);
 const auswahl = nur.length ? sites.filter((s) => nur.includes(s.pfad)) : sites;
 if (nur.length && auswahl.length !== nur.length) {
@@ -56,7 +58,6 @@ function bilderZusammenstellen(s, tmpOrdner) {
   const vorlagenOrdner = path.join(ROOT, s.vorlage, 'images');
   if (path.resolve(eigenerOrdner) === path.resolve(vorlagenOrdner)) return { ordner: vorlagenOrdner, eigene: new Set() };
   fs.mkdirSync(tmpOrdner, { recursive: true });
-  // Zeitstempel der Vorlagenbilder behalten, damit der Bild-Cache greift
   if (fs.existsSync(vorlagenOrdner)) fs.cpSync(vorlagenOrdner, tmpOrdner, { recursive: true, preserveTimestamps: true });
   const eigene = new Set();
   (function kopiere(von, rel) {
@@ -69,7 +70,6 @@ function bilderZusammenstellen(s, tmpOrdner) {
         continue;
       }
       fs.mkdirSync(path.join(tmpOrdner, rel), { recursive: true });
-      // Ohne Zeitstempel kopieren: neues Datum → Cache erzeugt die WebP-Varianten neu
       fs.copyFileSync(path.join(von, e.name), path.join(tmpOrdner, r));
       eigene.add(r);
     }
@@ -77,9 +77,19 @@ function bilderZusammenstellen(s, tmpOrdner) {
   return { ordner: tmpOrdner, eigene };
 }
 
+const auftraege = [];
 for (const s of auswahl) {
   const vorlage = path.join(ROOT, s.vorlage);
   const daten = JSON.parse(fs.readFileSync(path.join(ROOT, s.daten), 'utf8'));
+
+  // Inhalte gegen das Schema der Vorlage prüfen – fehlerhafte Seiten werden nicht gebaut
+  const schema = path.join(vorlage, 'schema.json');
+  const schemaFehler = fs.existsSync(schema) ? pruefe(daten, schema) : [];
+  if (schemaFehler.length) {
+    console.error(`\n✖ ${s.pfad}: ${s.daten} hat ${schemaFehler.length} Fehler:\n${schemaFehler.map((f) => '    - ' + f).join('\n')}`);
+    fehler++;
+    continue;
+  }
   if (BASIS_URL && !daten.website_url) daten.website_url = `${BASIS_URL}/${s.pfad}`;
 
   // Bilder: Vorlagenbilder als Grundlage, eigene Fotos (gleicher Dateiname) ersetzen sie.
@@ -93,32 +103,56 @@ for (const s of auswahl) {
 
   const ziel = path.join(PUBLIC, s.pfad);
   fs.rmSync(ziel, { recursive: true, force: true });
-  console.log(`\n▶ ${s.pfad}  (${s.vorlage})`);
-  const r = spawnSync(process.execPath, [path.join(vorlage, 'build.js'), datei], {
-    stdio: 'inherit',
-    env: {
-      ...process.env,
-      BILDER_DIR: bilder.ordner,
-      DIST_DIR: ziel,
-      CACHE_DIR: path.join(ROOT, '.bildcache', s.pfad), // eigener Cache je Seite, sonst kollidieren gleichnamige Bilder
-    },
+  auftraege.push({ s, datei, ziel, bilder, vorlage });
+}
+
+// Eine Seite in einem eigenen Prozess bauen; Ausgabe sammeln, damit sie nicht durcheinanderläuft
+function baue({ s, datei, ziel, bilder, vorlage }) {
+  return new Promise((fertig) => {
+    const kind = spawn(process.execPath, [path.join(vorlage, 'build.js'), datei], {
+      env: {
+        ...process.env,
+        BILDER_DIR: bilder.ordner,
+        DIST_DIR: ziel,
+        // gemeinsamer Cache: Varianten sind nach Prüfsumme benannt, gleiche Fotos werden nur einmal umgewandelt
+        CACHE_DIR: path.join(ROOT, '.bildcache'),
+      },
+    });
+    let ausgabe = '';
+    kind.stdout.on('data', (d) => { ausgabe += d; });
+    kind.stderr.on('data', (d) => { ausgabe += d; });
+    kind.on('close', (code) => {
+      console.log(`\n▶ ${s.pfad}  (${s.vorlage})\n${ausgabe.trimEnd()}`);
+      if (code !== 0) { fehler++; console.error(`✖ ${s.pfad} fehlgeschlagen`); }
+      fertig();
+    });
   });
-  if (r.status !== 0) { fehler++; console.error(`✖ ${s.pfad} fehlgeschlagen`); }
 }
-fs.rmSync(tmp, { recursive: true, force: true });
 
-// robots.txt gilt nur im Wurzelverzeichnis: Demo-Seiten sperren, Live-Seiten erlauben
-const robots = ['User-agent: *'];
-for (const s of sites) {
-  const d = JSON.parse(fs.readFileSync(path.join(ROOT, s.daten), 'utf8'));
-  robots.push(`${d.demo_modus === true ? 'Disallow' : 'Allow'}: /${s.pfad}/`);
-  fs.rmSync(path.join(PUBLIC, s.pfad, 'robots.txt'), { force: true });
+async function alleBauen() {
+  const warteschlange = [...auftraege];
+  const gleichzeitig = Math.max(1, Math.min(os.cpus().length, warteschlange.length));
+  await Promise.all(Array.from({ length: gleichzeitig }, async () => {
+    while (warteschlange.length) await baue(warteschlange.shift());
+  }));
 }
-robots.push(`${hub && hub.noindex === false ? 'Allow' : 'Disallow'}: /$`);
-fs.writeFileSync(path.join(PUBLIC, 'robots.txt'), robots.join('\n') + '\n');
 
-// Startseite (/) mit allen Seiten, die einen "hub"-Eintrag haben
-const imHub = erzeugeHub({ ROOT, PUBLIC, hub, sites });
+alleBauen().then(() => {
+  fs.rmSync(tmp, { recursive: true, force: true });
 
-console.log(`\n${fehler ? '✖' : '✔'} ${auswahl.length - fehler}/${auswahl.length} Seiten gebaut → public/  (Startseite mit ${imHub} Beispielen)`);
-process.exit(fehler ? 1 : 0);
+  // robots.txt gilt nur im Wurzelverzeichnis: Demo-Seiten sperren, Live-Seiten erlauben
+  const robots = ['User-agent: *'];
+  for (const s of sites) {
+    const d = JSON.parse(fs.readFileSync(path.join(ROOT, s.daten), 'utf8'));
+    robots.push(`${d.demo_modus === true ? 'Disallow' : 'Allow'}: /${s.pfad}/`);
+    fs.rmSync(path.join(PUBLIC, s.pfad, 'robots.txt'), { force: true });
+  }
+  robots.push(`${hub && hub.noindex === false ? 'Allow' : 'Disallow'}: /$`);
+  fs.writeFileSync(path.join(PUBLIC, 'robots.txt'), robots.join('\n') + '\n');
+
+  // Startseite (/) mit allen Seiten, die einen "hub"-Eintrag haben
+  const imHub = erzeugeHub({ ROOT, PUBLIC, hub, sites });
+
+  console.log(`\n${fehler ? '✖' : '✔'} ${auswahl.length - fehler}/${auswahl.length} Seiten gebaut → public/  (Startseite mit ${imHub} Beispielen)`);
+  process.exit(fehler ? 1 : 0);
+});

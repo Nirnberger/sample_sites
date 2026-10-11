@@ -1,7 +1,7 @@
 'use strict';
 // Seitengerüst: <head>, Demo-Streifen, Kopfzeile, Fußzeile.
 
-const { esc } = require('../lib/helfer');
+const { esc } = require('../../../../lib/helfer');
 const { icon } = require('./icons');
 
 function kopfzeile(c, startseite) {

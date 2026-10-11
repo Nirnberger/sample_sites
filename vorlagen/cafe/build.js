@@ -13,9 +13,9 @@
 
 const fs = require('fs');
 const path = require('path');
-const { spawnSync } = require('child_process');
 
-const h = require('./src/lib/helfer');
+const h = require('../../lib/helfer');
+const { bildVerarbeitung, bildTag, vorladen } = require('../../lib/bilder');
 const { layout } = require('./src/templates/seite');
 const A = require('./src/templates/abschnitte');
 
@@ -25,7 +25,6 @@ const DATEI = path.resolve(process.argv[2] || path.join(ROOT, 'cafe.json'));
 const BILDER = path.resolve(process.env.BILDER_DIR || path.join(ROOT, 'images'));
 const DIST = path.resolve(process.env.DIST_DIR || path.join(ROOT, 'dist'));
 const CACHE = path.resolve(process.env.CACHE_DIR || path.join(ROOT, '.bildcache'));
-const BREITEN = [480, 800, 1200, 1600, 2000];
 
 const warnungen = [];
 const warn = (text) => warnungen.push(text);
@@ -107,63 +106,13 @@ fs.copyFileSync(path.join(ROOT, 'src/js/main.js'), path.join(DIST, 'js/main.js')
 // 4. Bilder: responsive WebP-Varianten erzeugen (mit Cache)
 // ---------------------------------------------------------------------------
 
-const hatCwebp = spawnSync('cwebp', ['-version']).status === 0;
-if (!hatCwebp) warn('cwebp nicht gefunden – Bilder werden ohne Größenvarianten kopiert (siehe README, Abschnitt Bilder).');
-
-const bildCache = new Map();
+const { verarbeite: verarbeiteBild } = bildVerarbeitung({ bilderDir: BILDER, distDir: DIST, cacheDir: CACHE, warn });
 const benutzteBilder = new Set();
 
 function normBild(ref) {
   if (!ref) return { datei: '', alt: '' };
   if (typeof ref === 'string') return { datei: ref, alt: '' };
   return { datei: ref.datei || '', alt: ref.alt || '', fokus: ref.fokus || '' };
-}
-
-function verarbeiteBild(datei) {
-  if (!datei) return null;
-  if (bildCache.has(datei)) return bildCache.get(datei);
-  const quelle = path.join(BILDER, datei);
-  let info = null;
-  if (!fs.existsSync(quelle)) {
-    warn(`Bild fehlt: images/${datei} – Platzhalter wird angezeigt.`);
-  } else {
-    const groesse = h.bildGroesse(quelle);
-    const ext = path.extname(datei).toLowerCase();
-    const basis = h.slug(path.basename(datei, ext));
-    if (!groesse) {
-      warn(`Bildformat von images/${datei} nicht erkannt (erlaubt: JPG, PNG, WebP, SVG).`);
-    } else if (ext === '.svg' || !hatCwebp) {
-      const name = basis + ext;
-      fs.copyFileSync(quelle, path.join(DIST, 'img', name));
-      info = { breite: groesse.breite, hoehe: groesse.hoehe, src: `img/${name}`, srcset: '', groesste: `img/${name}` };
-    } else {
-      const maxBreite = Math.min(groesse.breite, BREITEN[BREITEN.length - 1]);
-      const breiten = [...new Set([...BREITEN.filter((b) => b < maxBreite), maxBreite])];
-      const varianten = breiten.map((b) => {
-        const name = `${basis}-${b}.webp`;
-        const ziel = path.join(CACHE, name);
-        const veraltet = !fs.existsSync(ziel) || fs.statSync(ziel).mtimeMs < fs.statSync(quelle).mtimeMs;
-        if (veraltet) {
-          const args = ['-quiet', '-q', '76', '-metadata', 'none'];
-          if (b < groesse.breite) args.push('-resize', String(b), '0');
-          const r = spawnSync('cwebp', [...args, quelle, '-o', ziel]);
-          if (r.status !== 0) throw new Error(`cwebp-Fehler bei ${datei}: ${r.stderr}`);
-        }
-        fs.copyFileSync(ziel, path.join(DIST, 'img', name));
-        return { b, url: `img/${name}` };
-      });
-      const mittel = varianten.find((v) => v.b >= 1200) || varianten[varianten.length - 1];
-      info = {
-        breite: maxBreite,
-        hoehe: Math.round((groesse.hoehe * maxBreite) / groesse.breite),
-        src: mittel.url,
-        srcset: varianten.map((v) => `${v.url} ${v.b}w`).join(', '),
-        groesste: varianten[varianten.length - 1].url,
-      };
-    }
-  }
-  bildCache.set(datei, info);
-  return info;
 }
 
 function platzhalter(alt, text = 'Foto folgt') {
@@ -177,17 +126,13 @@ function bild(ref, { sizes = '100vw', eager = false } = {}) {
   const info = verarbeiteBild(r.datei);
   if (!info) return platzhalter(r.alt);
   benutzteBilder.add(r.datei);
-  const attr = [
-    `src="${info.src}"`,
-    info.srcset && `srcset="${info.srcset}"`,
-    info.srcset && `sizes="${sizes}"`,
+  return bildTag(info, sizes, [
     `width="${info.breite}" height="${info.hoehe}"`,
     `alt="${h.esc(r.alt)}"`,
     eager ? 'fetchpriority="high"' : 'loading="lazy"',
     'decoding="async"',
     r.fokus && `style="object-position:${h.esc(r.fokus)}"`,
-  ].filter(Boolean);
-  return `<img ${attr.join(' ')}>`;
+  ]);
 }
 
 const stockfotos = new Map(s.bildnachweise.map((n) => [n.datei, n]));
@@ -335,9 +280,7 @@ const inhalt = [
   A.kontakt(c),
 ].join('\n');
 
-const heroPreload = heroInfo
-  ? `<link rel="preload" as="image" href="${heroInfo.src}"${heroInfo.srcset ? ` imagesrcset="${heroInfo.srcset}" imagesizes="100vw"` : ''} fetchpriority="high">`
-  : '';
+const heroPreload = vorladen(heroInfo, '100vw');
 
 const jsonLd = {
   '@context': 'https://schema.org',

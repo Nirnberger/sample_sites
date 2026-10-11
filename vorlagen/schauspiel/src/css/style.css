@@ -46,6 +46,8 @@ body {
   overflow-x: hidden;
 }
 body.menue-offen { overflow: hidden; }
+/* <picture> (AVIF + WebP) verhält sich im Layout wie das <img> selbst */
+picture { display: contents; }
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; }
 h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.05; margin: 0; letter-spacing: -.015em; }

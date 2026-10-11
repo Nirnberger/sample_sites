@@ -2,7 +2,7 @@
 // Die Sektionen der Startseite. Jede Funktion gibt '' zurück, wenn die Daten fehlen –
 // dann taucht die Sektion (und ihr Menüpunkt) gar nicht erst auf.
 
-const { esc, absaetze, slug, initialen } = require('../lib/helfer');
+const { esc, absaetze, slug, initialen } = require('../../../../lib/helfer');
 const { icon, stern, sterne } = require('./icons');
 
 const zahl = (n, stellen = 0) =>

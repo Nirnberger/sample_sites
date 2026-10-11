@@ -33,8 +33,8 @@ jobs:
         with:
           node-version: 20
 
-      - name: sites.json prüfen
-        run: node -e "JSON.parse(require('fs').readFileSync('sites.json','utf8')); console.log('sites.json ok')"
+      - name: sites.json und Inhalte prüfen (Schema je Vorlage)
+        run: node tests/inhalte.js
 
       # Genau der Build, der auch auf dem Server läuft (Dockerfile → node build-all.js → nginx)
       - name: Docker-Image bauen
