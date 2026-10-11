@@ -1,5 +1,5 @@
 {
-  "_hinweis": "Erste Fassung (Vorlage buehne, „Website als Theaterabend“), eingefroren am 2026-10-11 – läuft unter /nora-solcher/v1/. Gepflegt wird die neue Fassung in schauspiel.json (/nora-solcher/v2/, Pages CMS). Inhalte der Website von Nora Solcher. Zusammengestellt am 2026-10-10 aus Filmmakers, Schauspielervideos, Theaterseiten (HfMDK, Mainz, Darmstadt, Frankfurt, Wiesbaden) und Presse – Quellen und offene Fragen in recherche/nora-solcher/info.md (nicht im Repository). Texte sind Entwürfe und müssen von Nora freigegeben werden.",
+  "_hinweis": "Erste Fassung (Vorlage buehne, „Website als Theaterabend“), eingefroren am 2026-10-11, am 2026-10-11 nach v2 in Theater · Film · Audio · Schreiben · Unterrichten gegliedert (fehlende Einträge aus schauspiel.json) – läuft unter /nora-solcher/v1/. Gepflegt wird die neue Fassung in schauspiel.json (/nora-solcher/v2/, Pages CMS). Inhalte der Website von Nora Solcher. Zusammengestellt am 2026-10-10 aus Filmmakers, Schauspielervideos, Theaterseiten (HfMDK, Mainz, Darmstadt, Frankfurt, Wiesbaden) und Presse – Quellen und offene Fragen in recherche/nora-solcher/info.md (nicht im Repository). Texte sind Entwürfe und müssen von Nora freigegeben werden.",
   "demo_modus": true,
   "ersteller": "",
   "website_url": "",
@@ -123,7 +123,7 @@
         {
           "jahr": "2024–26",
           "titel": "Innere Sicherheit",
-          "rolle": "",
+          "rolle": "Hauptrolle",
           "regie": "Marie Schwesinger",
           "ort": "Landungsbrücken Frankfurt, Landgericht Hamburg, Heimathafen Neukölln u. a."
         },
@@ -151,7 +151,7 @@
         {
           "jahr": "2023",
           "titel": "Take a Stand – Akademie Musiktheater Heute",
-          "rolle": "",
+          "rolle": "Hauptrolle",
           "regie": "Max Koch, Rafael Ossami Saidy",
           "ort": "Frankfurt LAB"
         },
@@ -165,14 +165,14 @@
         {
           "jahr": "2022–23",
           "titel": "Becoming Luise Büchner",
-          "rolle": "",
+          "rolle": "Hauptrolle",
           "regie": "Lara Yilmaz",
           "ort": "Staatstheater Darmstadt"
         },
         {
           "jahr": "2022",
           "titel": "Gegen alle Widerstände",
-          "rolle": "",
+          "rolle": "Hauptrolle",
           "regie": "Marie Schwesinger",
           "ort": "Theater Bielefeld, Theater Kiel"
         },
@@ -200,7 +200,7 @@
         {
           "jahr": "2020–21",
           "titel": "Deutschland 2020. Ein Wintermärchen",
-          "rolle": "",
+          "rolle": "Hauptrolle",
           "regie": "Regina Wenig",
           "ort": "Schauspiel Frankfurt"
         },
@@ -210,11 +210,18 @@
           "rolle": "",
           "regie": "Joël-Conrad Hieronymus",
           "ort": "Kunstverein Familie Montez / Schauspiel Frankfurt"
+        },
+        {
+          "jahr": "2019",
+          "titel": "Still",
+          "rolle": "Tanz",
+          "regie": "Choreografie: Hojoon Moon",
+          "ort": "KOTID Tanzfestival"
         }
       ],
       "akt": {
         "nr": "I",
-        "titel": "Bühne",
+        "titel": "Theater",
         "stil": "buehne",
         "intro": "Vom Staatstheater bis zur freien Szene, vom Klassiker bis zum Dokumentartheater: Auf der Bühne arbeitet Nora mit Körper, Text und Raum – oft in Formen zwischen Schauspiel, Performance und Tanz."
       }
@@ -253,7 +260,7 @@
       ],
       "akt": {
         "nr": "II",
-        "titel": "Kamera",
+        "titel": "Film",
         "stil": "kamera",
         "intro": "Krimis zur Primetime bei ARD, SWR und ZDF und ein Kinofilm."
       }
@@ -318,11 +325,25 @@
           "ort": "Feature"
         },
         {
+          "jahr": "2024",
+          "titel": "Dein Auto riecht noch immer nach Neuwagen",
+          "rolle": "Sprecherin",
+          "regie": "Marlene Breuer",
+          "ort": "hr, Hörbuch"
+        },
+        {
           "jahr": "2023",
           "titel": "Prinz Kaspian von Narnia",
           "rolle": "Königin Susan, Pattertwig",
           "regie": "",
           "ort": "SWR"
+        },
+        {
+          "jahr": "2023",
+          "titel": "Märchen & Verbrechen – Die zertanzten Schuhe",
+          "rolle": "Sprecherin",
+          "regie": "",
+          "ort": "hr, Hörspiel"
         },
         {
           "jahr": "2023",
@@ -339,6 +360,20 @@
           "ort": "Feature"
         },
         {
+          "jahr": "2023",
+          "titel": "gaerten",
+          "rolle": "Sprecherin",
+          "regie": "",
+          "ort": "hr, Hörbuch"
+        },
+        {
+          "jahr": "2023",
+          "titel": "Toreras",
+          "rolle": "Sprecherin",
+          "regie": "",
+          "ort": "SWR, Feature"
+        },
+        {
           "jahr": "2022",
           "titel": "Der Ritt nach Narnia",
           "rolle": "Königin Susan, Zibbe",
@@ -353,6 +388,27 @@
           "ort": "Hörspiel"
         },
         {
+          "jahr": "2022",
+          "titel": "Märchen aus meinem Luftschutzkeller",
+          "rolle": "Sprecherin",
+          "regie": "",
+          "ort": "hr / NDR, Hörbuch"
+        },
+        {
+          "jahr": "2022",
+          "titel": "Säure auf Keramik",
+          "rolle": "Sprecherin",
+          "regie": "",
+          "ort": "hr, Hörbuch"
+        },
+        {
+          "jahr": "2022",
+          "titel": "Und heute mild und morgen wild",
+          "rolle": "Sprecherin",
+          "regie": "",
+          "ort": "hr, Feature"
+        },
+        {
           "jahr": "2021",
           "titel": "Der König von Narnia",
           "rolle": "Zwerg Etzel, Fabelwesen",
@@ -362,7 +418,7 @@
       ],
       "akt": {
         "nr": "III",
-        "titel": "Stimme",
+        "titel": "Audio",
         "stil": "stimme",
         "intro": "Eine Stimme, viele Figuren: Königinnen, Zwerge, Mäuse und Fabelwesen. Hörspiele und Hörbücher für SWR und hr, Synchron, Audioguides – und Rezitation mit Klavier."
       }
@@ -408,6 +464,13 @@
           "ort": "Sommerwerft Theater Festival, Frankfurt"
         },
         {
+          "jahr": "2025",
+          "titel": "Dead vs. Alive",
+          "rolle": "Eigenregie, spielt Etty Hillesum",
+          "regie": "",
+          "ort": "Schauspiel Frankfurt"
+        },
+        {
           "jahr": "2024",
           "titel": "Yesterday war gestern",
           "rolle": "Regie & Text",
@@ -441,20 +504,73 @@
           "rolle": "Songtext",
           "regie": "",
           "ort": "Musik: Günter Lehr, Schauspiel Frankfurt"
-        },
-        {
-          "jahr": "seit 2023",
-          "titel": "Frankfurter Spatzen",
-          "rolle": "Schauspiel- & Sprechunterricht, Probenleitung",
-          "regie": "",
-          "ort": "Jugendarbeit, Frankfurt"
         }
       ],
       "akt": {
         "nr": "IV",
-        "titel": "Feder",
+        "titel": "Schreiben",
         "stil": "feder",
-        "intro": "Sie schreibt, inszeniert und unterrichtet: eigene Stückentwicklungen, Songtexte, Jugend-Musicals – und 2025 den Siegertext beim Sommerwerft-Poetry-Slam."
+        "intro": "Sie schreibt und inszeniert: eigene Stückentwicklungen, Songtexte, Jugend-Musicals – und 2025 den Siegertext beim Sommerwerft-Poetry-Slam."
+      }
+    },
+    {
+      "kategorie": "Unterricht",
+      "eintraege": [
+        {
+          "jahr": "2026",
+          "titel": "Theater-AG",
+          "rolle": "Leitung",
+          "regie": "",
+          "ort": "Käthe-Kollwitz-Schule, Frankfurt-Zeilsheim"
+        },
+        {
+          "jahr": "seit 2023",
+          "titel": "Sprechworkshops",
+          "rolle": "Workshopleitung",
+          "regie": "",
+          "ort": "Gymnasium Nord"
+        },
+        {
+          "jahr": "seit 2022",
+          "titel": "Frankfurter Spatzen e. V.",
+          "rolle": "Schauspiel- & Sprechunterricht, Einstudierung, Probenleitung",
+          "regie": "",
+          "ort": "Kinder- und Jugendtheater mit Musik und Tanz, Frankfurt",
+          "text": "Szenenarbeit mit Jugendlichen vom Einzeltraining über Dialoge bis zur choreografierten Gruppenszene; Regie der Jugend-Musicals „SPOTLIGHT“ (2023) und „Yesterday war gestern“ (2024)."
+        },
+        {
+          "jahr": "regelmäßig",
+          "titel": "Einzelunterricht für Vorsprechende",
+          "rolle": "Vorsprechtraining",
+          "regie": "",
+          "ort": "online und in Präsenz"
+        }
+      ],
+      "akt": {
+        "nr": "V",
+        "titel": "Unterrichten",
+        "stil": "unterricht",
+        "intro": "Seit 2022 unterrichtet Nora Schauspiel und Sprechen – im Verein, an Schulen und im Einzelunterricht. Wichtig sind ihr saubere Sprechtechnik, echtes Zuhören und dass der Humor nie verloren geht.",
+        "angebote_titel": "Einzelunterricht – online oder in Präsenz",
+        "angebote": [
+          {
+            "titel": "Vorsprechtraining",
+            "text": "Gezielte Vorbereitung auf Vorsprechen an Schauspielschulen und Theatern: passende Rollen finden, Monologe erarbeiten, unter Vorsprechbedingungen proben."
+          },
+          {
+            "titel": "Sprechen & Artikulation",
+            "text": "Atem, Stimme und Artikulation – für klares, tragfähiges Sprechen auf der Bühne, am Mikrofon oder im Beruf."
+          },
+          {
+            "titel": "Auftritts- & Prüfungsangst, Präsenz",
+            "text": "Präsenzübungen und Strategien gegen Lampenfieber, damit Auftritte und Prüfungen gelingen."
+          }
+        ],
+        "hervorhebung": "Regelmäßig bereitet Nora Vorsprechende auf ihr Vorsprechen vor – die zuletzt vorbereitete Person hat daraufhin das Engagement bekommen.",
+        "zitat": {
+          "text": "dass die Jugendlichen durch ehrliches einander Zuhören zu einem authentischen Ton auf der Bühne gelangen",
+          "quelle": "Frankfurter Spatzen e. V. über Noras Unterricht"
+        }
       }
     }
   ],

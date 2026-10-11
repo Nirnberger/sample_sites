@@ -9,7 +9,8 @@
       "required": ["titel"],
       "properties": {
         "jahr": { "type": "string" }, "titel": { "type": "string", "minLength": 1 }, "rolle": { "type": "string" },
-        "regie": { "type": "string" }, "ort": { "type": "string" }, "auszeichnung": { "type": "string" }
+        "regie": { "type": "string" }, "ort": { "type": "string" }, "auszeichnung": { "type": "string" },
+        "text": { "type": "string" }
       }
     }
   },
@@ -69,8 +70,12 @@
             "type": "object",
             "properties": {
               "nr": { "type": "string" }, "titel": { "type": "string" },
-              "stil": { "enum": ["buehne", "kamera", "stimme", "feder"] },
-              "intro": { "type": "string" }, "gehoert_zu": { "type": "string" }
+              "stil": { "enum": ["buehne", "kamera", "stimme", "feder", "unterricht"] },
+              "intro": { "type": "string" }, "gehoert_zu": { "type": "string" },
+              "angebote_titel": { "type": "string" },
+              "angebote": { "type": "array", "items": { "type": "object", "required": ["titel"], "properties": { "titel": { "type": "string" }, "text": { "type": "string" } } } },
+              "hervorhebung": { "type": "string" },
+              "zitat": { "type": "object", "properties": { "text": { "type": "string" }, "quelle": { "type": "string" } } }
             }
           },
           "eintraege": { "type": "array", "items": { "$ref": "#/$defs/vita_eintrag" } }

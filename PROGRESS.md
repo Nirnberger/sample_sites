@@ -21,6 +21,8 @@
 - **2026-10-11:** SeaweedFS „degraded“ behoben (Philipp); Speicher erreichbar, Noras Fotos mit Schlüssel lesbar
 - **2026-10-11:** Cache-Fix: buehne/repertoire binden Skripte mit `?v=<Prüfsumme>` ein (nginx cacht JS 7 Tage). Alles gepusht, Pipeline grün, live geprüft
 - **2026-10-11:** Abgesicherte Compose-Datei `hosting/seaweedfs.yml` (kein anonymer Zugriff, kein Admin-UI, nur lesender Schlüssel `build`) – lokal getestet: ohne Schlüssel 403, `build` liest/listet, darf nicht schreiben
+- **2026-10-11:** Nora v1: Kamera-Akt ohne Animationen (Filmklappen statisch, kein Einblenden/Hover-Kippen). Farb-Labor erweitert: Farbwähler für Palette und Rollen, Rollen per Klick tauschen, „Rollen mischen“ (bevorzugt lesbare Kombinationen), „Automatisch“, Kontrastanzeige; feste Rollen als `{"Hintergrund":…,"Schrift":…,"Akzent":…,"Flächen":…}` – versteht auch der Build/CMS; Vorschau-Link `#farben=r:<hg>-<schrift>-<akzent>-<flächen>`. Im Headless-Browser getestet
+- **2026-10-11:** Nora v1 wie v2 gegliedert: Akte Theater · Film · Audio · Schreiben · Unterrichten (statt Bühne/Kamera/Stimme/Feder). Fehlendes aus v2 übernommen (Tanz „Still“, leere Rollen, 7 Audio-Produktionen, Regie „Dead vs. Alive“, ganzer Unterrichts-Akt). Neuer Akt-Stil `unterricht` in buehne (Angebote als Aushang, Hinweis, Zitat, Referenzen; ohne Animation)
 
 ## Offen
 - Gleiches Cache-Problem in salon/barber/cafe/angel-jagd (`js/main.js` ohne Versionsnummer, 7 Tage Cache) – Fix wie bei repertoire anbieten
@@ -45,7 +47,7 @@
 - **CMS:** Pages CMS, weil Nora kein JSON bearbeiten kann; Fotos nicht übers CMS. Listen werden beim Speichern ersetzt → neue Listenfelder immer auch in `.pages.yml` (ggf. `hidden: true`)
 - **Nora-Design (ab 2026-10-11, Vorlage repertoire):** Creme `#F6F1E9`, Sand `#ECE3D5`, Mint `#D5E8DD`/`#A9CBB8`, Salbei `#3D6651` (Text-Akzent), Braun `#3A2C24`/`#6B5242`; Fraunces + Manrope; Texte in 3. Person; Tanz läuft unter „Theater“ (Gruppe „Tanz & Choreografie“). Frühere Bühnen-Fassung (schwarz/rot, Instrument Serif) bleibt als v1 online, wird nicht mehr gepflegt
 - **Farbschema:** Vorschau nur im Browser (`#farben`), dauerhaft nur über CMS (Login + Pipeline) – bewusst kein Schreibzugang auf der Website. Rollen automatisch: hellste = Hintergrund, dunkelste = Schrift, kräftigste = Akzent; Kontraste werden nachgeregelt
-- **Nora v1/v2:** v1 eingefroren (nur Farbschema änderbar), gepflegt wird v2; bisherige Links `/nora-solcher/` landen auf v2
+- **Nora v1/v2:** v1 eingefroren (nur Farbschema änderbar; Gliederung am 2026-10-11 an v2 angeglichen), gepflegt wird v2; bisherige Links `/nora-solcher/` landen auf v2
 - **Videos/Hörproben:** verlinkt oder selbst gehostet unter `/<pfad>/medien/`, nie eingebettet von Drittanbietern (CSP nur eigene Domain)
 - **Qualität:** Pipeline-Grenzwerte Lighthouse Leistung ≥ 80, Barrierefreiheit/Best Practices ≥ 90 (`tests/lighthouse.js`)
 - **S3/SeaweedFS:** nur über `https://medien.seitenschwung.com` (keine sslip-Domains, keine Port-Mappings, kein Admin-UI); ohne Schlüssel nichts lesbar; Build nur mit lesendem Schlüssel. Live-Seite baut Coolify (dessen Variablen zählen), GitHub-Secrets nur für den Pipeline-Test

@@ -3,7 +3,7 @@
 /*
  * Build-Skript für die Bühnen-Vorlage – künstlerisches Portfolio für Schauspieler:innen,
  * inszeniert wie ein Theaterabend: Ouvertüre, Prolog, Besetzungszettel, vier Akte
- * (Bühne, Kamera, Stimme, Feder), Kontaktbogen, Tickets, Vorhang.
+ * (Bühne, Kamera, Stimme, Feder, Unterricht), Kontaktbogen, Tickets, Vorhang.
  *
  *   node build.js ../kunden/<pfad>/schauspiel.json    -> schreibt dist/
  *   BILDER_DIR=... DIST_DIR=... node build.js datei   -> so ruft build-all.js die Vorlage auf
@@ -70,8 +70,12 @@ for (const k of s.vita) {
     kategorie: k.kategorie,
     nr: akt.nr || '',
     titel: akt.titel || k.kategorie,
-    stil: ['buehne', 'kamera', 'stimme', 'feder'].includes(akt.stil) ? akt.stil : 'buehne',
+    stil: ['buehne', 'kamera', 'stimme', 'feder', 'unterricht'].includes(akt.stil) ? akt.stil : 'buehne',
     intro: akt.intro || '',
+    angebote_titel: akt.angebote_titel || '',
+    angebote: akt.angebote || [],
+    hervorhebung: akt.hervorhebung || '',
+    zitat: akt.zitat || null,
     eintraege: [...k.eintraege],
     id: h.slug(akt.titel || k.kategorie),
   });
@@ -313,7 +317,7 @@ function aktKamera(a) {
   <div class="container">
     ${aktKopf(a)}
     <ul class="klappen">${a.eintraege.map((e, i) => `
-      <li class="klappe" data-einblenden>
+      <li class="klappe">
         <div class="klappe-balken" aria-hidden="true"></div>
         <div class="klappe-tafel">
           <p class="mono klappe-zeile"><span>Prod.</span><strong>${esc(e.titel)}</strong></p>
@@ -378,7 +382,27 @@ function aktFeder(a) {
 </section>`;
 }
 
-const AKT_STILE = { buehne: aktBuehne, kamera: aktKamera, stimme: aktStimme, feder: aktFeder };
+// Akt Unterricht: Aushang der Probebühne – Angebote als Karten, Hinweis, Zitat, Referenzen
+function aktUnterricht(a) {
+  return `
+<section id="${a.id}" class="szene szene--papier akt akt--unterricht">
+  <div class="container">
+    ${aktKopf(a)}
+    ${a.angebote.length ? `${a.angebote_titel ? `<p class="mono kicker">${esc(a.angebote_titel)}</p>` : ''}
+    <ul class="aushang">${a.angebote.map((x, i) => `
+      <li><p class="mono">Übung ${zwei(i + 1)}</p><h3>${esc(x.titel)}</h3>${x.text ? `<p>${esc(x.text)}</p>` : ''}</li>`).join('')}
+    </ul>` : ''}
+    ${a.hervorhebung ? `<p class="unterricht-hinweis">${esc(a.hervorhebung)}</p>` : ''}
+    ${a.zitat && a.zitat.text ? `<figure class="zitat"><blockquote>„${esc(a.zitat.text)}“</blockquote>${a.zitat.quelle ? `<figcaption class="mono">${esc(a.zitat.quelle)}</figcaption>` : ''}</figure>` : ''}
+    ${a.eintraege.length ? `<p class="mono kicker referenzen-kopf">Referenzen</p>
+    <ol class="referenzen">${a.eintraege.map((e) => `
+      <li><span class="mono">${esc(e.jahr || '')}</span><div><h3>${esc(e.titel)}</h3><p class="mono">${[e.rolle, e.ort].filter(Boolean).map(esc).join(' · ')}</p>${e.text ? `<p>${esc(e.text)}</p>` : ''}</div></li>`).join('')}
+    </ol>` : ''}
+  </div>
+</section>`;
+}
+
+const AKT_STILE = { buehne: aktBuehne, kamera: aktKamera, stimme: aktStimme, feder: aktFeder, unterricht: aktUnterricht };
 
 // --- Gesichter: Kontaktbogen --------------------------------------------------
 
