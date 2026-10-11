@@ -1,0 +1,58 @@
+# SeaweedFS (S3) für Kundenfotos/-medien – Compose-Datei für Coolify.
+# Coolify → SeaweedFS-Dienst → „Edit Compose File“ → kompletten Inhalt hierdurch ersetzen.
+# Gegenüber der Coolify-Vorlage: kein anonymer Lesezugriff, keine Admin-Oberfläche,
+# zusätzlich ein nur lesender Schlüssel „build“ für Coolify-Builds und GitHub-Pipeline.
+# Schlüssel erzeugt Coolify selbst (Environment Variables des Dienstes):
+#   SERVICE_USER_S3 / SERVICE_PASSWORD_S3        schreibend – nur lokal zum Hochladen (.env)
+#   SERVICE_USER_BUILD / SERVICE_PASSWORD_BUILD  nur lesen – MEDIEN_ZUGANG/MEDIEN_GEHEIMNIS in Coolify + GitHub
+# Domain beim Dienst seaweedfs-master: https://medien.seitenschwung.com:8333
+
+services:
+  seaweedfs-master:
+    image: chrislusf/seaweedfs:4.41
+    environment:
+      - SERVICE_URL_S3_8333
+      - AWS_ACCESS_KEY_ID=${SERVICE_USER_S3}
+      - AWS_SECRET_ACCESS_KEY=${SERVICE_PASSWORD_S3}
+      - BUILD_ACCESS_KEY_ID=${SERVICE_USER_BUILD}
+      - BUILD_SECRET_ACCESS_KEY=${SERVICE_PASSWORD_BUILD}
+    volumes:
+      - seaweedfs-s3-data:/data
+      - type: bind
+        source: ./base-config.json
+        target: /base-config.json
+        content: |
+          {
+            "identities": [
+              {
+                "name": "admin",
+                "credentials": [
+                  { "accessKey": "env:AWS_ACCESS_KEY_ID", "secretKey": "env:AWS_SECRET_ACCESS_KEY" }
+                ],
+                "actions": ["Admin", "Read", "ReadAcp", "List", "Tagging", "Write", "WriteAcp"]
+              },
+              {
+                "name": "build",
+                "credentials": [
+                  { "accessKey": "env:BUILD_ACCESS_KEY_ID", "secretKey": "env:BUILD_SECRET_ACCESS_KEY" }
+                ],
+                "actions": ["Read", "List"]
+              }
+            ]
+          }
+    entrypoint: |
+      sh -c '\
+      sed -e "s/env:AWS_ACCESS_KEY_ID/$$AWS_ACCESS_KEY_ID/g" \
+          -e "s/env:AWS_SECRET_ACCESS_KEY/$$AWS_SECRET_ACCESS_KEY/g" \
+          -e "s/env:BUILD_ACCESS_KEY_ID/$$BUILD_ACCESS_KEY_ID/g" \
+          -e "s/env:BUILD_SECRET_ACCESS_KEY/$$BUILD_SECRET_ACCESS_KEY/g" \
+          /base-config.json > /config.json; \
+      weed server -dir=/data -master.port=9333 -s3 -s3.port=8333 -s3.config=/config.json\
+      '
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - "wget --spider -q http://0.0.0.0:8333; [ $$? -le 8 ]"
+      interval: 10s
+      timeout: 5s
+      retries: 10

@@ -15,17 +15,19 @@
 - **2026-10-11:** Gepusht; Konflikt mit PR „Seite löschen: /test/“ gelöst (Testseite entfernt, Nora bleibt). Pipeline grün, Deploy läuft
 - **2026-10-11:** SeaweedFS auf Coolify (`https://medien.seitenschwung.com`, Port 8333 am Dienst seaweedfs-master), Bucket `kunden-medien`, Noras 16 Fotos hochgeladen, übersteht Neustart; `MEDIEN_*` als Coolify-Build-Variablen → Fotos live auf `/nora-solcher/`
 - **2026-10-11:** `node scripts/medien.js sync`: lädt neue/geänderte Fotos aller Kundenseiten hoch und startet die Pipeline (GitHub-Token via `gh` oder `GITHUB_TOKEN`) – lokal mit SeaweedFS + simuliertem GitHub getestet
+- **2026-10-11:** `.env` (lokale Schlüssel: Schreibschlüssel S3 + `GITHUB_TOKEN`) in `.gitignore`/`.dockerignore`; Laden mit `set -a; source .env; set +a`. Alles gepusht
+- **2026-10-11:** Abgesicherte Compose-Datei `hosting/seaweedfs.yml` (kein anonymer Zugriff, kein Admin-UI, nur lesender Schlüssel `build`) – lokal getestet: ohne Schlüssel 403, `build` liest/listet, darf nicht schreiben
 
 ## Offen
 - Noras Entwurf (Demo-Modus, noindex) wartet auf ihre Freigabe: Fotorechte/Credits, Texte, Impressum-Anschrift, ggf. Größe 163/165 cm, bessere „Hertopia“-Fotos (nur 960 px)
-- **SeaweedFS liefert Dateien ohne Schlüssel aus** (`…/kunden-medien/nora-solcher/images/hero.jpg` → 200; Liste gesperrt): läuft noch mit Originalvorlage (`"anonymous": Read`, Admin-Dienst). Eigene Compose-Datei (ohne anonymous/Admin, zusätzlicher nur lesender Schlüssel `build`) noch nicht übernommen
+- **SeaweedFS liefert Dateien ohne Schlüssel aus** (`hero.jpg` → 200). Compose in Coolify durch `hosting/seaweedfs.yml` ersetzt, Dienst jetzt **„degraded“**, alte Konfiguration antwortet weiter. Ursache unklar: neuer Container startet nicht oder verwaister Admin-Container – Container-Liste/Logs von seaweedfs-master ansehen. Fotos und Schreibschlüssel funktionieren weiterhin
 - Unklar, ob Coolify/GitHub den schreibenden Schlüssel (`SERVICE_USER_S3`) statt eines nur lesenden nutzen
 - Pages-CMS-Oberfläche erst nach Login prüfbar
 - CSP-Konsolenmeldung (Hash `Q00BMk9…`) stammt nicht von unseren Seiten – vermutlich Browser-Erweiterung; im privaten Fenster gegenprüfen
 - Aus früher: PageSpeed-API aktivieren (Leads)
 
 ## Nächste Schritte
-1. SeaweedFS absichern: Edit Compose File → eigene Datei (ohne anonymous, mit `build`-Identität) → Restart; prüfen, dass `hero.jpg` ohne Schlüssel 403 liefert
+1. „Degraded“ klären (Container-Liste + Logs seaweedfs-master; ggf. Stop → Deploy), dann prüfen: `hero.jpg` ohne Schlüssel 403, `node scripts/medien.js liste nora-solcher` mit `.env` zeigt 16 Fotos
 2. `MEDIEN_ZUGANG`/`MEDIEN_GEHEIMNIS` in Coolify und GitHub-Secrets auf `SERVICE_USER_BUILD`/`SERVICE_PASSWORD_BUILD` umstellen, Website redeployen
 3. Pages CMS GitHub-App installieren, auf Branch `cms-test` testen (Listen!, danach `git diff`), dann Nora einladen und Entwurf zur Freigabe zeigen
 
@@ -36,4 +38,5 @@
 - **Videos/Hörproben:** verlinkt oder selbst gehostet unter `/<pfad>/medien/`, nie eingebettet von Drittanbietern (CSP nur eigene Domain)
 - **Qualität:** Pipeline-Grenzwerte Lighthouse Leistung ≥ 80, Barrierefreiheit/Best Practices ≥ 90 (`tests/lighthouse.js`)
 - **S3/SeaweedFS:** nur über `https://medien.seitenschwung.com` (keine sslip-Domains, keine Port-Mappings, kein Admin-UI); ohne Schlüssel nichts lesbar; Build nur mit lesendem Schlüssel. Live-Seite baut Coolify (dessen Variablen zählen), GitHub-Secrets nur für den Pipeline-Test
+- **Schlüssel:** lokal nur in `.env` (ignoriert); Upload immer per `node scripts/medien.js sync` (startet geprüften Deploy über die Pipeline, nicht direkt den Coolify-Webhook)
 - Lead-Skripte aus `vertrieb/` starten; `recherche/` und Vertriebsdaten bleiben lokal
