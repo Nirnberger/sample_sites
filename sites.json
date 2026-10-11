@@ -83,6 +83,12 @@
         "beschreibung": "Gemütliches Frühstückscafé im Kieler Blücherviertel: Siebträgerkaffee, große Frühstücksteller und Kuchen, die jeden Morgen frisch aus unserem Ofen kommen.",
         "merkmale": []
       }
+    },
+    {
+      "pfad": "nora-solcher",
+      "vorlage": "vorlagen/buehne",
+      "daten": "kunden/nora-solcher/schauspiel.json",
+      "bilder": "kunden/nora-solcher/images"
     }
   ]
 }
