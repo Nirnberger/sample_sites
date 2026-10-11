@@ -6,6 +6,8 @@
 #   TS_OAUTH_CLIENT_ID / TS_OAUTH_SECRET  Tailscale-OAuth-Client (Coolify ist nur im Tailnet erreichbar):
 #                    der Runner tritt kurz als kurzlebiges Gerät mit tag:ci bei, ruft den Webhook auf
 #                    und verschwindet danach wieder. Einrichtung siehe HOSTING.md.
+#   MEDIEN_ENDPUNKT / MEDIEN_ZUGANG / MEDIEN_GEHEIMNIS  Objektspeicher mit Kundenfotos (nur-lesender Schlüssel
+#                    genügt). Ohne sie baut die Pipeline Kundenseiten ohne Fotos – der Test läuft trotzdem.
 # und in Coolify bei der Ressource „Auto Deploy“ ausschalten (sonst deployt Coolify ungeprüft selbst).
 # Ohne die Secrets läuft nur die Prüfung, der Deploy-Schritt wird übersprungen.
 
@@ -38,7 +40,13 @@ jobs:
 
       # Genau der Build, der auch auf dem Server läuft (Dockerfile → node build-all.js → nginx)
       - name: Docker-Image bauen
-        run: docker build -t sites:ci .
+        env:
+          MEDIEN_ENDPUNKT: ${{ secrets.MEDIEN_ENDPUNKT }}
+          MEDIEN_ZUGANG: ${{ secrets.MEDIEN_ZUGANG }}
+          MEDIEN_GEHEIMNIS: ${{ secrets.MEDIEN_GEHEIMNIS }}
+        run: |
+          docker build -t sites:ci \
+            --build-arg MEDIEN_ENDPUNKT --build-arg MEDIEN_ZUGANG --build-arg MEDIEN_GEHEIMNIS .
 
       - name: Container starten
         run: |

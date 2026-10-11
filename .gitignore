@@ -32,5 +32,7 @@ recherche/
 *.mpg
 *.mpeg
 
-# Fotos von Nora Solcher erst nach Klärung der Bildrechte
-kunden/nora-solcher/images/
+# Kundenfotos und -medien liegen im Objektspeicher (scripts/medien.js), nie in Git
+kunden/*/images/*
+!kunden/*/images/LIESMICH.md
+kunden/*/medien/

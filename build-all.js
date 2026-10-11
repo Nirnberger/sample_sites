@@ -6,6 +6,8 @@
  *
  *   node build-all.js                     -> alle Seiten + Startseite (Hub, siehe hub.js)
  *   node build-all.js petri-pirsch        -> nur diese Seite(n)
+ *   MEDIEN_ENDPUNKT=… MEDIEN_ZUGANG=… MEDIEN_GEHEIMNIS=… node build-all.js
+ *       holt vorher Kundenfotos und -medien aus dem Objektspeicher (siehe scripts/medien.js)
  *   BASIS_URL=https://demo.example.com node build-all.js
  *       setzt website_url je Seite auf BASIS_URL/<pfad>, falls in der JSON leer
  *       (für Canonical-Link und Open-Graph-Bilder).
@@ -26,6 +28,8 @@ const BASIS_URL = (process.env.BASIS_URL || '').replace(/\/+$/, '');
 const { sites, hub } = JSON.parse(fs.readFileSync(path.join(ROOT, 'sites.json'), 'utf8'));
 const { erzeugeHub } = require('./hub');
 const { pruefe } = require('./lib/schema');
+const { s3AusUmgebung } = require('./lib/s3');
+const { medienHolen } = require('./lib/medien');
 const nur = process.argv.slice(2);
 const auswahl = nur.length ? sites.filter((s) => nur.includes(s.pfad)) : sites;
 if (nur.length && auswahl.length !== nur.length) {
@@ -78,32 +82,61 @@ function bilderZusammenstellen(s, tmpOrdner) {
 }
 
 const auftraege = [];
-for (const s of auswahl) {
-  const vorlage = path.join(ROOT, s.vorlage);
-  const daten = JSON.parse(fs.readFileSync(path.join(ROOT, s.daten), 'utf8'));
+function vorbereiten() {
+  for (const s of auswahl) {
+    const vorlage = path.join(ROOT, s.vorlage);
+    const daten = JSON.parse(fs.readFileSync(path.join(ROOT, s.daten), 'utf8'));
 
-  // Inhalte gegen das Schema der Vorlage prüfen – fehlerhafte Seiten werden nicht gebaut
-  const schema = path.join(vorlage, 'schema.json');
-  const schemaFehler = fs.existsSync(schema) ? pruefe(daten, schema) : [];
-  if (schemaFehler.length) {
-    console.error(`\n✖ ${s.pfad}: ${s.daten} hat ${schemaFehler.length} Fehler:\n${schemaFehler.map((f) => '    - ' + f).join('\n')}`);
-    fehler++;
-    continue;
+    // Inhalte gegen das Schema der Vorlage prüfen – fehlerhafte Seiten werden nicht gebaut
+    const schema = path.join(vorlage, 'schema.json');
+    const schemaFehler = fs.existsSync(schema) ? pruefe(daten, schema) : [];
+    if (schemaFehler.length) {
+      console.error(`\n✖ ${s.pfad}: ${s.daten} hat ${schemaFehler.length} Fehler:\n${schemaFehler.map((f) => '    - ' + f).join('\n')}`);
+      fehler++;
+      continue;
+    }
+    if (BASIS_URL && !daten.website_url) daten.website_url = `${BASIS_URL}/${s.pfad}`;
+
+    // Bilder: Vorlagenbilder als Grundlage, eigene Fotos (gleicher Dateiname) ersetzen sie.
+    const bilder = bilderZusammenstellen(s, path.join(tmp, `${s.pfad}-bilder`));
+    if (bilder.eigene.size) {
+      // Für ersetzte Bilder gilt der Unsplash-Nachweis der Vorlage nicht mehr
+      daten.bildnachweise = (daten.bildnachweise || []).filter((n) => !bilder.eigene.has(n.datei));
+    }
+    const datei = path.join(tmp, `${s.pfad}.json`);
+    fs.writeFileSync(datei, JSON.stringify(daten));
+
+    const ziel = path.join(PUBLIC, s.pfad);
+    fs.rmSync(ziel, { recursive: true, force: true });
+    auftraege.push({ s, datei, ziel, bilder, vorlage });
   }
-  if (BASIS_URL && !daten.website_url) daten.website_url = `${BASIS_URL}/${s.pfad}`;
+}
 
-  // Bilder: Vorlagenbilder als Grundlage, eigene Fotos (gleicher Dateiname) ersetzen sie.
-  const bilder = bilderZusammenstellen(s, path.join(tmp, `${s.pfad}-bilder`));
-  if (bilder.eigene.size) {
-    // Für ersetzte Bilder gilt der Unsplash-Nachweis der Vorlage nicht mehr
-    daten.bildnachweise = (daten.bildnachweise || []).filter((n) => !bilder.eigene.has(n.datei));
+// Kundenfotos und -medien liegen nicht in Git, sondern im Objektspeicher – vor dem Bauen abgleichen
+async function medienAbgleichen() {
+  const s3 = s3AusUmgebung();
+  const kunden = auswahl.filter((s) => String(s.daten).startsWith('kunden/')).map((s) => s.pfad);
+  if (!s3) {
+    if (kunden.length) console.log('ℹ MEDIEN_ENDPUNKT nicht gesetzt – Kundenfotos nur aus den lokalen Ordnern kunden/<pfad>/images/');
+    return;
   }
-  const datei = path.join(tmp, `${s.pfad}.json`);
-  fs.writeFileSync(datei, JSON.stringify(daten));
+  console.log('▶ Medien aus dem Objektspeicher abgleichen');
+  const neu = await medienHolen(s3, ROOT, kunden);
+  console.log(`  ${neu} Datei(en) neu geholt`);
+}
 
-  const ziel = path.join(PUBLIC, s.pfad);
-  fs.rmSync(ziel, { recursive: true, force: true });
-  auftraege.push({ s, datei, ziel, bilder, vorlage });
+// Video, Audio usw. aus kunden/<pfad>/medien/ unverändert in die Seite übernehmen
+const MEDIEN_ENDUNGEN = /\.(mp4|webm|mp3|m4a|ogg|opus|vtt|pdf)$/i;
+function medienKopieren(s, ziel) {
+  const quelle = path.join(ROOT, path.dirname(s.daten), 'medien');
+  if (!String(s.daten).startsWith('kunden/') || !fs.existsSync(quelle)) return;
+  for (const e of fs.readdirSync(quelle, { recursive: true, withFileTypes: true })) {
+    if (!e.isFile() || !MEDIEN_ENDUNGEN.test(e.name)) continue;
+    const datei = path.join(e.parentPath || e.path, e.name);
+    const zielDatei = path.join(ziel, 'medien', path.relative(quelle, datei));
+    fs.mkdirSync(path.dirname(zielDatei), { recursive: true });
+    fs.copyFileSync(datei, zielDatei);
+  }
 }
 
 // Eine Seite in einem eigenen Prozess bauen; Ausgabe sammeln, damit sie nicht durcheinanderläuft
@@ -123,7 +156,7 @@ function baue({ s, datei, ziel, bilder, vorlage }) {
     kind.stderr.on('data', (d) => { ausgabe += d; });
     kind.on('close', (code) => {
       console.log(`\n▶ ${s.pfad}  (${s.vorlage})\n${ausgabe.trimEnd()}`);
-      if (code !== 0) { fehler++; console.error(`✖ ${s.pfad} fehlgeschlagen`); }
+      if (code !== 0) { fehler++; console.error(`✖ ${s.pfad} fehlgeschlagen`); } else medienKopieren(s, ziel);
       fertig();
     });
   });
@@ -137,7 +170,7 @@ async function alleBauen() {
   }));
 }
 
-alleBauen().then(() => {
+medienAbgleichen().then(vorbereiten).then(alleBauen).then(() => {
   fs.rmSync(tmp, { recursive: true, force: true });
 
   // robots.txt gilt nur im Wurzelverzeichnis: Demo-Seiten sperren, Live-Seiten erlauben
@@ -155,4 +188,7 @@ alleBauen().then(() => {
 
   console.log(`\n${fehler ? '✖' : '✔'} ${auswahl.length - fehler}/${auswahl.length} Seiten gebaut → public/  (Startseite mit ${imHub} Beispielen)`);
   process.exit(fehler ? 1 : 0);
+}).catch((e) => {
+  console.error(`✖ ${e.message}`);
+  process.exit(1);
 });

@@ -10,6 +10,12 @@ WORKDIR /app
 COPY . .
 ARG BASIS_URL=""
 ENV BASIS_URL=${BASIS_URL}
+# Objektspeicher für Kundenfotos/-medien (Coolify: Build-Variablen). Nur in dieser Build-Stufe sichtbar,
+# das fertige nginx-Image enthält sie nicht. Ohne Angaben werden Kundenseiten ohne ihre Fotos gebaut.
+ARG MEDIEN_ENDPUNKT=""
+ARG MEDIEN_BUCKET="kunden-medien"
+ARG MEDIEN_ZUGANG=""
+ARG MEDIEN_GEHEIMNIS=""
 # Bild-Cache bleibt zwischen Builds erhalten (BuildKit) – nur neue/geänderte Fotos werden umgewandelt
 RUN --mount=type=cache,target=/app/.bildcache node build-all.js
 

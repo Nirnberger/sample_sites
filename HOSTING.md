@@ -64,8 +64,8 @@ Beliebig viele Seiten können parallel laufen – auch mehrere auf derselben Vor
 2. Der Workflow legt `kunden/<pfad>/` an, trägt die Seite in `sites.json` ein und öffnet einen
    **Pull Request** mit Checkliste. Die Prüf-Pipeline läuft automatisch.
 3. Im Pull Request im Browser nachbessern: JSON-Datei bearbeiten (Stift-Symbol oder Taste `.`
-   für den Web-Editor), **eigene Fotos** nach `kunden/<pfad>/images/` hochladen
-   („Add file → Upload files“). Ein Foto mit gleichem Dateinamen wie in der Vorlage
+   für den Web-Editor). **Eigene Fotos** nicht ins Repository, sondern in den Objektspeicher
+   (siehe „Kundenfotos und Medien“ unten). Ein Foto mit gleichem Dateinamen wie in der Vorlage
    (z. B. `hero.jpg`) ersetzt das Vorlagenbild, alles andere kommt weiter aus der Vorlage.
    Erlaubt sind nur JPG, PNG und WebP.
 4. **Merge** → nach der grünen Pipeline live unter `/<pfad>/`.
@@ -93,6 +93,47 @@ PFAD=cafe-test VORLAGE=cafe NAME="Café Test" ADRESSE="Gasse 1, 1010 Wien" LAND=
   TELEFON="01 1234567" node scripts/neue-seite.js
 PFAD=cafe-test BESTAETIGUNG=cafe-test node scripts/seite-loeschen.js
 ```
+
+## Kundenfotos und Medien (Objektspeicher)
+
+Kundenfotos (`kunden/<pfad>/images/`) und Medien wie Showreels oder Hörproben
+(`kunden/<pfad>/medien/`) kommen **nie ins Git-Repository** (Größe, Bildrechte – alles in `main`
+geht live). Sie liegen in einem S3-kompatiblen Objektspeicher:
+
+```
+<bucket>/<pfad>/images/hero.jpg        →  kunden/<pfad>/images/hero.jpg  →  responsive AVIF/WebP
+<bucket>/<pfad>/medien/showreel.mp4    →  kunden/<pfad>/medien/…         →  /<pfad>/medien/showreel.mp4
+```
+
+`build-all.js` gleicht vor dem Bauen automatisch ab, wenn `MEDIEN_ENDPUNKT` gesetzt ist (nur neue
+oder geänderte Dateien werden geladen). Ohne Zugangsdaten werden Kundenseiten mit den Vorlagenbildern
+bzw. Platzhaltern gebaut – der Build bricht nicht ab.
+
+### Einmalig einrichten
+1. **Speicher anlegen** – z. B. in Coolify als Dienst. Hinweis: MinIO veröffentlicht die freie
+   Version seit 2025 nur noch als Quellcode (keine neuen Images/Binärdateien mehr). Gleichwertig und
+   aktiv gepflegt: **Garage** oder **SeaweedFS** (selbst gehostet) oder **Hetzner Object Storage**.
+   Der Code spricht reines S3 (Signatur V4, Pfad-Adressierung) und funktioniert mit allen.
+2. **Erreichbarkeit:** Der S3-Endpunkt muss für den Build erreichbar sein – auf dem Coolify-Server
+   (Deploy) und, damit die Pipeline Kundenseiten mit Fotos testet, für GitHub Actions. Am einfachsten
+   eine eigene Subdomain mit HTTPS (z. B. `medien.seitenschwung.com`); S3 ist ohne Schlüssel nicht lesbar.
+3. **Zwei Schlüssel anlegen:** einen **nur lesenden** für Builds und einen **schreibenden** zum Hochladen.
+4. **Bucket anlegen:** `node scripts/medien.js bucket` (mit dem schreibenden Schlüssel).
+5. **Build-Variablen** (nur lesender Schlüssel) in Coolify bei der Ressource unter *Environment
+   Variables* als „Build Variable“ und in GitHub als Secrets:
+   `MEDIEN_ENDPUNKT`, `MEDIEN_ZUGANG`, `MEDIEN_GEHEIMNIS` (optional `MEDIEN_BUCKET`, Standard
+   `kunden-medien`). Sie gelten nur in der Build-Stufe des Dockerfiles; das ausgelieferte
+   nginx-Image enthält sie nicht.
+
+### Fotos hochladen
+```bash
+export MEDIEN_ENDPUNKT=https://medien.seitenschwung.com MEDIEN_ZUGANG=… MEDIEN_GEHEIMNIS=…
+node scripts/medien.js hochladen nora-solcher   # kunden/nora-solcher/images + /medien → Speicher
+node scripts/medien.js liste nora-solcher
+node scripts/medien.js holen                    # Speicher → lokale Ordner (alle Kundenseiten)
+```
+Danach einen neuen Deploy auslösen (z. B. Pipeline in GitHub manuell starten), damit die Seite die
+neuen Fotos bekommt. Erlaubt: JPG, PNG, WebP (Fotos) sowie MP4, WebM, MP3, M4A, OGG/Opus, VTT, PDF (Medien).
 
 ## Sicherheit
 

@@ -10,8 +10,9 @@
  *   IM_HUB (true/false), dazu ADRESSE ("Straße Nr, PLZ Ort") oder einzeln STRASSE/PLZ/ORT
  *   und GOOGLE ("4.8 (210)") oder einzeln GOOGLE_BEWERTUNG/GOOGLE_ANZAHL.
  *
- * Bilder: Es werden keine Fotos kopiert. Die Seite nutzt die Bilder der Vorlage, bis im Ordner
- * kunden/<pfad>/images/ gleichnamige eigene Fotos liegen (siehe build-all.js).
+ * Bilder: Es werden keine Fotos kopiert. Die Seite nutzt die Bilder der Vorlage, bis im Objektspeicher
+ * unter <pfad>/images/ gleichnamige eigene Fotos liegen (scripts/medien.js, siehe HOSTING.md) – Kundenfotos
+ * kommen nie ins Git-Repository.
  */
 
 const fs = require('fs');
@@ -148,7 +149,9 @@ d.social = { instagram: '', facebook: '' };
 fs.mkdirSync(path.join(zielOrdner, 'images'), { recursive: true });
 fs.writeFileSync(path.join(zielOrdner, v.datei), JSON.stringify(d, null, 2) + '\n');
 fs.writeFileSync(path.join(zielOrdner, 'images', 'LIESMICH.md'),
-  `# Eigene Fotos für ${ein.name}\n\nHier hochgeladene Fotos ersetzen das gleichnamige Bild der Vorlage ` +
+  `# Eigene Fotos für ${ein.name}\n\nFotos gehören nicht ins Git-Repository, sondern in den Objektspeicher:\n` +
+  `\`node scripts/medien.js hochladen ${ein.pfad}\` (Zugangsdaten siehe HOSTING.md). Beim Build landen sie hier.\n\n` +
+  `Ein Foto ersetzt das gleichnamige Bild der Vorlage ` +
   `(z. B. \`${typeof vorlageDaten.hero_bild === 'object' ? vorlageDaten.hero_bild.datei : 'hero.jpg'}\` für das große Foto oben).\n` +
   'Erlaubt: JPG, PNG, WebP. Fehlende Fotos werden aus der Vorlage übernommen.\n');
 
@@ -164,7 +167,7 @@ const zusammenfassung = [
   ...(hinweise.length ? ['**⚠ Ignorierte Angaben:**', ...hinweise.map((h) => `- ${h}`), ''] : []),
   '**Vor dem Zeigen beim Kunden prüfen:**',
   `- [ ] Texte in \`kunden/${ein.pfad}/${v.datei}\` anpassen (Slogan, Über uns, Leistungen/Preise, Öffnungszeiten)`,
-  `- [ ] Eigene Fotos nach \`kunden/${ein.pfad}/images/\` hochladen (gleiche Dateinamen wie in der Vorlage)`,
+  `- [ ] Eigene Fotos in den Objektspeicher unter \`${ein.pfad}/images/\` laden – **nicht** ins Repository (gleiche Dateinamen wie in der Vorlage, siehe HOSTING.md → Kundenfotos)`,
   '- [ ] Nur **echte** Bewertungen eintragen (Feld `bewertungen`) – die Beispiel-Bewertungen wurden entfernt',
   '- [ ] Impressum und Datenschutz vervollständigen ([…]-Platzhalter)',
   ein.imHub ? '- [ ] Erscheint im Hub – `hub.stil` und `hub.merkmale` in `sites.json` ergänzen' : '- Erscheint **nicht** im Hub (nur direkt über den Pfad erreichbar)',
