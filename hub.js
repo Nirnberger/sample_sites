@@ -10,7 +10,7 @@ const esc = (w) => String(w ?? '')
   .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
 // Dieselbe Umwandlung wie beim Bild-Build der Vorlagen (Dateiname → Bildname)
-const { slug } = require('./salon-vorlage/src/lib/helfer');
+const { slug } = require('./vorlagen/salon/src/lib/helfer');
 
 // Sucht die WebP-Varianten des Hero-Bilds im gebauten Ordner und baut daraus src/srcset
 function heroBild(PUBLIC, pfad, daten) {

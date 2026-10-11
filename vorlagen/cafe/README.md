@@ -1,6 +1,6 @@
 # Café-Vorlage „hell & herzlich“
 
-Dritte Vorlage neben `../salon-vorlage/` und `../barber-vorlage/`, für **Cafés, Frühstückslokale,
+Dritte Vorlage neben `../salon/` und `../barber/`, für **Cafés, Frühstückslokale,
 Bistros, Imbisse und Eiscafés**. Gleiche Technik (statisch, ohne Cookies, ohne externe Requests),
 Inhalte in **`cafe.json`**, Build mit `node build.js` → `dist/`.
 
@@ -30,7 +30,7 @@ eine Café/Bistro-Vorlage beide ab. Typischer Mangel: nur Instagram-/Plattform-P
 
 ## Zusätzliche Felder in `cafe.json`
 
-Alle Felder der Salon-Vorlage gelten weiter (siehe `../salon-vorlage/README.md`). Neu:
+Alle Felder der Salon-Vorlage gelten weiter (siehe `../salon/README.md`). Neu:
 
 | Feld | Beschreibung |
 |---|---|

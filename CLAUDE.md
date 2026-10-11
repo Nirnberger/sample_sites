@@ -86,14 +86,21 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 ## Projekte
 
-- **Hosting:** Der Workspace ist ein Git-Repository, das Coolify per Dockerfile deployt. Alle Seiten aus `sites.json` laufen unter einer Domain als `/<pfad>/`. `node build-all.js` baut alles nach `public/`, inkl. Hub-Startseite `/` (`hub.js`, zeigt nur Einträge mit `"hub"`-Block). Neue Kundenseiten unter `kunden/<pfad>/` anlegen und in `sites.json` eintragen. Details in `HOSTING.md`.
+Ordnerübersicht in `README.md`. Kurz: `vorlagen/` (Website-Vorlagen), `kunden/` (Kundenseiten), `hosting/` (nginx), `vertrieb/` (Lead-Skripte; Leads, Cache und Pitches nur lokal), `recherche/` (Kundenrecherche – nicht im Repo).
+
+- **Hosting:** Der Workspace ist ein Git-Repository, das Coolify per Dockerfile deployt. Alle Seiten aus `sites.json` laufen unter einer Domain als `/<pfad>/`. `node build-all.js` baut alles nach `public/`, inkl. Hub-Startseite `/` (`hub.js`, zeigt nur Einträge mit `"hub"`-Block). Neue Kundenseiten unter `kunden/<pfad>/` anlegen und in `sites.json` eintragen (`"vorlage": "vorlagen/<name>"`). nginx-Konfiguration in `hosting/`. Details in `HOSTING.md`.
   - **Seiten anlegen/löschen:** GitHub-Workflows „Neue Seite anlegen“ / „Seite löschen“ (Formular → Pull Request) bzw. `scripts/neue-seite.js` / `scripts/seite-loeschen.js`. Mehrere Seiten pro Vorlage parallel möglich; eigene Fotos in `kunden/<pfad>/images/` überlagern die Vorlagenbilder.
   - **CI/CD:** `.github/workflows/pipeline.yml` baut das Docker-Image, prüft mit `tests/smoke.js` (alle Seiten mobil+Desktop) und löst nur bei Erfolg auf `main` den Coolify-Deploy aus (Secrets `COOLIFY_WEBHOOK`, `COOLIFY_TOKEN`). Live: https://sample.seitenschwung.com
 
-- `lead_finder.py` – findet gut bewertete Unternehmen (Schleswig-Holstein, Wien) mit schwachen Websites. Ausgabe: CSV mit Priorität und Mängelliste. Start klein testen: `python3 lead_finder.py --orte "Rendsburg" --branchen "Tischlerei" --max-queries 1`
-  - **Achtung:** Die PageSpeed-API ist im Google-Cloud-Projekt des Schlüssels nicht aktiviert (HTTP 403) – alle bisherigen CSVs haben daher keine PageSpeed-Werte. Nach dem Aktivieren `.lead_cache/sites/` löschen, sonst bleiben die leeren Ergebnisse 14 Tage im Cache. Ersatz: lokale Lighthouse-Messung in `lead_auswertung_angel_jagd/lh_messen.py`.
-- `leads_wien_angel_jagd.csv` – 31 bewertete Leads (Angel-, Jagd-, Waffengeschäfte, Büchsenmacher in Wien & Umgebung), sortiert nach `zusage_score`, mit Pitch-Aufhänger. Rohdaten: `leads_wien_angel_jagd_roh.csv`, Auswertung: `lead_auswertung_angel_jagd/` (`python3 lead_auswertung_angel_jagd/auswerten.py`).
-- `salon-vorlage/` – Website-Vorlage für Friseursalons („elegant & modern“). Inhalte nur in `salon.json` + `images/`, Build mit `node build.js` → `dist/`. Details in `salon-vorlage/README.md`.
-- `barber-vorlage/` – Schwester-Vorlage für Barbershops („bodenständig“, Du-Ansprache). Gleiche Technik, Inhalte in `barber.json` + `images/`, Build mit `node build.js` → `dist/`. Details in `barber-vorlage/README.md`.
-- `cafe-vorlage/` – Vorlage für Cafés, Bistros, Imbisse („hell & herzlich“). Inhalte in `cafe.json` + `images/`, Build mit `node build.js` → `dist/`. Mit Speisekarte, Highlights, Reservieren/Bestellen. Details in `cafe-vorlage/README.md`.
-- `angel-jagd-vorlage/` – moderne Shop-Vorlage für Angel- & Jagdgeschäfte (auch Outdoor/Fachhandel). Sortiment mit Filter, Suche und Merkzettel (Click & Collect per WhatsApp/E-Mail). Inhalte in `shop.json` + `images/`, Build mit `node build.js` → `dist/`. Details in `angel-jagd-vorlage/README.md`.
+- **Vertrieb (`vertrieb/`):** Skripte im Repo, Daten (CSVs, `.lead_cache/`, `pitches/`) nur lokal. `lead_finder.py` immer aus `vertrieb/` starten – Cache und CSVs landen im aktuellen Ordner.
+  - `lead_finder.py` – findet gut bewertete Unternehmen (Schleswig-Holstein, Wien) mit schwachen Websites. Ausgabe: CSV mit Priorität und Mängelliste. Start klein testen: `cd vertrieb && python3 lead_finder.py --orte "Rendsburg" --branchen "Tischlerei" --max-queries 1`
+  - **Achtung:** Die PageSpeed-API ist im Google-Cloud-Projekt des Schlüssels nicht aktiviert (HTTP 403) – alle bisherigen CSVs haben daher keine PageSpeed-Werte. Nach dem Aktivieren `vertrieb/.lead_cache/sites/` löschen, sonst bleiben die leeren Ergebnisse 14 Tage im Cache. Ersatz: lokale Lighthouse-Messung in `vertrieb/lead_auswertung_angel_jagd/lh_messen.py`.
+  - `leads_wien_angel_jagd.csv` – 31 bewertete Leads (Angel-, Jagd-, Waffengeschäfte, Büchsenmacher in Wien & Umgebung), sortiert nach `zusage_score`, mit Pitch-Aufhänger. Rohdaten: `leads_wien_angel_jagd_roh.csv`, Auswertung: `python3 vertrieb/lead_auswertung_angel_jagd/auswerten.py`. Pitches in `vertrieb/pitches/`.
+
+- **Vorlagen (`vorlagen/`):** Inhalte jeweils nur in der JSON-Datei + `images/`, Build einzeln mit `node build.js` im Vorlagenordner → `dist/`, oder alles mit `node build-all.js`.
+  - `salon/` – Friseursalons („elegant & modern“), `salon.json`. Details in `vorlagen/salon/README.md`.
+  - `barber/` – Barbershops („bodenständig“, Du-Ansprache), `barber.json`.
+  - `cafe/` – Cafés, Bistros, Imbisse („hell & herzlich“), `cafe.json`, mit Speisekarte, Highlights, Reservieren/Bestellen.
+  - `angel-jagd/` – Shop für Angel- & Jagdgeschäfte (auch Outdoor/Fachhandel), `shop.json`, Sortiment mit Filter, Suche, Merkzettel (Click & Collect per WhatsApp/E-Mail).
+  - `buehne/` – künstlerisches Portfolio für Schauspieler:innen („die Website als Theaterabend“: Ouvertüre mit Rollenwechsel, Besetzungszettel, vier Akte Bühne/Kamera/Stimme/Feder, Kontaktbogen, Vorhang). Aktuell für Nora Solcher (`kunden/nora-solcher/schauspiel.json`, Recherche in `recherche/nora-solcher/`).
+  - `schauspiel/` – nüchterne Schwester-Vorlage mit demselben Datenformat (in `sites.json` austauschbar).

@@ -125,7 +125,7 @@ for r in rows:
         "telefon": r["telefon"],
         "adresse": r["adresse"],
         "maps_link": r["maps_link"],
-        "passende_vorlage": "cafe-vorlage (Service)" if seg == "Angelteich / Revier" else "angel-jagd-vorlage",
+        "passende_vorlage": "vorlagen/cafe (Service)" if seg == "Angelteich / Revier" else "vorlagen/angel-jagd",
         "hinweis": notiz,
         "status_kontakt": "",
         "notizen": "",

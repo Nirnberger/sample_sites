@@ -6,11 +6,8 @@
 .bildcache
 **/.bildcache
 public
-.lead_cache
-leads_*.csv
-lead_auswertung_*
-lead_finder.py
-pitches
+vertrieb
+recherche
 .github
 tests
 HOSTING.md

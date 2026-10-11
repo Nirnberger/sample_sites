@@ -10,9 +10,9 @@
   "sites": [
     {
       "pfad": "atelier-haarwerk",
-      "vorlage": "salon-vorlage",
-      "daten": "salon-vorlage/salon.json",
-      "bilder": "salon-vorlage/images",
+      "vorlage": "vorlagen/salon",
+      "daten": "vorlagen/salon/salon.json",
+      "bilder": "vorlagen/salon/images",
       "hub": {
         "branche": "Friseursalon",
         "stil": "elegant & modern",
@@ -26,9 +26,9 @@
     },
     {
       "pfad": "kante-klinge",
-      "vorlage": "barber-vorlage",
-      "daten": "barber-vorlage/barber.json",
-      "bilder": "barber-vorlage/images",
+      "vorlage": "vorlagen/barber",
+      "daten": "vorlagen/barber/barber.json",
+      "bilder": "vorlagen/barber/images",
       "hub": {
         "branche": "Barbershop",
         "stil": "bodenständig",
@@ -42,9 +42,9 @@
     },
     {
       "pfad": "cafe-feldliebe",
-      "vorlage": "cafe-vorlage",
-      "daten": "cafe-vorlage/cafe.json",
-      "bilder": "cafe-vorlage/images",
+      "vorlage": "vorlagen/cafe",
+      "daten": "vorlagen/cafe/cafe.json",
+      "bilder": "vorlagen/cafe/images",
       "hub": {
         "branche": "Café & Bistro",
         "stil": "hell & herzlich",
@@ -58,9 +58,9 @@
     },
     {
       "pfad": "petri-pirsch",
-      "vorlage": "angel-jagd-vorlage",
-      "daten": "angel-jagd-vorlage/shop.json",
-      "bilder": "angel-jagd-vorlage/images",
+      "vorlage": "vorlagen/angel-jagd",
+      "daten": "vorlagen/angel-jagd/shop.json",
+      "bilder": "vorlagen/angel-jagd/images",
       "hub": {
         "branche": "Fachhandel mit Shop",
         "stil": "modern & outdoor",
@@ -74,7 +74,7 @@
     },
     {
       "pfad": "test",
-      "vorlage": "cafe-vorlage",
+      "vorlage": "vorlagen/cafe",
       "daten": "kunden/test/cafe.json",
       "bilder": "kunden/test/images",
       "hub": {

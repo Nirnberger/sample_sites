@@ -104,7 +104,7 @@ PFAD=cafe-test BESTAETIGUNG=cafe-test node scripts/seite-loeschen.js
   abgeschaltet, Links nur `http(s)`, `mailto`, `tel`. SVG-Uploads werden ignoriert.
 - **Server:** Content-Security-Policy (Skripte/Schriften/Bilder nur von dieser Domain),
   `X-Frame-Options`, `nosniff`, `Referrer-Policy`, `Permissions-Policy` auf **allen** Antworten
-  (`nginx-sicherheit.conf`). Versteckte Dateien (`.git`, `.env`) liefern 404.
+  (`hosting/nginx-sicherheit.conf`). Versteckte Dateien (`.git`, `.env`) liefern 404.
 - Der **Smoke-Test** prüft das alles bei jedem Lauf mit (CSP-Verstöße, Header, interne Dateien).
 
 ## Gut zu wissen
@@ -121,11 +121,11 @@ PFAD=cafe-test BESTAETIGUNG=cafe-test node scripts/seite-loeschen.js
 - **robots.txt** wird automatisch erzeugt: Seiten mit `"demo_modus": true` sind für
   Suchmaschinen gesperrt (zusätzlich `noindex` im HTML).
 - **Eigene Domain für einen Kunden** (z. B. `michis-angelshop.at`) ist später möglich:
-  Domain zusätzlich in Coolify eintragen und in `nginx.conf` einen eigenen `server`-Block
+  Domain zusätzlich in Coolify eintragen und in `hosting/nginx.conf` einen eigenen `server`-Block
   mit `root /usr/share/nginx/html/michis-angelshop;` ergänzen. Für Live-Kunden ist das die
   bessere Lösung als ein Unterverzeichnis.
-- **Nicht im Repository:** `dist/`, `public/`, Bild-Caches, `leads_*.csv`, `.lead_cache/`
-  und `pitches/` (siehe `.gitignore`). Vertriebsdaten bleiben nur lokal.
+- **Nicht im Repository:** `dist/`, `public/`, Bild-Caches, Vertriebsdaten in `vertrieb/`
+  (`leads_*.csv`, `.lead_cache/`, `pitches/`) und `recherche/` (siehe `.gitignore`). Diese Daten bleiben nur lokal.
 - **Build lokal wie auf dem Server testen** (mit Docker):
   `docker build -t websites . && docker run --rm -p 8080:80 websites`
   → http://localhost:8080/petri-pirsch/

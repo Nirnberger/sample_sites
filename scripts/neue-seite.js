@@ -16,14 +16,14 @@
 
 const fs = require('fs');
 const path = require('path');
-const { slug } = require('../salon-vorlage/src/lib/helfer');
+const { slug } = require('../vorlagen/salon/src/lib/helfer');
 
 const ROOT = path.join(__dirname, '..');
 const VORLAGEN = {
-  salon: { ordner: 'salon-vorlage', datei: 'salon.json' },
-  barber: { ordner: 'barber-vorlage', datei: 'barber.json' },
-  cafe: { ordner: 'cafe-vorlage', datei: 'cafe.json' },
-  'angel-jagd': { ordner: 'angel-jagd-vorlage', datei: 'shop.json' },
+  salon: { ordner: 'vorlagen/salon', datei: 'salon.json' },
+  barber: { ordner: 'vorlagen/barber', datei: 'barber.json' },
+  cafe: { ordner: 'vorlagen/cafe', datei: 'cafe.json' },
+  'angel-jagd': { ordner: 'vorlagen/angel-jagd', datei: 'shop.json' },
 };
 const LAENDER = ['Deutschland', 'Österreich', 'Schweiz'];
 

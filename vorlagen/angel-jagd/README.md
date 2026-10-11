@@ -24,8 +24,8 @@ der Seite leer. Ohne JavaScript bleibt das Sortiment vollständig sichtbar, nur 
 
 ## Felder in `shop.json`
 
-Alle Felder der Salon-Vorlage gelten weiter (siehe `../salon-vorlage/README.md`), dazu `highlights`
-aus der Café-Vorlage (siehe `../cafe-vorlage/README.md`). Neu:
+Alle Felder der Salon-Vorlage gelten weiter (siehe `../salon/README.md`), dazu `highlights`
+aus der Café-Vorlage (siehe `../cafe/README.md`). Neu:
 
 | Feld | Beschreibung |
 |---|---|

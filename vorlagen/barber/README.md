@@ -1,6 +1,6 @@
 # Barber-Vorlage „bodenständig“
 
-Schwester-Vorlage zu `../salon-vorlage/`, für Barbershops. Gleiche Technik und gleiche Felder,
+Schwester-Vorlage zu `../salon/`, für Barbershops. Gleiche Technik und gleiche Felder,
 anderer Auftritt:
 
 - **Look:** warmes Papier statt Weiß, Rost-Akzent (`#A8502E`), Oswald (schmale Plakatschrift) + Source Sans 3,
@@ -10,7 +10,7 @@ anderer Auftritt:
 - **Ansprache:** durchgehend „du“ (Standardtexte im Template, Datenschutz-Muster in `barber.json`)
 
 Alles Weitere (Felder, Bilder, Bildnachweise, Hochladen, Rechtliches) steht in
-`../salon-vorlage/README.md` und gilt hier genauso. Einziger Unterschied: Die Inhalte stehen in
+`../salon/README.md` und gilt hier genauso. Einziger Unterschied: Die Inhalte stehen in
 **`barber.json`** statt `salon.json`.
 
 ## Kurzfassung

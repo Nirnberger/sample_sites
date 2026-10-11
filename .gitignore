@@ -10,7 +10,7 @@ node_modules/
 # Vertriebsdaten und Caches – nicht ins Website-Repository
 leads_*.csv
 .lead_cache/
-lead_auswertung_*/lh_ergebnisse.json
+**/lead_auswertung_*/lh_ergebnisse.json
 
 # Persönliche Vertriebsnotizen
 pitches/

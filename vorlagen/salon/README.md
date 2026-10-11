@@ -18,7 +18,7 @@ kein Tracking, **keine externen Requests** (also kein Cookie-Banner nötig).
 
 ## Neuen Salon anlegen in 5 Schritten
 
-1. **Ordner kopieren:** Kopiere den ganzen Ordner `salon-vorlage/`, zum Beispiel als `salon-mueller/`.
+1. **Ordner kopieren:** Kopiere den ganzen Ordner `vorlagen/salon/`, zum Beispiel als `vorlagen/salon-mueller/`.
 2. **Bilder austauschen:** Lege die Fotos des Salons in `images/` (JPG, PNG oder WebP, gern in voller Größe).
    Nicht mehr benötigte Beispielbilder kannst du löschen.
 3. **`salon.json` ausfüllen:** Name, Kontakt, Öffnungszeiten, Preise, Team, Bewertungen, Bilddateinamen,
@@ -187,7 +187,7 @@ Bewertung, Telefon) sowie Open-Graph-Tags. Alles wird aus `salon.json` erzeugt.
 ## Projektstruktur
 
 ```
-salon-vorlage/
+vorlagen/salon/
 ├── salon.json               Inhalte des Salons (das Einzige, was pro Salon geändert wird)
 ├── images/                  Fotos des Salons bzw. Beispielfotos
 ├── build.js                 Build-Skript (Node, ohne Abhängigkeiten)
