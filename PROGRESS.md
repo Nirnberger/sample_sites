@@ -12,16 +12,17 @@
   - C: Kundenfotos/-medien im S3-Speicher (`scripts/medien.js`), Build holt automatisch – getestet mit SeaweedFS
   - B: Pages CMS (`.pages.yml`) mit deutschen Formularen für Nora; Speichern simuliert – kein Datenverlust
   - E: Lighthouse in der Pipeline; alle Seiten 97–100 Leistung (Noras Layout-Sprung behoben: 74 → 97)
+- **2026-10-11:** Gepusht; Konflikt mit PR „Seite löschen: /test/“ gelöst (Testseite entfernt, Nora bleibt)
 
 ## Offen
 - Noras Entwurf (Demo-Modus, noindex) wartet auf ihre Freigabe: Fotorechte/Credits, Texte, Impressum-Anschrift, ggf. Größe 163/165 cm, bessere „Hertopia“-Fotos (nur 960 px)
-- `main` ist 7+ Commits vor GitHub, nicht gepusht
+- Erster Pipeline-Lauf nach dem Push prüfen
 - Docker-Build (AVIF-Paket, BuildKit-Cache) und echte Pages-CMS-Oberfläche erst beim ersten Pipeline-Lauf bzw. Login prüfbar
-- Aus früher: PageSpeed-API aktivieren (Leads), Testseite `/test/` prüfen
+- Aus früher: PageSpeed-API aktivieren (Leads)
 
 ## Nächste Schritte
 1. S3-Speicher auf Coolify einrichten (Garage oder SeaweedFS statt MinIO), `MEDIEN_*` als Coolify-Build-Variablen und GitHub-Secrets eintragen, dann `node scripts/medien.js bucket` und `hochladen nora-solcher`
-2. Pushen und den ersten Pipeline-Lauf prüfen (Docker-Build mit AVIF, Smoke-Test, Lighthouse)
+2. Ersten Pipeline-Lauf prüfen (Docker-Build mit AVIF, Smoke-Test, Lighthouse)
 3. Pages CMS GitHub-App installieren, Nora per E-Mail einladen und ihr den Entwurf zur Freigabe zeigen
 
 ## Entscheidungen/Notizen
