@@ -18,6 +18,7 @@
 - **2026-10-11:** `.env` (lokale Schlüssel: Schreibschlüssel S3 + `GITHUB_TOKEN`) in `.gitignore`/`.dockerignore`; Laden mit `set -a; source .env; set +a`. Alles gepusht
 - **2026-10-11:** Nora-Neufassung `vorlagen/repertoire` (mehrseitig, Menü Theater · Film · Audio · Schreiben · Unterrichten, ausführliche Kontaktseite, Creme/Braun/Mint, Projekte nach Filmmakers, Film als Projektkarten, Unterricht mit Angeboten/Referenzen). Beide Fassungen live: `/nora-solcher/v1/` (buehne, eingefroren in `v1.json`) und `/nora-solcher/v2/` (CMS); `/nora-solcher/` → 302 auf v2. `pfad` darf Unterordner haben, Medien-Sync nach Kundenordner, Smoke-Test prüft Unterseiten. Branch `nora-buehne-archiv` auf GitHub
 - **2026-10-11:** Farbschema von coolors.co (Feld `farbschema`, jedes Export-Format oder Link) für buehne/repertoire, im CMS für v1 und v2. Farb-Labor unter `…/#farben`: Vorschau nur im eigenen Tab, minimierbar, Vorschau-Link teilbar, kein Speichern/Senden. Build und Labor nutzen `lib/farbschema.js`
+- **2026-10-11:** SeaweedFS „degraded“ behoben (Philipp); Speicher erreichbar, Noras Fotos mit Schlüssel lesbar
 - **2026-10-11:** Cache-Fix: buehne/repertoire binden Skripte mit `?v=<Prüfsumme>` ein (nginx cacht JS 7 Tage). Alles gepusht, Pipeline grün, live geprüft
 - **2026-10-11:** Abgesicherte Compose-Datei `hosting/seaweedfs.yml` (kein anonymer Zugriff, kein Admin-UI, nur lesender Schlüssel `build`) – lokal getestet: ohne Schlüssel 403, `build` liest/listet, darf nicht schreiben
 
@@ -28,7 +29,7 @@
 - CMS-Formulare für Nora stark umgebaut (Bereiche, Farbschema, v1) – noch nie in Pages CMS selbst getestet
 - Fragen an Nora zur Neufassung: eigene E-Mail für Unterricht/Kooperationen (`kontakt.email_direkt`, bis dahin geht alles ans Management), Ort des Präsenzunterrichts, Rollengröße Tatort, Texte der Unterrichtsangebote freigeben, Film-Standbilder vorhanden?
 - Noras Entwurf (Demo-Modus, noindex) wartet auf ihre Freigabe: Fotorechte/Credits, Texte, Impressum-Anschrift, ggf. Größe 163/165 cm, bessere „Hertopia“-Fotos (nur 960 px)
-- **SeaweedFS liefert Dateien ohne Schlüssel aus** (`hero.jpg` → 200). Compose in Coolify durch `hosting/seaweedfs.yml` ersetzt, Dienst jetzt **„degraded“**, alte Konfiguration antwortet weiter. Ursache unklar: neuer Container startet nicht oder verwaister Admin-Container – Container-Liste/Logs von seaweedfs-master ansehen. Fotos und Schreibschlüssel funktionieren weiterhin
+- **SeaweedFS: einzelne Dateien weiter ohne Schlüssel lesbar** (Stand 2026-10-11: `…/kunden-medien/nora-solcher/images/hero.jpg` → 200, Bucket-Liste → 403). „Degraded“ ist gelöst – prüfen, ob `hosting/seaweedfs.yml` wirklich aktiv ist oder der Bucket eine öffentliche Lese-Regel hat
 - Unklar, ob Coolify/GitHub den schreibenden Schlüssel (`SERVICE_USER_S3`) statt eines nur lesenden nutzen
 - Pages-CMS-Oberfläche erst nach Login prüfbar
 - CSP-Konsolenmeldung (Hash `Q00BMk9…`) stammt nicht von unseren Seiten – vermutlich Browser-Erweiterung; im privaten Fenster gegenprüfen
@@ -37,7 +38,7 @@
 ## Nächste Schritte
 1. Nora beide Fassungen zeigen (`/nora-solcher/v1/` und `/v2/`, Farb-Labor mit `#farben`) und Fragen klären: eigene E-Mail für Unterricht, Ort Präsenzunterricht, Texte der Angebote, Impressum-Anschrift, Fotorechte
 2. Pages CMS GitHub-App installieren und auf Branch `cms-test` testen (Bereiche-Listen, Farbschema-Feld, v1-Eintrag; danach `git diff` auf Datenverlust prüfen), dann Nora einladen
-3. SeaweedFS „degraded“ klären (Container-Liste + Logs seaweedfs-master), danach `MEDIEN_ZUGANG`/`MEDIEN_GEHEIMNIS` in Coolify und GitHub auf den lesenden Schlüssel `build` umstellen
+3. SeaweedFS anonymes Lesen abstellen (aktive Konfiguration/Bucket-Regel prüfen, Ziel: `hero.jpg` ohne Schlüssel → 403), dann `MEDIEN_ZUGANG`/`MEDIEN_GEHEIMNIS` in Coolify und GitHub auf den lesenden Schlüssel `build` umstellen
 
 ## Entscheidungen/Notizen
 - **Medien:** Kundenfotos und Videos nie in Git, nur im S3-Speicher; lizenzfreie Vorlagenbilder bleiben in Git
