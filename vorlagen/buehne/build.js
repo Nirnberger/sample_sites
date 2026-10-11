@@ -102,8 +102,15 @@ for (const d of [DIST, path.join(DIST, 'img'), path.join(DIST, 'fonts'), path.jo
 for (const f of fs.readdirSync(path.join(ROOT, 'fonts'))) {
   if (f.endsWith('.woff2')) fs.copyFileSync(path.join(ROOT, 'fonts', f), path.join(DIST, 'fonts', f));
 }
-fs.copyFileSync(path.join(ROOT, 'src/js/main.js'), path.join(DIST, 'js/main.js'));
-fs.copyFileSync(path.join(ROOT, '../../lib/farbschema.js'), path.join(DIST, 'js/farbschema.js')); // Farb-Labor (…#farben)
+// Skripte mit Versionsnummer (?v=Prüfsumme) einbinden: nginx lässt JS 7 Tage im Browser-Cache,
+// ohne neue Adresse sähen wiederkehrende Besucher Änderungen erst nach einer Woche.
+const version = (text) => require('crypto').createHash('sha1').update(text).digest('hex').slice(0, 8);
+const farbschemaJs = fs.readFileSync(path.join(ROOT, '../../lib/farbschema.js'), 'utf8');
+fs.writeFileSync(path.join(DIST, 'js/farbschema.js'), farbschemaJs); // Farb-Labor (…#farben)
+const mainJs = fs.readFileSync(path.join(ROOT, 'src/js/main.js'), 'utf8')
+  .replace("'js/farbschema.js'", `'js/farbschema.js?v=${version(farbschemaJs)}'`);
+fs.writeFileSync(path.join(DIST, 'js/main.js'), mainJs);
+const mainJsUrl = `js/main.js?v=${version(mainJs)}`;
 
 // ---------------------------------------------------------------------------
 // 4. Bilder: responsive WebP-Varianten (mit Cache) und Fotonachweise
@@ -502,7 +509,7 @@ ${og}
 <meta name="twitter:card" content="summary_large_image">
 <style>${css}</style>
 <noscript><style>.programm{position:static;visibility:visible;opacity:1;padding-top:5rem}.programm-knopf{display:none}</style></noscript>
-<script src="js/main.js" defer></script>
+<script src="${mainJsUrl}" defer></script>
 </head>
 <body id="top"${startseite ? ' class="startseite"' : ''}>
 <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
