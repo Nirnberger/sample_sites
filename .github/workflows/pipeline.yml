@@ -13,11 +13,22 @@
 
 name: Prüfen & Deployen
 
+# Ausnahmen: Änderungen nur an diesen Dateien starten keine Pipeline (und damit keinen Deploy).
+# Sobald auch nur eine andere Datei im Commit/PR geändert ist, läuft alles wie gewohnt.
+# Achtung: Hier nur Dateien eintragen, die weder Build noch Docker-Image noch Tests lesen.
 on:
   push:
     branches: [main]
+    paths-ignore: &ausnahmen
+      - '**.md'                  # CLAUDE.md, PROGRESS.md, README.md, HOSTING.md, Vorlagen-READMEs
+      - '.claude/**'             # Claude-Code-Befehle
+      - '.vscode/**'
+      - '.pages.yml'             # Pages-CMS-Formulare (nur Oberfläche, Inhalte liegen in kunden/)
+      - 'vertrieb/**'            # Lead-Skripte
+      - 'hosting/seaweedfs.yml'  # Medienspeicher, läuft getrennt auf Coolify
   pull_request:
-  workflow_dispatch:        # manuell starten: Actions → „Prüfen & Deployen“ → Run workflow
+    paths-ignore: *ausnahmen
+  workflow_dispatch:       # manuell starten: Actions → „Prüfen & Deployen“ → Run workflow
 
 concurrency:
   group: pipeline-${{ github.ref }}
