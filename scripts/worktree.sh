@@ -20,7 +20,7 @@ fi
 
 # Links liegen im Worktree und dürfen nicht eingecheckt werden (gilt für alle Worktrees)
 ausschluss="$(git rev-parse --git-common-dir)/info/exclude"
-for muster in '/kunden/*/images' '/kunden/*/medien'; do
+for muster in '/kunden/*/images' '/kunden/*/medien' '/recherche'; do
   grep -qxF "$muster" "$ausschluss" 2>/dev/null || echo "$muster" >> "$ausschluss"
 done
 
