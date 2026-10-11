@@ -71,18 +71,6 @@
           "Click & Collect"
         ]
       }
-    },
-    {
-      "pfad": "test",
-      "vorlage": "cafe-vorlage",
-      "daten": "kunden/test/cafe.json",
-      "bilder": "kunden/test/images",
-      "hub": {
-        "branche": "Café & Frühstück",
-        "stil": "",
-        "beschreibung": "Gemütliches Frühstückscafé im Kieler Blücherviertel: Siebträgerkaffee, große Frühstücksteller und Kuchen, die jeden Morgen frisch aus unserem Ofen kommen.",
-        "merkmale": []
-      }
     }
   ]
 }
