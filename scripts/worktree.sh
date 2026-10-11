@@ -4,7 +4,8 @@
 # Ergebnis: .worktrees/<name> auf Branch <name>. Nicht versionierte Dateien (.env, recherche/,
 # Kundenfotos und -medien) werden als Links eingebunden, damit beide Sessions dieselben nutzen.
 set -euo pipefail
-cd "$(git rev-parse --show-toplevel)"
+# immer vom Hauptordner aus (auch wenn aus einem anderen Worktree aufgerufen)
+cd "$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")"
 name="${1:?Name fehlt, z. B. nora}"
 kunde="${2:?Kundenordner fehlt, z. B. nora-solcher}"
 ziel=".worktrees/$name"
