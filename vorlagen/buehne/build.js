@@ -87,7 +87,7 @@ for (const k of s.vita) {
 
 // Standard: Bühnenschwarz, Programmheft-Papier, Vorhangrot aus farben.akzent. Mit "farbschema"
 // (coolors.co, siehe lib/farbschema.js): dunkelste Farbe = Bühne, hellste = Papier, kräftigste = Vorhang,
-// übrige = Filmklappen-Gelb. Alle Textfarben werden auf ausreichenden Kontrast nachgeregelt.
+// übrige = Flächen. Alle Textfarben werden auf ausreichenden Kontrast nachgeregelt.
 if (s.farben.akzent && !h.hexZuRgb(s.farben.akzent)) warn(`Akzentfarbe "${s.farben.akzent}" ist kein gültiger Hex-Wert – Standard wird verwendet.`);
 const farben = farbschema.variablen('buehne', s.farbschema || '', s.farben.akzent);
 if (s.farbschema && !farben.farben.length) warn('farbschema enthält keine erkennbaren Farben – Standardfarben werden verwendet.');
@@ -174,14 +174,11 @@ function stempel(text) {
   return `<span class="stempel" role="img" aria-label="${esc(text)}"><svg viewBox="0 0 120 120" aria-hidden="true"><defs><path id="${id}" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1 -92 0"/></defs><text><textPath href="#${id}" textLength="286" lengthAdjust="spacingAndGlyphs">${esc(umlauf)}</textPath></text><text class="stempel-stern" x="60" y="70" text-anchor="middle">✶</text></svg></span>`;
 }
 
+// Programm (Reiter oben, immer sichtbar): nur die Akte und der Kontakt – Prolog, Galerie usw. erreicht man beim Scrollen
 const nav = [
-  { id: 'prolog', text: 'Prolog' },
-  s.steckbrief.length + s.register.length && { id: 'eigenschaften', text: 'Eigenschaften' },
   ...akte.map((a) => ({ id: a.id, text: a.titel, nr: a.nr })),
-  s.galerie.length && { id: 'gesichter', text: 'Gesichter' },
-  s.medien.length && { id: 'sehen-hoeren', text: 'Sehen & Hören' },
   { id: 'kontakt', text: 'Kontakt' },
-].filter(Boolean);
+];
 
 // --- Ouvertüre --------------------------------------------------------------
 
@@ -199,8 +196,9 @@ function ouvertuere() {
       <p class="sr-only">Rollen u. a.: ${s.hero_rollen.map((r) => `${r.rolle} (${r.werk || ''})`).map(esc).join('; ')}</p>`
     : '';
   return `
-<section class="ouvertuere" data-scheinwerfer aria-labelledby="name">
+<section class="ouvertuere" data-scheinwerfer data-suchen aria-labelledby="name">
   <div class="scheinwerfer" aria-hidden="true"></div>
+  <div class="scheinwerfer scheinwerfer--klein" aria-hidden="true"></div>
   <p class="mono berufe">${s.berufe.map(esc).join('<span aria-hidden="true"> — </span>')}</p>
   <div class="buehnenbild">
     <div class="portal">${bilder}</div>
@@ -208,6 +206,33 @@ function ouvertuere() {
   </div>
   ${zeile}
   <a class="mono vorhang-auf" href="#prolog">Vorhang auf ${icon('runter')}</a>
+</section>`;
+}
+
+// --- Zuletzt: neuestes Projekt groß (erster Eintrag in "aktuell"), die übrigen klein daneben ----
+
+function zuletzt() {
+  if (!s.aktuell.length) return '';
+  const [neu, ...weitere] = s.aktuell;
+  const neuBild = neu.bild && normBild(neu.bild).datei ? bild(neu.bild, { sizes: '(min-width: 900px) 45vw, 92vw', klasse: 'zuletzt-bild' }) : '';
+  return `
+<section id="zuletzt" class="szene szene--papier zuletzt" aria-labelledby="zuletzt-titel">
+  <div class="container">
+    <p class="mono kicker">Zuletzt</p>
+    <div class="zuletzt-raster">
+      <article class="zuletzt-neu">
+        ${neuBild ? `<figure>${neuBild}</figure>` : ''}
+        <div>
+          ${neu.label ? `<p class="mono zuletzt-label">${esc(neu.label)}</p>` : ''}
+          <h2 id="zuletzt-titel" class="zuletzt-titel">${esc(neu.titel)}</h2>
+          ${neu.text ? `<p>${esc(neu.text)}</p>` : ''}
+        </div>
+      </article>
+      ${weitere.length ? `<ul class="zuletzt-weitere">${weitere
+        .map((a) => `<li>${a.label ? `<p class="mono zuletzt-label">${esc(a.label)}</p>` : ''}<h3>${esc(a.titel)}</h3>${a.text ? `<p>${esc(a.text)}</p>` : ''}</li>`)
+        .join('')}</ul>` : ''}
+    </div>
+  </div>
 </section>`;
 }
 
@@ -223,11 +248,6 @@ function prolog() {
         .map((p) => `<li><span class="mono">${esc(p.jahr)}</span><span><strong>${esc(p.titel)}</strong>${p.text ? ` <em>${esc(p.text)}</em>` : ''}</span></li>`)
         .join('')}</ol></div>`
     : '';
-  const aktuell = s.aktuell.length
-    ? `<div class="zuletzt" data-einblenden><p class="mono kicker">Zuletzt</p><ul>${s.aktuell
-        .map((a) => `<li><span class="mono">${esc(a.label || '')}</span><strong>${esc(a.titel)}</strong><span>${esc(a.text)}</span></li>`)
-        .join('')}</ul></div>`
-    : '';
   return `
 <section id="prolog" class="szene szene--papier prolog">
   <div class="container">
@@ -240,7 +260,7 @@ function prolog() {
         ${zitat}
       </div>
     </div>
-    <div class="prolog-fuss">${applaus}${aktuell}</div>
+    <div class="prolog-fuss">${applaus}</div>
   </div>
 </section>`;
 }
@@ -316,19 +336,14 @@ function aktKamera(a) {
 <section id="${a.id}" class="szene szene--papier akt akt--kamera">
   <div class="container">
     ${aktKopf(a)}
-    <ul class="klappen">${a.eintraege.map((e, i) => `
-      <li class="klappe">
-        <div class="klappe-balken" aria-hidden="true"></div>
-        <div class="klappe-tafel">
-          <p class="mono klappe-zeile"><span>Prod.</span><strong>${esc(e.titel)}</strong></p>
-          <div class="klappe-raster mono">
-            <p><span>Rolle</span>${esc(e.rolle || '–')}</p>
-            <p><span>Regie</span>${esc(e.regie || '–')}</p>
-            <p><span>Sender</span>${esc(e.ort || '–')}</p>
-            <p><span>Jahr</span>${esc(e.jahr || '–')}</p>
-          </div>
-          <p class="mono klappe-take">Szene ${zwei(i + 1)} · Take 1</p>
-        </div>
+    <ul class="filme">${a.eintraege.map((e) => `
+      <li class="film">
+        <p class="mono film-kopf">${e.ort ? `<span class="film-sender">${esc(e.ort)}</span>` : ''}<span>${esc(e.jahr || '')}</span></p>
+        <h3>${esc(e.titel)}</h3>
+        <dl>
+          ${e.rolle ? `<div><dt class="mono">Rolle</dt><dd>${esc(e.rolle)}</dd></div>` : ''}
+          ${e.regie ? `<div><dt class="mono">Regie</dt><dd>${esc(e.regie)}</dd></div>` : ''}
+        </dl>
       </li>`).join('')}
     </ul>
   </div>
@@ -382,22 +397,30 @@ function aktFeder(a) {
 </section>`;
 }
 
-// Akt Unterricht: Aushang der Probebühne – Angebote als Karten, Hinweis, Zitat, Referenzen
+// Akt Unterricht: oben das Angebot (nummeriert, knapp) mit Erfolgshinweis, darunter zwei Spalten –
+// wo unterrichtet wird (Referenzen) und die Stimme von außen (Zitat)
 function aktUnterricht(a) {
+  const zitat = a.zitat && a.zitat.text
+    ? `<figure class="unterricht-stimme"><p class="mono kicker">Stimme aus der Praxis</p><blockquote>„${esc(a.zitat.text)}“</blockquote>${a.zitat.quelle ? `<figcaption class="mono">${esc(a.zitat.quelle)}</figcaption>` : ''}</figure>`
+    : '';
+  const referenzen = a.eintraege.length
+    ? `<div><p class="mono kicker">Wo ${esc(vorname)} unterrichtet</p>
+      <ol class="referenzen">${a.eintraege.map((e) => `
+        <li><span class="mono">${esc(e.jahr || '')}</span><div><h3>${esc(e.titel)}</h3><p>${[e.rolle, e.ort].filter(Boolean).map(esc).join(' · ')}</p>${e.text ? `<p>${esc(e.text)}</p>` : ''}</div></li>`).join('')}
+      </ol></div>`
+    : '';
   return `
 <section id="${a.id}" class="szene szene--papier akt akt--unterricht">
   <div class="container">
     ${aktKopf(a)}
-    ${a.angebote.length ? `${a.angebote_titel ? `<p class="mono kicker">${esc(a.angebote_titel)}</p>` : ''}
-    <ul class="aushang">${a.angebote.map((x, i) => `
-      <li><p class="mono">Übung ${zwei(i + 1)}</p><h3>${esc(x.titel)}</h3>${x.text ? `<p>${esc(x.text)}</p>` : ''}</li>`).join('')}
-    </ul>` : ''}
-    ${a.hervorhebung ? `<p class="unterricht-hinweis">${esc(a.hervorhebung)}</p>` : ''}
-    ${a.zitat && a.zitat.text ? `<figure class="zitat"><blockquote>„${esc(a.zitat.text)}“</blockquote>${a.zitat.quelle ? `<figcaption class="mono">${esc(a.zitat.quelle)}</figcaption>` : ''}</figure>` : ''}
-    ${a.eintraege.length ? `<p class="mono kicker referenzen-kopf">Referenzen</p>
-    <ol class="referenzen">${a.eintraege.map((e) => `
-      <li><span class="mono">${esc(e.jahr || '')}</span><div><h3>${esc(e.titel)}</h3><p class="mono">${[e.rolle, e.ort].filter(Boolean).map(esc).join(' · ')}</p>${e.text ? `<p>${esc(e.text)}</p>` : ''}</div></li>`).join('')}
-    </ol>` : ''}
+    ${a.angebote.length ? `<div class="angebot">
+      ${a.angebote_titel ? `<p class="mono kicker">${esc(a.angebote_titel)}</p>` : ''}
+      <ol class="aushang">${a.angebote.map((x, i) => `
+        <li><span class="aushang-nr">${zwei(i + 1)}</span><h3>${esc(x.titel)}</h3>${x.text ? `<p>${esc(x.text)}</p>` : ''}</li>`).join('')}
+      </ol>
+      ${a.hervorhebung ? `<p class="unterricht-hinweis"><span aria-hidden="true">✓</span>${esc(a.hervorhebung)}</p>` : ''}
+    </div>` : ''}
+    ${referenzen || zitat ? `<div class="unterricht-raster">${referenzen}${zitat}</div>` : ''}
   </div>
 </section>`;
 }
@@ -413,7 +436,7 @@ function gesichter() {
 <section id="gesichter" class="szene szene--nacht gesichter">
   <div class="container">
     <p class="mono kicker">Gesichter</p>
-    <h2 class="szenen-titel">Kontakt<em>bogen</em></h2>
+    <h2 class="szenen-titel">Galerie</h2>
     <ul class="kontaktbogen">${bilder.map((g, i) => `
       <li class="${g.markiert ? 'ist-markiert' : ''}" data-einblenden>
         <a href="${g.info.groesste}" data-lightbox data-credit="${esc(g.credit ? `Foto: ${g.credit}` : '')}" aria-label="${esc(g.alt || 'Foto')} – groß anzeigen">
@@ -457,7 +480,7 @@ function kontakt() {
   <div class="container kontakt-raster">
     <div>
       <p class="mono kicker">Kontakt</p>
-      <h2 class="szenen-titel">Besetzung <em>anfragen</em></h2>
+      <h2 class="szenen-titel">Kontakt <em>aufnehmen</em></h2>
       ${s.kontakt.text ? `<p class="kontakt-intro">${esc(s.kontakt.text)}</p>` : ''}
       ${kontaktMail ? `<a class="knopf" href="mailto:${esc(kontaktMail)}?subject=${encodeURIComponent(`Anfrage für ${s.name}`)}">Anfrage senden ${icon('pfeil')}</a>` : ''}
     </div>
@@ -532,7 +555,6 @@ ${zusatzHead}
 ${og}
 <meta name="twitter:card" content="summary_large_image">
 <style>${css}</style>
-<noscript><style>.programm{position:static;visibility:visible;opacity:1;padding-top:5rem}.programm-knopf{display:none}</style></noscript>
 <script src="${mainJsUrl}" defer></script>
 </head>
 <body id="top"${startseite ? ' class="startseite"' : ''}>
@@ -540,12 +562,10 @@ ${og}
 ${demo ? `<div class="entwurf mono" role="note">Entwurf für ${esc(s.name)}${s.ersteller ? ` – erstellt von ${esc(s.ersteller)}` : ''}</div>` : ''}
 <header class="kopf" data-kopf>
   <a class="marke" href="${startseite ? '#top' : 'index.html'}">${esc(vorname)} <em>${esc(nachname)}</em></a>
-  <button class="programm-knopf mono" type="button" data-menue-knopf aria-expanded="false" aria-controls="programm">Programm</button>
+  <nav class="reiter" aria-label="Programm">
+    <ul>${nav.map((n) => `<li><a class="mono" href="${basis}#${n.id}" data-reiter="${n.id}">${esc(n.text)}</a></li>`).join('')}</ul>
+  </nav>
 </header>
-<nav id="programm" class="programm" aria-label="Programm">
-    <p class="mono kicker">Programm</p>
-    <ol>${nav.map((n, i) => `<li><a href="${basis}#${n.id}"><span class="mono">${n.nr ? `Akt ${esc(n.nr)}` : zwei(i + 1)}</span>${esc(n.text)}</a></li>`).join('')}</ol>
-</nav>
 <main id="inhalt">
 ${inhalt}
 </main>
@@ -570,6 +590,7 @@ if (ogInfo) benutzt.set(ogQuelle, normBild(s.hero_bild)); // Vorschaubild für M
 
 const inhalt = [
   ouvertuere(),
+  zuletzt(),
   prolog(),
   eigenschaften(),
   ...akte.map((a) => AKT_STILE[a.stil](a)),

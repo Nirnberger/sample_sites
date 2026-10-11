@@ -1,4 +1,4 @@
-/* Bühnen-Vorlage – JavaScript für Scheinwerfer, Rollenwechsel, Programm-Menü, Lightbox, Einblenden.
+/* Bühnen-Vorlage – JavaScript für Scheinwerfer, Rollenwechsel, Programm-Reiter, Lightbox, Einblenden.
    Alle Inhalte stehen bereits im HTML; ohne JavaScript bleibt die Seite vollständig nutzbar. */
 (function () {
   'use strict';
@@ -9,7 +9,7 @@
   d.querySelectorAll('[data-jahr]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
 
   // Scheinwerfer: folgt dem Zeiger; ohne Maus wandert er langsam über die Bühne
-  d.querySelectorAll('[data-scheinwerfer]').forEach(function (buehne) {
+  d.querySelectorAll('[data-scheinwerfer]:not([data-suchen])').forEach(function (buehne) {
     var setzen = function (x, y) { buehne.style.setProperty('--x', x + '%'); buehne.style.setProperty('--y', y + '%'); };
     buehne.addEventListener('pointermove', function (e) {
       if (e.pointerType !== 'mouse') return;
@@ -23,6 +23,54 @@
       setzen(50 + Math.sin(s * 0.35) * 28, 42 + Math.cos(s * 0.27) * 16);
       requestAnimationFrame(wandern);
     })(start);
+  });
+
+  // Suchende Scheinwerfer (Ouvertüre): folgen dem Zeiger – der kleine mit Verzögerung. Ruht die Maus
+  // ein paar Sekunden (oder gibt es keine), schwingen beide wie an der Lichtbrücke hin und her, gegeneinander
+  // versetzt, als suchten sie die Schauspielerin. Läuft nur, solange die Ouvertüre zu sehen ist.
+  d.querySelectorAll('[data-scheinwerfer][data-suchen]').forEach(function (buehne) {
+    var lichter = Array.prototype.slice.call(buehne.querySelectorAll('.scheinwerfer')).map(function (el, i) {
+      return { el: el, x: i ? 30 : 50, y: i ? 46 : 42 };
+    });
+    var setzen = function (l) { l.el.style.setProperty('--x', l.x + '%'); l.el.style.setProperty('--y', l.y + '%'); };
+    var zeiger = null;
+    var zuletzt = performance.now();
+    buehne.addEventListener('pointermove', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      var r = buehne.getBoundingClientRect();
+      zeiger = { x: ((e.clientX - r.left) / r.width) * 100, y: ((e.clientY - r.top) / r.height) * 100 };
+      zuletzt = performance.now();
+      // Bewegung reduziert: kein Schwingen und kein Nachgleiten, die Lichter stehen direkt am Zeiger
+      if (ruhig) lichter.forEach(function (l, i) { l.x = zeiger.x - i * 8; l.y = zeiger.y + i * 6; setzen(l); });
+    });
+    if (ruhig) return;
+    // Pendel: x schwingt, y hebt sich an den Enden (Bogen des Lichtkegels); der kleine schwingt schneller
+    // und gegenläufig, mit langsam wechselnder Weite – so wirkt es suchend statt mechanisch
+    var schwingen = function (i, s) {
+      var w = i ? 0.62 : 0.45;
+      var winkel = Math.sin(s * w + (i ? 2.2 : 0));
+      var weite = (i ? 26 : 32) + Math.sin(s * 0.17 + i) * 6;
+      return { x: 50 + winkel * weite, y: (i ? 52 : 44) - winkel * winkel * (i ? 8 : 10) };
+    };
+    var sichtbar = true;
+    var laeuft = false;
+    var schritt = function (t) {
+      if (!sichtbar) { laeuft = false; return; }
+      var ruht = !zeiger || t - zuletzt > 2500;
+      lichter.forEach(function (l, i) {
+        var ziel = ruht ? schwingen(i, t / 1000) : { x: zeiger.x, y: zeiger.y };
+        var k = ruht ? 0.035 : (i ? 0.045 : 0.16);
+        l.x += (ziel.x - l.x) * k;
+        l.y += (ziel.y - l.y) * k;
+        setzen(l);
+      });
+      requestAnimationFrame(schritt);
+    };
+    var starten = function () { if (!laeuft) { laeuft = true; requestAnimationFrame(schritt); } };
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) { sichtbar = e[0].isIntersecting; if (sichtbar) starten(); }).observe(buehne);
+    }
+    starten();
   });
 
   // Rollenwechsel in der Ouvertüre: Bild und Zeile wechseln gemeinsam
@@ -44,22 +92,31 @@
     }, 3800);
   }
 
-  // Programm (Menü)
-  var knopf = d.querySelector('[data-menue-knopf]');
-  var programm = d.getElementById('programm');
-  if (knopf && programm) {
-    var oeffnen = function (offen) {
-      knopf.setAttribute('aria-expanded', String(offen));
-      knopf.textContent = offen ? 'Schließen' : 'Programm';
-      programm.toggleAttribute('data-offen', offen);
-      d.body.classList.toggle('menue-offen', offen);
-      if (offen) { var erster = programm.querySelector('a'); if (erster) erster.focus(); }
+  // Programm-Reiter: den Abschnitt markieren, der gerade im Bild ist (Prolog, Galerie usw.: keiner)
+  var reiter = Array.prototype.slice.call(d.querySelectorAll('[data-reiter]'));
+  var leiste = d.querySelector('.reiter');
+  if (reiter.length && 'IntersectionObserver' in window) {
+    var markieren = function (id) {
+      reiter.forEach(function (a) {
+        var an = a.getAttribute('data-reiter') === id;
+        if (!an) { a.removeAttribute('aria-current'); return; }
+        a.setAttribute('aria-current', 'true');
+      });
     };
-    knopf.addEventListener('click', function () { oeffnen(knopf.getAttribute('aria-expanded') !== 'true'); });
-    programm.addEventListener('click', function (e) { if (e.target.closest('a')) oeffnen(false); });
-    d.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && knopf.getAttribute('aria-expanded') === 'true') { oeffnen(false); knopf.focus(); }
-    });
+    // Schmale Leiste (Handy): aktiven Reiter erst nach dem Scrollen ins Bild holen – während des Scrollens
+    // würde das Verschieben der Leiste das Scrollen der Seite abbrechen
+    var warten;
+    window.addEventListener('scroll', function () {
+      clearTimeout(warten);
+      warten = setTimeout(function () {
+        var aktiv = leiste.querySelector('[aria-current]');
+        if (aktiv && leiste.scrollWidth > leiste.clientWidth) leiste.scrollTo({ left: aktiv.offsetLeft - 16, behavior: 'smooth' });
+      }, 250);
+    }, { passive: true });
+    var beobachter = new IntersectionObserver(function (eintraege) {
+      eintraege.forEach(function (e) { if (e.isIntersecting) markieren(e.target.id); });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    d.querySelectorAll('main > section').forEach(function (s) { beobachter.observe(s); });
   }
 
   // Lightbox für den Kontaktbogen

@@ -14,6 +14,7 @@
   "farben": {
     "akzent": "#A84B2A"
   },
+  "farbschema": "{\"Hintergrund\":\"#f2e8cf\",\"Schrift\":\"#223e28\",\"Akzent\":\"#a7c957\",\"Flächen\":\"#bc4749\"}",
   "hero_bild": {
     "datei": "hero.jpg",
     "alt": "Nora Solcher, Halbporträt vor dunklem Hintergrund",
@@ -535,8 +536,7 @@
           "titel": "Frankfurter Spatzen e. V.",
           "rolle": "Schauspiel- & Sprechunterricht, Einstudierung, Probenleitung",
           "regie": "",
-          "ort": "Kinder- und Jugendtheater mit Musik und Tanz, Frankfurt",
-          "text": "Szenenarbeit mit Jugendlichen vom Einzeltraining über Dialoge bis zur choreografierten Gruppenszene; Regie der Jugend-Musicals „SPOTLIGHT“ (2023) und „Yesterday war gestern“ (2024)."
+          "ort": "Kinder- und Jugendtheater mit Musik und Tanz, Frankfurt"
         },
         {
           "jahr": "regelmäßig",
@@ -550,25 +550,25 @@
         "nr": "V",
         "titel": "Unterrichten",
         "stil": "unterricht",
-        "intro": "Seit 2022 unterrichtet Nora Schauspiel und Sprechen – im Verein, an Schulen und im Einzelunterricht. Wichtig sind ihr saubere Sprechtechnik, echtes Zuhören und dass der Humor nie verloren geht.",
+        "intro": "Seit 2022 unterrichtet Nora Schauspiel und Sprechen – einzeln, an Schulen und im Verein.",
         "angebote_titel": "Einzelunterricht – online oder in Präsenz",
         "angebote": [
           {
             "titel": "Vorsprechtraining",
-            "text": "Gezielte Vorbereitung auf Vorsprechen an Schauspielschulen und Theatern: passende Rollen finden, Monologe erarbeiten, unter Vorsprechbedingungen proben."
+            "text": "Rollen finden, Monologe erarbeiten, unter echten Bedingungen proben – für Schauspielschulen und Theater."
           },
           {
             "titel": "Sprechen & Artikulation",
-            "text": "Atem, Stimme und Artikulation – für klares, tragfähiges Sprechen auf der Bühne, am Mikrofon oder im Beruf."
+            "text": "Atem, Stimme, Artikulation – klar sprechen auf der Bühne, am Mikrofon oder im Beruf."
           },
           {
             "titel": "Auftritts- & Prüfungsangst, Präsenz",
-            "text": "Präsenzübungen und Strategien gegen Lampenfieber, damit Auftritte und Prüfungen gelingen."
+            "text": "Übungen und Strategien gegen Lampenfieber."
           }
         ],
-        "hervorhebung": "Regelmäßig bereitet Nora Vorsprechende auf ihr Vorsprechen vor – die zuletzt vorbereitete Person hat daraufhin das Engagement bekommen.",
+        "hervorhebung": "Zuletzt hat eine von Nora vorbereitete Person nach dem Vorsprechen das Engagement bekommen.",
         "zitat": {
-          "text": "dass die Jugendlichen durch ehrliches einander Zuhören zu einem authentischen Ton auf der Bühne gelangen",
+          "text": "Nora Solcher ist studierte Schauspielerin und arbeitet freischaffend im Bereich Theater, Film und Audio. Auch als Autorin und Regisseurin ist sie tätig. Bei den Frankfurter Spatzen erarbeitet Nora mit den Jugendlichen sämtliche Theaterszenen der Musicals von Einzeltraining, über Dialoge bis hin zu choreographierten Gruppenszenen. Ihr liegt neben der Vermittlung von Sprechtechnik am Herzen, dass die Jugendlichen durch ehrliches einander Zuhören zu einem authentischen Ton auf der Bühne gelangen. Und, dass der Humor nie verloren geht.",
           "quelle": "Frankfurter Spatzen e. V. über Noras Unterricht"
         }
       }
@@ -674,14 +674,12 @@
     {
       "datei": "portrait-dunkel.jpg",
       "alt": "Nahes Porträt vor schwarzem Hintergrund",
-      "credit": "Simon Hegenberg",
-      "markiert": true
+      "credit": "Simon Hegenberg"
     },
     {
       "datei": "portrait-lachend.jpg",
       "alt": "Lachend im grünen Blazer",
-      "credit": "Nils Schwarz",
-      "markiert": true
+      "credit": "Nils Schwarz"
     },
     {
       "datei": "portrait-farbe.jpg",

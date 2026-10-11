@@ -39,7 +39,6 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body { margin: 0; background: var(--nacht); color: var(--tinte); font: 400 1.0625rem/1.7 var(--sans); overflow-x: hidden; }
-body.menue-offen { overflow: hidden; }
 /* Filmkorn über allem – sehr dezent */
 body::before {
   content: ""; position: fixed; inset: 0; z-index: 95; pointer-events: none; opacity: .07; mix-blend-mode: overlay;
@@ -78,27 +77,30 @@ em, .kursiv { font-style: italic; }
 .szenen-titel em { color: var(--rot-dunkel); }
 .szene--nacht .szenen-titel em { color: var(--rot-hell); }
 
-/* ---------- Kopfzeile + Programm ---------- */
+/* ---------- Kopfzeile mit Programm-Reitern (immer sichtbar, dezent) ---------- */
+html { scroll-padding-top: 4rem; }
 .kopf {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 85; display: flex; justify-content: space-between; align-items: center;
-  padding: 1.1rem var(--rand); color: var(--papier); mix-blend-mode: difference; pointer-events: none;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 85; display: flex; align-items: center; gap: 1.5rem;
+  padding: 0 var(--rand); height: 3.25rem; color: var(--papier);
+  background: rgb(var(--nacht-rgb) / .78); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--linie-hell);
 }
-.kopf > * { pointer-events: auto; }
-.marke { font: 400 1.5rem/1 var(--serif); text-decoration: none; }
-.programm-knopf { background: none; color: inherit; border: 1px solid currentColor; border-radius: 999px; padding: .55rem 1.1rem; cursor: pointer; }
-.programm {
-  position: fixed; inset: 0; z-index: 80; background: var(--papier); color: var(--tinte);
-  padding: 6rem var(--rand) 2rem; overflow-y: auto; visibility: hidden; opacity: 0; transition: opacity .35s, visibility .35s;
+.marke { flex: none; font: 400 1.3rem/1 var(--serif); text-decoration: none; }
+.reiter { margin-left: auto; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+.reiter::-webkit-scrollbar { display: none; }
+.reiter ul { display: flex; gap: .25rem; }
+.reiter a {
+  display: block; padding: 1.15rem .7rem 1rem; font-size: .6875rem; white-space: nowrap; text-decoration: none;
+  color: var(--hell-leise); border-bottom: 2px solid transparent; transition: color .2s, border-color .2s;
 }
-.programm[data-offen] { visibility: visible; opacity: 1; }
-.programm ol { max-width: var(--breite); margin: 0 auto; columns: 2 18rem; column-gap: 4rem; }
-.programm li { break-inside: avoid; border-top: 1px solid var(--linie); }
-.programm a { display: flex; align-items: baseline; gap: 1.25rem; padding: .7rem 0; font: 400 clamp(2rem, 5vw, 3.6rem)/1.05 var(--serif); text-decoration: none; transition: color .2s; }
-.programm a .mono { flex: 0 0 4.5rem; color: var(--rot-dunkel); }
-.programm a:hover { font-style: italic; color: var(--rot-dunkel); }
-.programm .kicker { max-width: var(--breite); margin: 0 auto 1.5rem; }
-/* Ohne JavaScript: Programm steht oben im Seitenfluss – per <noscript> im <head>, damit es mit JavaScript
-   nicht erst im Fluss erscheint und dann wegspringt (Layout-Verschiebung). */
+.reiter a:hover, .reiter a[aria-current="true"] { color: var(--papier); border-bottom-color: var(--rot-hell); }
+@media (max-width: 700px) {
+  /* Handy: nur die Reiter (der Name steht groß im Bild), waagrecht wischbar */
+  .marke { display: none; }
+  .kopf { padding: 0 .5rem; }
+  .reiter { margin-left: 0; -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); mask-image: linear-gradient(90deg, #000 85%, transparent); }
+  .reiter a { padding-left: .6rem; padding-right: .6rem; }
+}
 
 /* ---------- Ouvertüre ---------- */
 .ouvertuere {
@@ -108,6 +110,9 @@ em, .kursiv { font-style: italic; }
 .scheinwerfer {
   position: absolute; inset: 0; pointer-events: none;
   background: radial-gradient(circle at var(--x, 50%) var(--y, 42%), rgba(255, 214, 160, .22), rgba(255, 214, 160, .07) 20%, transparent 46%);
+}
+.scheinwerfer--klein {
+  background: radial-gradient(circle at var(--x, 30%) var(--y, 46%), rgba(255, 236, 214, .16), rgba(255, 236, 214, .05) 9%, transparent 22%);
 }
 .ouvertuere .berufe { color: var(--hell-leise); position: relative; text-align: center; margin: 0; }
 .buehnenbild { position: relative; display: grid; place-items: center; width: 100%; }
@@ -137,6 +142,25 @@ em, .kursiv { font-style: italic; }
 .vorhang-auf .icon { animation: wippen 2.4s ease-in-out infinite; }
 @keyframes wippen { 50% { transform: translateY(4px); } }
 
+/* ---------- Zuletzt: neuestes Projekt direkt unter der Ouvertüre ---------- */
+.zuletzt { padding: clamp(3.5rem, 8vw, 6rem) 0; }
+.zuletzt .kicker { margin-bottom: 1.5rem; }
+.zuletzt-raster { display: grid; gap: 2.5rem; }
+.zuletzt-neu { display: grid; gap: 1.5rem; align-items: center; }
+.zuletzt-neu figure { overflow: hidden; border-radius: 6px; aspect-ratio: 3 / 2; background: var(--papier-2); }
+.zuletzt-neu img { width: 100%; height: 100%; object-fit: cover; }
+.zuletzt-label { color: var(--rot-dunkel); margin-bottom: .6rem; }
+.zuletzt-titel { font-size: clamp(2.4rem, 5.5vw, 4.2rem); line-height: 1; margin-bottom: 1rem; }
+.zuletzt-neu p:last-child { margin: 0; color: var(--tinte-leise); max-width: 36rem; }
+.zuletzt-weitere { display: grid; gap: 1.25rem; }
+.zuletzt-weitere li { padding: 1.25rem 0 0; border-top: 1px solid var(--linie); }
+.zuletzt-weitere h3 { font-size: 1.6rem; line-height: 1.1; margin-bottom: .5rem; }
+.zuletzt-weitere li > p:last-child { margin: 0; font-size: .9375rem; color: var(--tinte-leise); }
+@media (min-width: 900px) {
+  .zuletzt-raster { grid-template-columns: 2fr 1fr; gap: 4rem; align-items: start; }
+  .zuletzt-neu { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+}
+
 /* ---------- Prolog ---------- */
 .prolog-satz { font: 400 clamp(2.3rem, 6vw, 5.4rem)/1.02 var(--serif); letter-spacing: -.02em; max-width: 20ch; margin-bottom: clamp(3.5rem, 8vw, 7rem); }
 .prolog-raster { display: grid; gap: clamp(2.5rem, 6vw, 5rem); align-items: start; }
@@ -150,18 +174,16 @@ em, .kursiv { font-style: italic; }
 .zitat figcaption { color: var(--tinte-leise); }
 .prolog-fuss { display: grid; gap: 3rem; margin-top: clamp(4rem, 8vw, 6rem); }
 .prolog-fuss > * { min-width: 0; }
-.applaus li, .zuletzt li { display: grid; grid-template-columns: clamp(5rem, 18vw, 7.5rem) minmax(0, 1fr); overflow-wrap: break-word; gap: .25rem 1.25rem; padding: 1rem 0; border-top: 1px solid var(--linie); }
+.applaus li { display: grid; grid-template-columns: clamp(5rem, 18vw, 7.5rem) minmax(0, 1fr); overflow-wrap: break-word; gap: .25rem 1.25rem; padding: 1rem 0; border-top: 1px solid var(--linie); }
 .applaus li .mono { color: var(--rot-dunkel); padding-top: .35rem; }
 .applaus strong { font: 400 1.6rem/1.15 var(--serif); }
 .applaus em { color: var(--tinte-leise); }
-.zuletzt li .mono { color: var(--rot-dunkel); padding-top: .4rem; grid-row: span 2; }
-.zuletzt strong { font: 400 1.5rem/1.15 var(--serif); }
-.zuletzt li span:last-child { font-size: .9375rem; color: var(--tinte-leise); }
 @media (min-width: 900px) {
   .prolog-raster { grid-template-columns: 5fr 8fr; }
   .bogen { position: sticky; top: 6rem; }
   .spalten { columns: 2; }
   .prolog-fuss { grid-template-columns: 1fr 1fr; gap: 4rem; }
+  .applaus { grid-column: 1 / -1; }
 }
 
 /* ---------- Eigenschaften ---------- */
@@ -228,19 +250,18 @@ em, .kursiv { font-style: italic; }
 @media (max-width: 700px) { .vorhang-auf { display: none; } }
 @media (max-width: 859px) { .spielplan li:has(.stempel) { padding-right: 6rem; } .stempel { width: 5.25rem; height: 5.25rem; margin-top: -2.6rem; } }
 
-/* Akt Kamera: Filmklappen (bewusst ohne Animation) */
-.klappen { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17.5rem), 1fr)); gap: 2.75rem 1.5rem; }
-.klappe-balken {
-  height: 2.4rem; border-radius: 4px 4px 0 0; transform-origin: 4% 100%; transform: rotate(-5deg);
-  background: repeating-linear-gradient(-55deg, var(--tinte) 0 18px, var(--blatt) 18px 36px); border: 2px solid var(--tinte);
+/* Akt Kamera: schlichte Karten (bewusst ohne Animation) */
+.filme { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17.5rem), 1fr)); gap: 1.25rem; }
+.film {
+  display: flex; flex-direction: column; gap: 1rem; padding: 1.5rem 1.4rem 1.4rem; background: var(--blatt);
+  border: 1px solid var(--linie); border-radius: 10px; box-shadow: 0 1px 2px rgb(var(--tinte-rgb) / .06), 0 16px 36px -18px rgb(var(--tinte-rgb) / .25);
 }
-.klappe-tafel { background: var(--tinte); color: var(--papier); padding: 1.4rem 1.25rem 1.1rem; border-radius: 0 0 4px 4px; }
-.klappe-zeile { display: grid; gap: .3rem; border-bottom: 1px solid rgb(var(--papier-rgb) / .25); padding-bottom: .9rem; margin-bottom: .9rem; }
-.klappe-zeile span, .klappe-raster span { color: var(--kodak); font-size: .625rem; display: block; }
-.klappe-zeile strong { font: 400 1.9rem/1.05 var(--serif); text-transform: none; letter-spacing: -.01em; }
-.klappe-raster { display: grid; grid-template-columns: 1fr 1fr; gap: .85rem 1rem; text-transform: none; letter-spacing: .02em; font-size: .8125rem; }
-.klappe-raster p { margin: 0; }
-.klappe-take { margin: 1.1rem 0 0; color: var(--hell-leise); font-size: .625rem; }
+.film-kopf { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin: 0; color: var(--tinte-leise); font-size: .6875rem; }
+.film-sender { padding: .3rem .65rem; border-radius: 999px; background: var(--tinte); color: var(--blatt); }
+.film h3 { font-size: clamp(1.8rem, 3vw, 2.2rem); line-height: 1.05; }
+.film dl { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: auto 0 0; padding-top: 1rem; border-top: 1px solid var(--linie); }
+.film dt { color: var(--rot-dunkel); font-size: .625rem; margin-bottom: .2rem; }
+.film dd { margin: 0; font-size: .9375rem; }
 
 /* Akt Stimme: Welle, Figuren, Trackliste */
 .welle { display: flex; align-items: center; gap: 3px; height: 4.5rem; margin-bottom: 2.5rem; }
@@ -282,21 +303,29 @@ em, .kursiv { font-style: italic; }
 @keyframes blinken { 50% { opacity: 0; } }
 @media (min-width: 980px) { .feder-raster { grid-template-columns: 5fr 6fr; } .feder-raster .akt-kopf { position: sticky; top: 6rem; } }
 
-/* Akt Unterricht: Aushang der Probebühne (bewusst ohne Animation) */
+/* Akt Unterricht: Angebot oben, darunter Referenzen | Zitat (bewusst ohne Animation) */
 .akt--unterricht { background: var(--papier-2); }
-.aushang { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); gap: 1.5rem; margin: 1rem 0 clamp(3rem, 6vw, 4.5rem); }
-.aushang li { background: var(--blatt); padding: 1.6rem 1.4rem 1.5rem; border-top: 3px solid var(--rot-dunkel); box-shadow: 0 18px 40px rgb(var(--tinte-rgb) / .1); }
-.aushang .mono { color: var(--rot-dunkel); font-size: .6875rem; margin-bottom: .9rem; }
-.aushang h3 { font: 400 1.9rem/1.05 var(--serif); margin-bottom: .8rem; }
-.aushang li > p:last-child { margin: 0; color: var(--tinte-leise); }
-.unterricht-hinweis { font: italic 400 clamp(1.5rem, 2.6vw, 2.1rem)/1.25 var(--serif); max-width: 46rem; margin: 0; }
-.referenzen-kopf { margin-top: clamp(3.5rem, 7vw, 5.5rem); }
+.akt--unterricht .akt-kopf { margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
+.angebot { margin-bottom: clamp(3.5rem, 7vw, 5rem); }
+.aushang { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 1rem; }
+.aushang li { display: grid; grid-template-columns: auto 1fr; gap: .2rem 1rem; align-items: baseline; background: var(--blatt); padding: 1.3rem 1.3rem 1.25rem; border-radius: 10px; }
+.aushang-nr { grid-row: span 2; font: italic 400 2.2rem/1 var(--serif); color: var(--rot-dunkel); }
+.aushang h3 { font: 400 1.55rem/1.1 var(--serif); }
+.aushang li > p { margin: .35rem 0 0; font-size: .9375rem; color: var(--tinte-leise); }
+.unterricht-hinweis { display: flex; gap: .75rem; align-items: baseline; margin: 1.25rem 0 0; font-size: .9375rem; }
+.unterricht-hinweis span { color: var(--rot-dunkel); font-weight: 700; }
+.unterricht-raster { display: grid; gap: 3.5rem; align-items: start; }
+.unterricht-raster > * { min-width: 0; }
 .referenzen { border-top: 1px solid var(--linie); }
-.referenzen li { display: grid; grid-template-columns: 6.5rem 1fr; gap: .4rem 1.25rem; padding: 1.3rem 0; border-bottom: 1px solid var(--linie); align-items: baseline; }
+.referenzen li { display: grid; grid-template-columns: 5.5rem 1fr; gap: .2rem 1rem; padding: 1rem 0; border-bottom: 1px solid var(--linie); align-items: baseline; }
 .referenzen li > .mono { color: var(--rot-dunkel); font-size: .6875rem; }
-.referenzen h3 { font: 400 1.6rem/1.1 var(--serif); margin-bottom: .3rem; }
-.referenzen .mono { text-transform: none; letter-spacing: .02em; font-size: .8125rem; color: var(--tinte-leise); margin: 0; }
-.referenzen div > p:not(.mono) { margin: .6rem 0 0; max-width: 42rem; }
+.referenzen h3 { font: 400 1.4rem/1.15 var(--serif); margin-bottom: .2rem; }
+.referenzen li p { margin: 0; font-size: .875rem; color: var(--tinte-leise); }
+.unterricht-stimme { background: var(--blatt); padding: 1.6rem 1.5rem; border-left: 3px solid var(--rot-dunkel); border-radius: 0 10px 10px 0; }
+.unterricht-stimme .kicker { margin-bottom: 1rem; }
+.unterricht-stimme blockquote { font: italic 400 1.2rem/1.5 var(--serif); margin-bottom: 1rem; }
+.unterricht-stimme figcaption { color: var(--tinte-leise); font-size: .6875rem; }
+@media (min-width: 960px) { .unterricht-raster { grid-template-columns: 1fr 1fr; gap: 4rem; } }
 @media (max-width: 560px) { .referenzen li { grid-template-columns: 1fr; } }
 
 /* ---------- Gesichter: Kontaktbogen ---------- */

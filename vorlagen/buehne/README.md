@@ -10,20 +10,22 @@ tauschen, ohne die Inhalte anzufassen. Zusätzliche, optionale Felder steuern di
 
 | Szene | Gestaltung | Daten |
 |---|---|---|
-| **Ouvertüre** | schwarze Bühne, Scheinwerfer folgt der Maus (auf dem Handy wandert er), Porträts im Torbogen wechseln mit den Rollen, Name riesig darübergeblendet | `name`, `berufe`, `hero_rollen` (`verb`, `rolle`, `werk`, `bild`) |
-| **Prolog** | Programmheft-Papier: Leitsatz, Porträt im Bogen, Text zweispaltig mit Initiale, Pressezitat, „Applaus“ (Preise), „Zuletzt“ | `prolog`, `ueber_mich`, `ueber_mich_bild`, `zitat`, `auszeichnungen`, `aktuell` |
+| **Ouvertüre** | schwarze Bühne, zwei Scheinwerfer (groß + klein) folgen der Maus; ruht sie 2,5 s (oder auf dem Handy), schwingen beide suchend hin und her, Porträts im Torbogen wechseln mit den Rollen, Name riesig darübergeblendet | `name`, `berufe`, `hero_rollen` (`verb`, `rolle`, `werk`, `bild`) |
+| **Zuletzt** | direkt unter der Ouvertüre: neuestes Projekt groß (mit Foto), die übrigen klein daneben | `aktuell` (erster Eintrag = neuestes, `bild` optional) |
+| **Prolog** | Programmheft-Papier: Leitsatz, Porträt im Bogen, Text zweispaltig mit Initiale, Pressezitat, „Applaus“ (Preise) | `prolog`, `ueber_mich`, `ueber_mich_bild`, `zitat`, `auszeichnungen` |
 | **Eigenschaften** | Besetzungszettel (gezackter Rand, schräg) + Laufbänder je Gruppe | `steckbrief`, `register` (`gruppe`, `werte`) |
 | **Akte** | je Vita-Bereich ein Akt mit eigener Bildsprache (`vita[].akt.stil`): | `vita[].akt` (`nr`, `titel`, `stil`, `intro`, `gehoert_zu`) |
 | – `buehne` | Spielplan im Scheinwerferlicht, drehender Stempel bei `auszeichnung` | |
-| – `kamera` | Filmklappen (Produktion, Rolle, Regie, Sender, Jahr) | |
+| – `kamera` | schlichte Karten: Sender, Jahr, Titel, Rolle, Regie | |
 | – `stimme` | Audiowelle, Figuren-Register (automatisch aus den Rollen), Trackliste | |
 | – `feder` | Manuskriptseite mit Schreibmaschinenschrift | |
-| **Gesichter** | Kontaktbogen mit Bildnummern und Rotstift-Kreisen, Lightbox | `galerie` (`datei`, `alt`, `credit`, `markiert`) |
+| – `unterricht` | Angebote (nummeriert) + Erfolgshinweis, darunter Referenzen und Zitat nebeneinander | `akt.angebote`, `akt.hervorhebung`, `akt.zitat` |
+| **Gesichter** | Kontaktbogen mit Bildnummern, Lightbox; Rotstift-Kreis nur bei `markiert: true` | `galerie` (`datei`, `alt`, `credit`, `markiert`) |
 | **Sehen & Hören** | Eintrittskarten mit Abriss | `medien` |
-| **Kontakt** | „Besetzung anfragen“, Agentur, Profile – darunter ein Theatervorhang | `kontakt`, `profile` |
+| **Kontakt** | „Kontakt aufnehmen“, Agentur, Profile – darunter ein Theatervorhang | `kontakt`, `profile` |
 
-Navigation: Knopf „Programm“ öffnet ein Programmheft-Inhaltsverzeichnis. Ohne JavaScript ist alles
-sichtbar (Menü steht oben, erste Rolle steht fest). Bei „Bewegung reduzieren“ stehen Laufbänder,
+Navigation: schmale, feste Reiterleiste oben mit den Akten und Kontakt (immer sichtbar, auf dem Handy
+waagrecht wischbar, der sichtbare Abschnitt ist markiert). Ohne JavaScript ist alles sichtbar (erste Rolle steht fest). Bei „Bewegung reduzieren“ stehen Laufbänder,
 Welle, Stempel und Rollenwechsel still.
 
 Videos und Hörproben sind bewusst **verlinkt, nicht eingebettet** – keine Daten an Dritte, kein
@@ -35,7 +37,7 @@ Optionales Feld `farbschema`: eine Palette von [coolors.co](https://coolors.co) 
 Export-Format einfügen – CSV, „With #“, Array, Object, Extended Array, XML oder einfach der Link
 (`https://coolors.co/8c0902-e0c58f-f5f0e9-210100`). Die Reihenfolge ist egal:
 dunkelste Farbe = Bühne, hellste = Programmheft-Papier, kräftigste = Vorhang (ersetzt `farben.akzent`),
-übrige = Filmklappen-/Kontaktbogen-Beschriftung.
+übrige = Kontaktbogen-Beschriftung und Manuskript-Marker.
 Text- und Akzentfarben werden automatisch nachgedunkelt bzw. aufgehellt, bis der Kontrast reicht
 (WCAG AA). Leer = Standardfarben. Code: `lib/farbschema.js` (läuft beim Bauen und im Browser).
 
