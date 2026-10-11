@@ -15,6 +15,10 @@
   },
   "properties": {
     "demo_modus": { "type": "boolean" },
+    "farbschema": {
+      "description": "Farbschema von coolors.co in beliebigem Export-Format (CSV, mit #, Array, Object, Extended Array, XML oder Link) – siehe lib/farbschema.js",
+      "anyOf": [{ "type": "string" }, { "type": "array" }, { "type": "object" }]
+    },
     "ersteller": { "type": "string" },
     "website_url": { "$ref": "gemeinsam.schema.json#/$defs/link" },
     "name": { "type": "string", "minLength": 1 },

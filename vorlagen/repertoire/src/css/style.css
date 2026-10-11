@@ -1,5 +1,6 @@
 /* Repertoire-Vorlage – ruhig, hell, gedeckt: Creme/Beige, Braun, Pastell-Mint.
-   Kontraste: Text #3A2C24 und #6B5242 erreichen auf allen Flächen mind. 4.5:1. */
+   Kontraste: Text #3A2C24 und #6B5242 erreichen auf allen Flächen mind. 4.5:1.
+   Mit "farbschema" in der Inhaltsdatei überschreibt build.js die Werte in :root (Kontrast geprüft). */
 
 @font-face {
   font-family: "Fraunces";
@@ -27,6 +28,9 @@
   --braun-mittel: #6B5242; /* Nebentext */
   --linie: #DCCFBD;
   --weiss: #FFFDF9;
+  --fuss-leise: #D9CFC2; /* Nebentext im dunklen Fuß */
+  --creme-rgb: 246 241 233;
+  --braun-rgb: 58 44 36;
   --serif: "Fraunces", Georgia, "Times New Roman", serif;
   --sans: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
   --radius: 14px;
@@ -51,7 +55,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .entwurf { background: var(--braun); color: var(--creme); text-align: center; font-size: .8rem; padding: .35rem 1rem; }
 
 /* ---------- Kopf mit immer sichtbarem Menü ---------- */
-.kopf { position: sticky; top: 0; z-index: 20; background: rgba(246, 241, 233, .96); border-bottom: 1px solid var(--linie); }
+.kopf { position: sticky; top: 0; z-index: 20; background: rgb(var(--creme-rgb) / .96); border-bottom: 1px solid var(--linie); }
 .kopf-innen { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1.5rem; min-height: 4.5rem; }
 .marke { font-family: var(--serif); font-size: 1.35rem; text-decoration: none; white-space: nowrap; }
 .marke span { font-style: italic; color: var(--braun-mittel); }
@@ -235,21 +239,21 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .fuss { background: var(--braun); color: var(--creme); padding: 3.5rem 0 1.5rem; }
 .fuss a { text-decoration: none; }
 .fuss a:hover { text-decoration: underline; }
-.fuss-innen { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 2rem; padding-bottom: 2.5rem; border-bottom: 1px solid rgba(246, 241, 233, .2); }
+.fuss-innen { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 2rem; padding-bottom: 2.5rem; border-bottom: 1px solid rgb(var(--creme-rgb) / .2); }
 .fuss-name { font-family: var(--serif); font-size: 1.6rem; margin-bottom: .25rem; }
-.fuss-innen p { color: #D9CFC2; }
+.fuss-innen p { color: var(--fuss-leise); }
 .fuss-nav { display: grid; gap: .45rem; }
-.fuss-unten { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; padding-top: 1.5rem; font-size: .88rem; color: #D9CFC2; }
+.fuss-unten { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; padding-top: 1.5rem; font-size: .88rem; color: var(--fuss-leise); }
 .fuss-unten p { margin: 0; }
 .fuss-unten ul { display: flex; gap: 1.25rem; }
 
 /* ---------- Lightbox ---------- */
-.lightbox { width: 100vw; height: 100vh; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: rgba(42, 32, 26, .97); color: var(--creme); }
+.lightbox { width: 100vw; height: 100vh; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: rgb(var(--braun-rgb) / .97); color: var(--creme); }
 .lightbox[open] { display: grid; place-items: center; }
-.lightbox::backdrop { background: rgba(42, 32, 26, .8); }
+.lightbox::backdrop { background: rgb(var(--braun-rgb) / .8); }
 .lightbox figure { display: grid; justify-items: center; gap: .9rem; margin: 0; padding: 3.5rem 1rem 1.5rem; }
 .lightbox img { max-width: min(90vw, 1400px); max-height: calc(100dvh - 8rem); width: auto; height: auto; object-fit: contain; }
-.lightbox figcaption { font-size: .9rem; text-align: center; color: #D9CFC2; }
+.lightbox figcaption { font-size: .9rem; text-align: center; color: var(--fuss-leise); }
 .lightbox button { position: absolute; background: none; border: 0; color: var(--creme); cursor: pointer; font: 400 2.6rem/1 var(--serif); width: 3rem; height: 3rem; }
 .lightbox-zu { top: .75rem; right: .75rem; }
 .lightbox-zurueck { left: .5rem; top: 50%; transform: translateY(-50%); }

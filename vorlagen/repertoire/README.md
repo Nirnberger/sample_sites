@@ -34,6 +34,16 @@ Anliegen auf der Kontaktseite (`kontakt.anliegen[]`): `weg` = `agentur` oder `di
 Videos und Hörproben sind **verlinkt, nicht eingebettet** (keine Daten an Dritte, CSP „nur eigene Domain“).
 Kaum JavaScript: nur Lightbox für Fotos; keine Animationen.
 
+## Farbschema (coolors.co)
+
+Optionales Feld `farbschema`: eine Palette von [coolors.co](https://coolors.co) in einem beliebigen
+Export-Format einfügen – CSV, „With #“, Array, Object, Extended Array, XML oder einfach der Link
+(`https://coolors.co/8c0902-e0c58f-f5f0e9-210100`). Die Reihenfolge ist egal:
+hellste Farbe = Hintergrund, dunkelste = Schrift und Fuß, kräftigste = Akzent (Überschriften-Kicker,
+Links, Hover), übrige hellste = Flächen (Zitat, Marken, Kontakt-Band).
+Text- und Akzentfarben werden automatisch nachgedunkelt bzw. aufgehellt, bis der Kontrast reicht
+(WCAG AA). Leer = Standardfarben. Code: `lib/farbschema.js`.
+
 ## Bauen
 
 ```bash

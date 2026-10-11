@@ -18,10 +18,12 @@
 - **2026-10-11:** `.env` (lokale Schlüssel: Schreibschlüssel S3 + `GITHUB_TOKEN`) in `.gitignore`/`.dockerignore`; Laden mit `set -a; source .env; set +a`. Alles gepusht
 - **2026-10-11:** Noras Seite neu: Vorlage `vorlagen/repertoire` (mehrseitig, Menü Theater · Film · Audio · Schreiben · Unterrichten immer sichtbar, ausführliche Kontaktseite, Creme/Braun/Mint, keine Animationen). Projekte nach Filmmakers, Film als Projektkarten, Unterricht mit Angeboten/Referenzen. Alte Fassung auf Branch `nora-buehne-archiv` (lokal). `.pages.yml` aufs neue Format umgestellt, Smoke-Test prüft jetzt auch Unterseiten. Lokal getestet: Smoke (nginx) grün, Lighthouse 99–100
 - **2026-10-11:** Beide Fassungen gehostet: `/nora-solcher/v1/` (buehne, eingefroren in `v1.json`) und `/nora-solcher/v2/` (repertoire, CMS); `/nora-solcher/` → 302 auf v2. `pfad` mit Unterordnern erlaubt, Medien-Sync nach Kundenordner. Lokal getestet: Smoke 25 Seiten grün
+- **2026-10-11:** v1 und v2 gepusht (Branch `nora-buehne-archiv` auch auf GitHub)
+- **2026-10-11:** Farbschema von coolors.co für `buehne` und `repertoire`: Feld `farbschema` (jedes Export-Format oder Link), `lib/farbschema.js` ordnet Rollen zu und regelt Kontraste nach; im CMS unter „Startseite & Über mich“. Ohne Schema unverändert. Mit Beispielpalette getestet: Barrierefreiheit 100
 - **2026-10-11:** Abgesicherte Compose-Datei `hosting/seaweedfs.yml` (kein anonymer Zugriff, kein Admin-UI, nur lesender Schlüssel `build`) – lokal getestet: ohne Schlüssel 403, `build` liest/listet, darf nicht schreiben
 
 ## Offen
-- **Nora v1/v2 noch nicht gepusht** (Commits auf `main` lokal, Branch `nora-buehne-archiv` lokal) – Push nach OK von Philipp
+- Farbschema-Commit noch nicht gepusht; Pipeline-Ergebnis von v1/v2-Push (Run 38141750367) nicht abgewartet
 - Fragen an Nora zur Neufassung: eigene E-Mail für Unterricht/Kooperationen (`kontakt.email_direkt`, bis dahin geht alles ans Management), Ort des Präsenzunterrichts, Rollengröße Tatort, Texte der Unterrichtsangebote freigeben, Film-Standbilder vorhanden?
 - Noras Entwurf (Demo-Modus, noindex) wartet auf ihre Freigabe: Fotorechte/Credits, Texte, Impressum-Anschrift, ggf. Größe 163/165 cm, bessere „Hertopia“-Fotos (nur 960 px)
 - **SeaweedFS liefert Dateien ohne Schlüssel aus** (`hero.jpg` → 200). Compose in Coolify durch `hosting/seaweedfs.yml` ersetzt, Dienst jetzt **„degraded“**, alte Konfiguration antwortet weiter. Ursache unklar: neuer Container startet nicht oder verwaister Admin-Container – Container-Liste/Logs von seaweedfs-master ansehen. Fotos und Schreibschlüssel funktionieren weiterhin

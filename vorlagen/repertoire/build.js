@@ -15,6 +15,7 @@ const fs = require('fs');
 const path = require('path');
 const h = require('../../lib/helfer');
 const { bildVerarbeitung, bildTag, vorladen } = require('../../lib/bilder');
+const { farbschemaLesen, farbrollen, aufhellenBisKontrast, rgbTeile } = require('../../lib/farbschema');
 
 const ROOT = __dirname;
 const DATEI = path.resolve(process.argv[2] || path.join(ROOT, 'schauspiel.json'));
@@ -60,6 +61,37 @@ const demo = s.demo_modus === true;
 const berufText = s.berufe.join(' · ') || 'Portfolio';
 const [vorname, ...rest] = s.name.trim().split(/\s+/);
 const nachname = rest.join(' ');
+
+// ---------------------------------------------------------------------------
+// Farben: Standard (Creme/Braun/Mint) oder Farbschema von coolors.co (Feld "farbschema", siehe
+// lib/farbschema.js). Texte werden so lange nachgedunkelt, bis sie auf allen Flächen lesbar sind.
+// ---------------------------------------------------------------------------
+
+const F = {
+  creme: '#F6F1E9', sand: '#ECE3D5', mint: '#D5E8DD', mintTief: '#A9CBB8', salbei: '#3D6651',
+  braun: '#3A2C24', braunMittel: '#6B5242', linie: '#DCCFBD', weiss: '#FFFDF9', fussLeise: '#D9CFC2',
+};
+const schema = s.farbschema ? farbschemaLesen(s.farbschema) : [];
+if (s.farbschema && !schema.length) warn('farbschema enthält keine erkennbaren Farben – Standardfarben werden verwendet.');
+const rollen = farbrollen(schema);
+if (rollen && rollen.hell) {
+  F.creme = rollen.hell;
+  F.braun = rollen.dunkel;
+  F.weiss = h.mischen(rollen.hell, '#FFFFFF', 0.6);
+  F.mint = rollen.weich;
+  F.sand = h.mischen(rollen.hell, rollen.weich, 0.3);
+  // Flächen hell genug für Fließtext halten
+  for (let i = 0; i < 20 && h.kontrast(F.braun, F.mint) < 7; i++) F.mint = h.mischen(F.mint, F.creme, 0.1);
+  for (let i = 0; i < 20 && h.kontrast(F.braun, F.sand) < 8; i++) F.sand = h.mischen(F.sand, F.creme, 0.1);
+  F.mintTief = h.mischen(F.mint, F.braun, 0.18);
+  F.linie = h.mischen(F.creme, F.braun, 0.14);
+  F.braunMittel = h.abdunkelnBisKontrast(h.mischen(F.braun, F.creme, 0.35), [F.creme, F.sand, F.mint, F.weiss]);
+  F.fussLeise = aufhellenBisKontrast(h.mischen(F.creme, F.braun, 0.15), [F.braun]);
+}
+if (rollen && rollen.akzent) F.salbei = h.abdunkelnBisKontrast(rollen.akzent, [F.creme, F.sand, F.mint, F.weiss]);
+const farbVariablen = rollen
+  ? `:root{--creme:${F.creme};--sand:${F.sand};--mint:${F.mint};--mint-tief:${F.mintTief};--salbei:${F.salbei};--braun:${F.braun};--braun-mittel:${F.braunMittel};--linie:${F.linie};--weiss:${F.weiss};--fuss-leise:${F.fussLeise};--creme-rgb:${rgbTeile(F.creme)};--braun-rgb:${rgbTeile(F.braun)}}`
+  : '';
 
 // ---------------------------------------------------------------------------
 // 2. Ausgabeordner, Schriften, Skript
@@ -420,7 +452,7 @@ const fotografen = () => [...new Set([...benutzt.values()].map((b) => b.credit).
 function minifyCss(text) {
   return text.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\s+/g, ' ').replace(/\s*([{}:;,>])\s*/g, '$1').replace(/;}/g, '}').trim();
 }
-const css = minifyCss(fs.readFileSync(path.join(ROOT, 'src/css/style.css'), 'utf8'));
+const css = minifyCss(fs.readFileSync(path.join(ROOT, 'src/css/style.css'), 'utf8') + farbVariablen);
 
 const ogInfo = verarbeiteBild(normBild(s.hero_bild).datei);
 const ogBild = ogInfo ? absolut(ogInfo.src) : '';
@@ -454,7 +486,7 @@ function layout({ datei, titel, beschreibung, inhalt, aktiv = '', zusatzHead = '
 <meta name="description" content="${esc(beschreibung)}">
 ${demo ? '<meta name="robots" content="noindex, nofollow">' : ''}
 ${seitenUrl ? `<link rel="canonical" href="${esc(seitenUrl)}">` : ''}
-<meta name="theme-color" content="#F6F1E9">
+<meta name="theme-color" content="${F.creme}">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preload" href="fonts/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/manrope-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -560,7 +592,7 @@ for (const seite of seiten) fs.writeFileSync(path.join(DIST, seite.datei), layou
 // ---------------------------------------------------------------------------
 
 fs.writeFileSync(path.join(DIST, 'favicon.svg'),
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#D5E8DD"/><text x="32" y="42" font-family="Georgia, serif" font-size="26" text-anchor="middle" fill="#3A2C24">${esc(h.initialen(s.name))}</text></svg>`);
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="${F.mint}"/><text x="32" y="42" font-family="Georgia, serif" font-size="26" text-anchor="middle" fill="${F.braun}">${esc(h.initialen(s.name))}</text></svg>`);
 fs.writeFileSync(path.join(DIST, 'robots.txt'),
   demo ? 'User-agent: *\nDisallow: /\n' : `User-agent: *\nAllow: /\n${websiteUrl ? `Sitemap: ${websiteUrl}/sitemap.xml\n` : ''}`);
 if (websiteUrl && !demo) {

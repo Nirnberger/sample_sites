@@ -27,6 +27,10 @@ content:
         path: kunden/nora-solcher/schauspiel.json
         format: json
         fields:
+          - name: farbschema
+            label: Farbschema (von coolors.co)
+            description: "Auf coolors.co Palette → Export → Code kopieren und hier einfügen (jedes Format geht, auch der Link). Leer = Standardfarben. Hellste Farbe = Hintergrund, dunkelste = Schrift, kräftigste = Akzent."
+            type: text
           - name: hero_text
             label: Einleitung im Startbereich
             type: text
