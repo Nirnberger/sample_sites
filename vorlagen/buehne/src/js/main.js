@@ -30,9 +30,22 @@
   // versetzt, als suchten sie die Schauspielerin. Läuft nur, solange die Ouvertüre zu sehen ist.
   d.querySelectorAll('[data-scheinwerfer][data-suchen]').forEach(function (buehne) {
     var lichter = Array.prototype.slice.call(buehne.querySelectorAll('.scheinwerfer')).map(function (el, i) {
-      return { el: el, x: i ? 30 : 50, y: i ? 46 : 42 };
+      return { el: el, x: i ? 30 : 50, y: i ? 46 : 42, f: 0 };
     });
-    var setzen = function (l) { l.el.style.setProperty('--x', l.x + '%'); l.el.style.setProperty('--y', l.y + '%'); };
+    // Lichtkegel: [Helligkeit innen, Helligkeit Rand, Radius innen %, Radius außen %] – folgend vs. suchend
+    var KEGEL = [
+      { folgen: [0.22, 0.07, 20, 46], suchen: [0.5, 0.16, 6, 15] },
+      { folgen: [0.16, 0.05, 9, 22], suchen: [0.42, 0.13, 3, 8] },
+    ];
+    var setzen = function (l, i) {
+      l.el.style.setProperty('--x', l.x + '%');
+      l.el.style.setProperty('--y', l.y + '%');
+      var k = KEGEL[i] || KEGEL[1];
+      ['--a1', '--a2', '--r1', '--r2'].forEach(function (name, n) {
+        var wert = k.folgen[n] + (k.suchen[n] - k.folgen[n]) * l.f;
+        l.el.style.setProperty(name, n < 2 ? wert.toFixed(3) : wert.toFixed(2) + '%');
+      });
+    };
     var zeiger = null;
     var zuletzt = performance.now();
     buehne.addEventListener('pointermove', function (e) {
@@ -41,7 +54,7 @@
       zeiger = { x: ((e.clientX - r.left) / r.width) * 100, y: ((e.clientY - r.top) / r.height) * 100 };
       zuletzt = performance.now();
       // Bewegung reduziert: kein Schwingen und kein Nachgleiten, die Lichter stehen direkt am Zeiger
-      if (ruhig) lichter.forEach(function (l, i) { l.x = zeiger.x - i * 8; l.y = zeiger.y + i * 6; setzen(l); });
+      if (ruhig) lichter.forEach(function (l, i) { l.x = zeiger.x - i * 8; l.y = zeiger.y + i * 6; setzen(l, i); });
     });
     if (ruhig) return;
     // Pendel: x schwingt, y hebt sich an den Enden (Bogen des Lichtkegels); der kleine schwingt schneller
@@ -62,7 +75,8 @@
         var k = ruht ? 0.035 : (i ? 0.045 : 0.16);
         l.x += (ziel.x - l.x) * k;
         l.y += (ziel.y - l.y) * k;
-        setzen(l);
+        l.f += ((ruht ? 1 : 0) - l.f) * 0.04; // Kegel zieht sich beim Suchen langsam zusammen
+        setzen(l, i);
       });
       requestAnimationFrame(schritt);
     };
@@ -102,17 +116,19 @@
         if (!an) { a.removeAttribute('aria-current'); return; }
         a.setAttribute('aria-current', 'true');
       });
+      nachziehen();
     };
-    // Schmale Leiste (Handy): aktiven Reiter erst nach dem Scrollen ins Bild holen – während des Scrollens
+    // Schmale Leiste (Handy): aktiven Reiter erst ins Bild holen, wenn die Seite ruht – während des Scrollens
     // würde das Verschieben der Leiste das Scrollen der Seite abbrechen
     var warten;
-    window.addEventListener('scroll', function () {
+    var nachziehen = function () {
       clearTimeout(warten);
       warten = setTimeout(function () {
         var aktiv = leiste.querySelector('[aria-current]');
         if (aktiv && leiste.scrollWidth > leiste.clientWidth) leiste.scrollTo({ left: aktiv.offsetLeft - 16, behavior: 'smooth' });
       }, 250);
-    }, { passive: true });
+    };
+    window.addEventListener('scroll', nachziehen, { passive: true });
     var beobachter = new IntersectionObserver(function (eintraege) {
       eintraege.forEach(function (e) { if (e.isIntersecting) markieren(e.target.id); });
     }, { rootMargin: '-45% 0px -50% 0px' });

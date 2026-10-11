@@ -511,7 +511,12 @@
         "nr": "IV",
         "titel": "Schreiben",
         "stil": "feder",
-        "intro": "Sie schreibt und inszeniert: eigene Stückentwicklungen, Songtexte, Jugend-Musicals – und 2025 den Siegertext beim Sommerwerft-Poetry-Slam."
+        "intro": "Sie schreibt und inszeniert: eigene Stückentwicklungen, Songtexte, Jugend-Musicals – und 2025 den Siegertext beim Sommerwerft-Poetry-Slam.",
+        "bild": {
+          "datei": "szene-poetry-slam.jpg",
+          "alt": "Nora Solcher liest beim Poetry-Slam Sommerwerft 2025 ihren Text vom Blatt",
+          "credit": "Mediathek Hessen"
+        }
       }
     },
     {

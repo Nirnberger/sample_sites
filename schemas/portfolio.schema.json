@@ -72,6 +72,7 @@
               "nr": { "type": "string" }, "titel": { "type": "string" },
               "stil": { "enum": ["buehne", "kamera", "stimme", "feder", "unterricht"] },
               "intro": { "type": "string" }, "gehoert_zu": { "type": "string" },
+              "bild": { "$ref": "gemeinsam.schema.json#/$defs/bild" },
               "angebote_titel": { "type": "string" },
               "angebote": { "type": "array", "items": { "type": "object", "required": ["titel"], "properties": { "titel": { "type": "string" }, "text": { "type": "string" } } } },
               "hervorhebung": { "type": "string" },

@@ -18,11 +18,10 @@ tauschen, ohne die Inhalte anzufassen. Zusätzliche, optionale Felder steuern di
 | – `buehne` | Spielplan im Scheinwerferlicht, drehender Stempel bei `auszeichnung` | |
 | – `kamera` | schlichte Karten: Sender, Jahr, Titel, Rolle, Regie | |
 | – `stimme` | Audiowelle, Figuren-Register (automatisch aus den Rollen), Trackliste | |
-| – `feder` | Manuskriptseite mit Schreibmaschinenschrift | |
+| – `feder` | Manuskriptseite mit Schreibmaschinenschrift, links optional ein Foto | `akt.bild` |
 | – `unterricht` | Angebote (nummeriert) + Erfolgshinweis, darunter Referenzen und Zitat nebeneinander | `akt.angebote`, `akt.hervorhebung`, `akt.zitat` |
 | **Gesichter** | Kontaktbogen mit Bildnummern, Lightbox; Rotstift-Kreis nur bei `markiert: true` | `galerie` (`datei`, `alt`, `credit`, `markiert`) |
-| **Sehen & Hören** | Eintrittskarten mit Abriss | `medien` |
-| **Kontakt** | „Kontakt aufnehmen“, Agentur, Profile – darunter ein Theatervorhang | `kontakt`, `profile` |
+| **Kontakt** | „Kontakt aufnehmen“, Agentur, Profile; Instagram als eigener Knopf und in der Fußzeile | `kontakt`, `profile` |
 
 Navigation: schmale, feste Reiterleiste oben mit den Akten und Kontakt (immer sichtbar, auf dem Handy
 waagrecht wischbar, der sichtbare Abschnitt ist markiert). Ohne JavaScript ist alles sichtbar (erste Rolle steht fest). Bei „Bewegung reduzieren“ stehen Laufbänder,

@@ -3,7 +3,7 @@
 /*
  * Build-Skript für die Bühnen-Vorlage – künstlerisches Portfolio für Schauspieler:innen,
  * inszeniert wie ein Theaterabend: Ouvertüre, Prolog, Besetzungszettel, vier Akte
- * (Bühne, Kamera, Stimme, Feder, Unterricht), Kontaktbogen, Tickets, Vorhang.
+ * (Bühne, Kamera, Stimme, Feder, Unterricht), Galerie, Kontakt.
  *
  *   node build.js ../kunden/<pfad>/schauspiel.json    -> schreibt dist/
  *   BILDER_DIR=... DIST_DIR=... node build.js datei   -> so ruft build-all.js die Vorlage auf
@@ -72,6 +72,7 @@ for (const k of s.vita) {
     titel: akt.titel || k.kategorie,
     stil: ['buehne', 'kamera', 'stimme', 'feder', 'unterricht'].includes(akt.stil) ? akt.stil : 'buehne',
     intro: akt.intro || '',
+    bild: akt.bild || null,
     angebote_titel: akt.angebote_titel || '',
     angebote: akt.angebote || [],
     hervorhebung: akt.hervorhebung || '',
@@ -157,14 +158,17 @@ function bild(ref, { sizes = '100vw', eager = false, klasse = '', dekorativ = fa
 const ICONS = {
   pfeil: '<path d="M7 17 17 7M8 7h9v9"/>',
   runter: '<path d="M12 5v14M6 13l6 6 6-6"/>',
-  play: '<path d="M8 5v14l11-7z"/>',
-  welle: '<path d="M3 12h2M7 8v8M11 5v14M15 9v6M19 11v2"/>',
+  instagram: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/>',
 };
 const icon = (n) => `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${ICONS[n]}</svg>`;
 const extern = (url) => `href="${esc(url)}" target="_blank" rel="noopener"`;
 const telInt = h.telefonInternational(agentur.telefon, 'DE');
 const kontaktMail = s.kontakt.email_direkt || agentur.email || '';
 const zwei = (n) => String(n).padStart(2, '0');
+// Instagram hervorheben (Kontakt + Fußzeile); die übrigen Profile bleiben in der Liste
+const instagram = s.profile.find((p) => /instagram\.com\//i.test(p.url));
+const instagramName = instagram ? '@' + (/instagram\.com\/([^/?#]+)/i.exec(instagram.url) || [])[1] : '';
+const weitereProfile = s.profile.filter((p) => p !== instagram);
 
 // Kreisrunder Stempel mit umlaufendem Text (SVG, kein externes Bild)
 let stempelNr = 0;
@@ -385,7 +389,10 @@ function aktFeder(a) {
   return `
 <section id="${a.id}" class="szene szene--papier akt akt--feder">
   <div class="container feder-raster">
-    ${aktKopf(a)}
+    <div class="feder-links">
+      ${aktKopf(a)}
+      ${a.bild ? `<figure class="feder-bild">${bild(a.bild, { sizes: '(min-width: 980px) 38vw, 92vw' })}</figure>` : ''}
+    </div>
     <div class="manuskript" data-einblenden>
       <p class="mono manuskript-kopf">manuskript_${esc(h.slug(s.name))}.txt</p>
       <ol>${a.eintraege.map((e) => `
@@ -449,30 +456,7 @@ function gesichter() {
 </section>`;
 }
 
-// --- Sehen & Hören: Tickets -------------------------------------------------
-
-function sehenHoeren() {
-  if (!s.medien.length) return '';
-  return `
-<section id="sehen-hoeren" class="szene szene--papier">
-  <div class="container">
-    <p class="mono kicker">Sehen &amp; Hören</p>
-    <h2 class="szenen-titel">Einlass</h2>
-    <ul class="tickets">${s.medien.map((m, i) => `
-      <li data-einblenden><a class="ticket" ${extern(m.url)}>
-        <span class="ticket-haupt">
-          <span class="mono">${m.art === 'audio' ? 'Hörprobe' : 'Vorstellung'} · Nr. ${zwei(i + 1)}</span>
-          <strong>${esc(m.titel)}</strong>
-          ${m.text ? `<span class="ticket-text">${esc(m.text)}</span>` : ''}
-        </span>
-        <span class="ticket-abriss">${icon(m.art === 'audio' ? 'welle' : 'play')}<span class="mono">Einlass</span>${icon('pfeil')}<span class="sr-only">(öffnet externe Seite)</span></span>
-      </a></li>`).join('')}
-    </ul>
-  </div>
-</section>`;
-}
-
-// --- Kontakt + Vorhang ----------------------------------------------------------
+// --- Kontakt ----------------------------------------------------------------------
 
 function kontakt() {
   return `
@@ -482,7 +466,10 @@ function kontakt() {
       <p class="mono kicker">Kontakt</p>
       <h2 class="szenen-titel">Kontakt <em>aufnehmen</em></h2>
       ${s.kontakt.text ? `<p class="kontakt-intro">${esc(s.kontakt.text)}</p>` : ''}
-      ${kontaktMail ? `<a class="knopf" href="mailto:${esc(kontaktMail)}?subject=${encodeURIComponent(`Anfrage für ${s.name}`)}">Anfrage senden ${icon('pfeil')}</a>` : ''}
+      <div class="knoepfe">
+        ${kontaktMail ? `<a class="knopf" href="mailto:${esc(kontaktMail)}?subject=${encodeURIComponent(`Anfrage für ${s.name}`)}">Anfrage senden ${icon('pfeil')}</a>` : ''}
+        ${instagram ? `<a class="knopf knopf--leise" ${extern(instagram.url)}>${icon('instagram')} ${esc(instagramName)}<span class="sr-only"> auf Instagram (öffnet externe Seite)</span></a>` : ''}
+      </div>
     </div>
     <div class="kontakt-karten">
       ${agentur.name ? `<div class="agentur">
@@ -495,11 +482,10 @@ function kontakt() {
           ${agentur.website ? `<li><a ${extern(agentur.website)}>${esc(agentur.website.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))}</a></li>` : ''}
         </ul>
       </div>` : ''}
-      ${s.profile.length ? `<ul class="profile">${s.profile.map((p) => `<li><a ${extern(p.url)}>${esc(p.name)} ${icon('pfeil')}</a></li>`).join('')}</ul>` : ''}
+      ${weitereProfile.length ? `<ul class="profile">${weitereProfile.map((p) => `<li><a ${extern(p.url)}>${esc(p.name)} ${icon('pfeil')}</a></li>`).join('')}</ul>` : ''}
     </div>
   </div>
-</section>
-<div class="vorhang" aria-hidden="true"><span class="vorhang-text">${esc(vorname)}</span></div>`;
+</section>`;
 }
 
 const lightbox = `
@@ -571,7 +557,7 @@ ${inhalt}
 </main>
 <footer class="fuss">
   <p class="mono">© <span data-jahr>${new Date().getFullYear()}</span> ${esc(s.name)}${fotografen().length ? ` · Fotos: ${fotografen().map(esc).join(', ')}` : ''}</p>
-  <ul class="mono"><li><a href="impressum.html">Impressum</a></li><li><a href="datenschutz.html">Datenschutz</a></li></ul>
+  <ul class="mono">${instagram ? `<li><a ${extern(instagram.url)}>${icon('instagram')} Instagram</a></li>` : ''}<li><a href="impressum.html">Impressum</a></li><li><a href="datenschutz.html">Datenschutz</a></li></ul>
 </footer>
 ${zusatzBody}
 </body>
@@ -595,7 +581,6 @@ const inhalt = [
   eigenschaften(),
   ...akte.map((a) => AKT_STILE[a.stil](a)),
   gesichter(),
-  sehenHoeren(),
   kontakt(),
 ].join('\n');
 
