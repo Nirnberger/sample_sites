@@ -17,7 +17,7 @@ const fs = require('fs');
 const path = require('path');
 const h = require('../../lib/helfer');
 const { bildVerarbeitung, bildTag } = require('../../lib/bilder');
-const { farbschemaLesen, farbrollen, aufhellenBisKontrast, rgbTeile } = require('../../lib/farbschema');
+const farbschema = require('../../lib/farbschema');
 
 const ROOT = __dirname;
 const DATEI = path.resolve(process.argv[2] || path.join(ROOT, 'schauspiel.json'));
@@ -84,39 +84,12 @@ for (const k of s.vita) {
 // Standard: Bühnenschwarz, Programmheft-Papier, Vorhangrot aus farben.akzent. Mit "farbschema"
 // (coolors.co, siehe lib/farbschema.js): dunkelste Farbe = Bühne, hellste = Papier, kräftigste = Vorhang,
 // übrige = Filmklappen-Gelb. Alle Textfarben werden auf ausreichenden Kontrast nachgeregelt.
-const F = {
-  nacht: '#100E0D', nacht2: '#1A1715', nachtTief: '#0A0908', papier: '#EDE5D6', papier2: '#E2D7C3', papier3: '#D9CCB4',
-  blatt: '#F7F2E8', tinte: '#1C1714', tinteLeise: '#5A4F45', kodak: '#E3A33B',
-};
-const schema = s.farbschema ? farbschemaLesen(s.farbschema) : [];
-if (s.farbschema && !schema.length) warn('farbschema enthält keine erkennbaren Farben – Standardfarben werden verwendet.');
-const rollen = farbrollen(schema);
-if (rollen && rollen.hell) {
-  F.nacht = rollen.dunkel;
-  F.nacht2 = h.mischen(F.nacht, rollen.hell, 0.05);
-  F.nachtTief = h.mischen(F.nacht, '#000000', 0.35);
-  F.papier = rollen.hell;
-  F.blatt = h.mischen(rollen.hell, '#FFFFFF', 0.45);
-  F.papier2 = h.mischen(rollen.hell, rollen.weich, 0.25);
-  F.tinte = h.mischen(rollen.dunkel, rollen.hell, 0.04);
-  for (let i = 0; i < 20 && h.kontrast(F.tinte, F.papier2) < 8; i++) F.papier2 = h.mischen(F.papier2, F.papier, 0.1);
-  F.papier3 = h.mischen(F.papier2, F.tinte, 0.08);
-  F.tinteLeise = h.abdunkelnBisKontrast(h.mischen(F.tinte, F.papier, 0.38), [F.papier, F.papier2, F.blatt]);
-  F.kodak = aufhellenBisKontrast(rollen.weich, [F.nacht, F.nachtTief]);
-}
-let rot = rollen ? rollen.akzent : s.farben.akzent;
-if (!h.hexZuRgb(rot)) {
-  if (rot) warn(`Akzentfarbe "${rot}" ist kein gültiger Hex-Wert – Standard wird verwendet.`);
-  rot = '#B8432A';
-}
-const NACHT = F.nacht;
-const PAPIER = F.papier;
-const rotDunkel = h.abdunkelnBisKontrast(rot, [PAPIER, F.papier2, '#FFFFFF']);
-let rotHell = rot;
-for (let i = 0; i < 30 && h.kontrast(rotHell, NACHT) < 4.8; i++) rotHell = h.mischen(rotHell, '#FFFFFF', 0.06);
-const farbVariablen = rollen && rollen.hell
-  ? `--nacht:${F.nacht};--nacht-2:${F.nacht2};--nacht-tief:${F.nachtTief};--papier:${F.papier};--papier-2:${F.papier2};--papier-3:${F.papier3};--blatt:${F.blatt};--tinte:${F.tinte};--tinte-leise:${F.tinteLeise};--kodak:${F.kodak};--papier-rgb:${rgbTeile(F.papier)};--tinte-rgb:${rgbTeile(F.tinte)};--nacht-rgb:${rgbTeile(F.nacht)};--nacht-tief-rgb:${rgbTeile(F.nachtTief)};--kodak-rgb:${rgbTeile(F.kodak)};`
-  : '';
+if (s.farben.akzent && !h.hexZuRgb(s.farben.akzent)) warn(`Akzentfarbe "${s.farben.akzent}" ist kein gültiger Hex-Wert – Standard wird verwendet.`);
+const farben = farbschema.variablen('buehne', s.farbschema || '', s.farben.akzent);
+if (s.farbschema && !farben.farben.length) warn('farbschema enthält keine erkennbaren Farben – Standardfarben werden verwendet.');
+const NACHT = farben.variablen['--nacht'] || '#100E0D';
+const PAPIER = farben.variablen['--papier'] || '#EDE5D6';
+const rotHell = farben.variablen['--rot-hell'];
 
 // ---------------------------------------------------------------------------
 // 3. Ausgabeordner
@@ -130,6 +103,7 @@ for (const f of fs.readdirSync(path.join(ROOT, 'fonts'))) {
   if (f.endsWith('.woff2')) fs.copyFileSync(path.join(ROOT, 'fonts', f), path.join(DIST, 'fonts', f));
 }
 fs.copyFileSync(path.join(ROOT, 'src/js/main.js'), path.join(DIST, 'js/main.js'));
+fs.copyFileSync(path.join(ROOT, '../../lib/farbschema.js'), path.join(DIST, 'js/farbschema.js')); // Farb-Labor (…#farben)
 
 // ---------------------------------------------------------------------------
 // 4. Bilder: responsive WebP-Varianten (mit Cache) und Fotonachweise
@@ -495,7 +469,7 @@ function minifyCss(text) {
 }
 const css = minifyCss(
   fs.readFileSync(path.join(ROOT, 'src/css/style.css'), 'utf8') +
-    `:root{${farbVariablen}--rot:${rot};--rot-dunkel:${rotDunkel};--rot-hell:${rotHell}}`
+    farbschema.cssRoot(farben.variablen)
 );
 
 function layout({ titel, beschreibung, inhalt, startseite = false, pfad = '', zusatzHead = '', zusatzBody = '' }) {

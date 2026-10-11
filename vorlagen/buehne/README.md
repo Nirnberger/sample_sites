@@ -37,7 +37,15 @@ Export-Format einfügen – CSV, „With #“, Array, Object, Extended Array, XM
 dunkelste Farbe = Bühne, hellste = Programmheft-Papier, kräftigste = Vorhang (ersetzt `farben.akzent`),
 übrige = Filmklappen-/Kontaktbogen-Beschriftung.
 Text- und Akzentfarben werden automatisch nachgedunkelt bzw. aufgehellt, bis der Kontrast reicht
-(WCAG AA). Leer = Standardfarben. Code: `lib/farbschema.js`.
+(WCAG AA). Leer = Standardfarben. Code: `lib/farbschema.js` (läuft beim Bauen und im Browser).
+
+**Farb-Labor:** Seite mit `#farben` am Ende der Adresse öffnen (z. B. `…/nora-solcher/v2/#farben`) –
+Palette einfügen, „Anwenden“, die ganze Seite zeigt sofort die Farben. Reine Vorschau in diesem
+Browser-Tab: nichts wird gesendet oder gespeichert, Besucher ohne `#farben` laden das Skript gar nicht.
+„Vorschau-Link kopieren“ erzeugt `…#farben=8c0902-e0c58f-…` zum Weitergeben. Dauerhaft wird ein
+Schema nur über das CMS gesetzt (Anmeldung über GitHub, Pipeline prüft vor dem Deploy). Sicherheit:
+aus der Eingabe werden nur Hex-Werte übernommen, die Oberfläche entsteht ohne `innerHTML`/`eval`,
+die Content-Security-Policy bleibt unverändert.
 
 ## Bauen
 

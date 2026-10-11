@@ -15,7 +15,7 @@ const fs = require('fs');
 const path = require('path');
 const h = require('../../lib/helfer');
 const { bildVerarbeitung, bildTag, vorladen } = require('../../lib/bilder');
-const { farbschemaLesen, farbrollen, aufhellenBisKontrast, rgbTeile } = require('../../lib/farbschema');
+const farbschema = require('../../lib/farbschema');
 
 const ROOT = __dirname;
 const DATEI = path.resolve(process.argv[2] || path.join(ROOT, 'schauspiel.json'));
@@ -64,34 +64,14 @@ const nachname = rest.join(' ');
 
 // ---------------------------------------------------------------------------
 // Farben: Standard (Creme/Braun/Mint) oder Farbschema von coolors.co (Feld "farbschema", siehe
-// lib/farbschema.js). Texte werden so lange nachgedunkelt, bis sie auf allen Flächen lesbar sind.
+// lib/farbschema.js – dieselbe Datei rechnet im Browser die Vorschau des Farb-Labors, Adresse …#farben).
 // ---------------------------------------------------------------------------
 
-const F = {
-  creme: '#F6F1E9', sand: '#ECE3D5', mint: '#D5E8DD', mintTief: '#A9CBB8', salbei: '#3D6651',
-  braun: '#3A2C24', braunMittel: '#6B5242', linie: '#DCCFBD', weiss: '#FFFDF9', fussLeise: '#D9CFC2',
-};
-const schema = s.farbschema ? farbschemaLesen(s.farbschema) : [];
-if (s.farbschema && !schema.length) warn('farbschema enthält keine erkennbaren Farben – Standardfarben werden verwendet.');
-const rollen = farbrollen(schema);
-if (rollen && rollen.hell) {
-  F.creme = rollen.hell;
-  F.braun = rollen.dunkel;
-  F.weiss = h.mischen(rollen.hell, '#FFFFFF', 0.6);
-  F.mint = rollen.weich;
-  F.sand = h.mischen(rollen.hell, rollen.weich, 0.3);
-  // Flächen hell genug für Fließtext halten
-  for (let i = 0; i < 20 && h.kontrast(F.braun, F.mint) < 7; i++) F.mint = h.mischen(F.mint, F.creme, 0.1);
-  for (let i = 0; i < 20 && h.kontrast(F.braun, F.sand) < 8; i++) F.sand = h.mischen(F.sand, F.creme, 0.1);
-  F.mintTief = h.mischen(F.mint, F.braun, 0.18);
-  F.linie = h.mischen(F.creme, F.braun, 0.14);
-  F.braunMittel = h.abdunkelnBisKontrast(h.mischen(F.braun, F.creme, 0.35), [F.creme, F.sand, F.mint, F.weiss]);
-  F.fussLeise = aufhellenBisKontrast(h.mischen(F.creme, F.braun, 0.15), [F.braun]);
-}
-if (rollen && rollen.akzent) F.salbei = h.abdunkelnBisKontrast(rollen.akzent, [F.creme, F.sand, F.mint, F.weiss]);
-const farbVariablen = rollen
-  ? `:root{--creme:${F.creme};--sand:${F.sand};--mint:${F.mint};--mint-tief:${F.mintTief};--salbei:${F.salbei};--braun:${F.braun};--braun-mittel:${F.braunMittel};--linie:${F.linie};--weiss:${F.weiss};--fuss-leise:${F.fussLeise};--creme-rgb:${rgbTeile(F.creme)};--braun-rgb:${rgbTeile(F.braun)}}`
-  : '';
+const farben = farbschema.variablen('repertoire', s.farbschema || '');
+if (s.farbschema && !farben.farben.length) warn('farbschema enthält keine erkennbaren Farben – Standardfarben werden verwendet.');
+const F = { creme: '#F6F1E9', mint: '#D5E8DD', braun: '#3A2C24' }; // für theme-color und Favicon
+for (const k of Object.keys(F)) F[k] = farben.variablen[`--${k}`] || F[k];
+const farbVariablen = farbschema.cssRoot(farben.variablen);
 
 // ---------------------------------------------------------------------------
 // 2. Ausgabeordner, Schriften, Skript
@@ -105,6 +85,7 @@ for (const f of fs.readdirSync(path.join(ROOT, 'fonts'))) {
   if (f.endsWith('.woff2')) fs.copyFileSync(path.join(ROOT, 'fonts', f), path.join(DIST, 'fonts', f));
 }
 fs.copyFileSync(path.join(ROOT, 'src/js/main.js'), path.join(DIST, 'js/main.js'));
+fs.copyFileSync(path.join(ROOT, '../../lib/farbschema.js'), path.join(DIST, 'js/farbschema.js')); // Farb-Labor (…#farben)
 
 // ---------------------------------------------------------------------------
 // 3. Bilder

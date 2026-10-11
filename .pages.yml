@@ -29,7 +29,7 @@ content:
         fields:
           - name: farbschema
             label: Farbschema (von coolors.co)
-            description: "Auf coolors.co Palette → Export → Code kopieren und hier einfügen (jedes Format geht, auch der Link). Leer = Standardfarben. Hellste Farbe = Hintergrund, dunkelste = Schrift, kräftigste = Akzent."
+            description: "Auf coolors.co Palette → Export → Code kopieren und hier einfügen (jedes Format geht, auch der Link). Leer = Standardfarben. Hellste Farbe = Hintergrund, dunkelste = Schrift, kräftigste = Akzent. Vorher ausprobieren: Website-Adresse mit #farben am Ende öffnen."
             type: text
           - name: hero_text
             label: Einleitung im Startbereich
@@ -99,6 +99,18 @@ content:
               - { name: text, label: "Zusatz (z. B. für „Hertopia“)", type: string }
           - name: kurzbeschreibung
             label: Kurzbeschreibung für Google (max. 160 Zeichen)
+            type: text
+
+      - name: nora-v1
+        label: "Erste Fassung (/nora-solcher/v1/): Farbschema"
+        description: Die erste Fassung ist eingefroren – nur das Farbschema lässt sich hier ändern.
+        type: file
+        path: kunden/nora-solcher/v1.json
+        format: json
+        fields:
+          - name: farbschema
+            label: Farbschema (von coolors.co)
+            description: "Auf coolors.co Palette → Export → Code kopieren und hier einfügen (jedes Format geht, auch der Link). Leer = Standardfarben. Dunkelste Farbe = Bühne, hellste = Papier, kräftigste = Vorhang. Vorher ausprobieren: Website-Adresse mit #farben am Ende öffnen."
             type: text
 
       - name: nora-aktuell

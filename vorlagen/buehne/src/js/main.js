@@ -103,4 +103,18 @@
   } else {
     elemente.forEach(function (el) { el.classList.add('ist-sichtbar'); });
   }
+
+  // Farb-Labor: Vorschau einer coolors.co-Palette – nur über die Adresse …#farben, lädt dann
+  // js/farbschema.js nach (eigene Domain, CSP bleibt). Wirkt nur in diesem Tab, sendet und speichert nichts.
+  var laborGeladen = false;
+  var laborPruefen = function () {
+    if (laborGeladen || !/^#farben(=|$)/.test(location.hash)) return;
+    laborGeladen = true;
+    var skript = d.createElement('script');
+    skript.src = 'js/farbschema.js';
+    skript.onload = function () { window.Farbschema.labor('buehne'); };
+    d.head.appendChild(skript);
+  };
+  window.addEventListener('hashchange', laborPruefen);
+  laborPruefen();
 })();
