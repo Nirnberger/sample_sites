@@ -47,6 +47,10 @@ for (const s of sites) {
   }
   if (gesehen.has(s.pfad)) { console.error(`✖ pfad "${s.pfad}" doppelt in sites.json`); process.exit(1); }
   gesehen.add(s.pfad);
+  if (s.domain !== undefined && !/^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$/.test(s.domain)) {
+    console.error(`✖ Ungültige domain "${s.domain}" bei ${s.pfad} – erwartet z. B. kunde.seitenschwung.com`);
+    process.exit(1);
+  }
 }
 for (const a of gesehen) {
   for (const b of gesehen) {
@@ -101,6 +105,8 @@ function vorbereiten() {
       fehler++;
       continue;
     }
+    // Eigene Domain (z. B. gruppe42.seitenschwung.com) hat Vorrang vor BASIS_URL/<pfad>
+    if (s.domain && !daten.website_url) daten.website_url = `https://${s.domain}`;
     if (BASIS_URL && !daten.website_url) daten.website_url = `${BASIS_URL}/${s.pfad}`;
 
     // Bilder: Vorlagenbilder als Grundlage, eigene Fotos (gleicher Dateiname) ersetzen sie.
@@ -168,6 +174,31 @@ function baue({ s, datei, ziel, bilder, vorlage }) {
   });
 }
 
+// Je Seite mit "domain" ein eigener Serverblock: die Domain zeigt direkt auf public/<pfad>/.
+// Unter der Hauptdomain bleibt die Seite zusätzlich als /<pfad>/ erreichbar.
+function domainServer(liste) {
+  const kopf = '# Von build-all.js erzeugt – nicht von Hand bearbeiten (Quelle: "domain" in sites.json)\n';
+  return kopf + liste.map((s) => `
+server {
+    listen 80;
+    server_name ${s.domain};
+    root /usr/share/nginx/html/${s.pfad};
+    index index.html;
+    absolute_redirect off;
+    server_tokens off;
+    autoindex off;
+    location ~ /\\. { return 404; }
+    gzip on;
+    gzip_types text/css application/javascript image/svg+xml application/json text/plain;
+    include /etc/nginx/snippets/sicherheit.conf;
+    location / {
+        try_files $uri $uri/ =404;
+    }
+    include /etc/nginx/snippets/dateien.conf;
+}
+`).join('');
+}
+
 async function alleBauen() {
   const warteschlange = [...auftraege];
   const gleichzeitig = Math.max(1, Math.min(os.cpus().length, warteschlange.length));
@@ -184,10 +215,14 @@ medienAbgleichen().then(vorbereiten).then(alleBauen).then(() => {
   for (const s of sites) {
     const d = JSON.parse(fs.readFileSync(path.join(ROOT, s.daten), 'utf8'));
     robots.push(`${d.demo_modus === true ? 'Disallow' : 'Allow'}: /${s.pfad}/`);
-    fs.rmSync(path.join(PUBLIC, s.pfad, 'robots.txt'), { force: true });
+    // Seiten mit eigener Domain behalten ihre robots.txt – dort ist sie die Wurzel
+    if (!s.domain) fs.rmSync(path.join(PUBLIC, s.pfad, 'robots.txt'), { force: true });
   }
   robots.push(`${hub && hub.noindex === false ? 'Allow' : 'Disallow'}: /$`);
   fs.writeFileSync(path.join(PUBLIC, 'robots.txt'), robots.join('\n') + '\n');
+
+  // nginx-Serverblöcke für Seiten mit eigener Domain (Dockerfile kopiert die Datei nach conf.d/)
+  fs.writeFileSync(path.join(ROOT, 'nginx-domains.conf'), domainServer(sites.filter((s) => s.domain)));
 
   // Startseite (/) mit allen Seiten, die einen "hub"-Eintrag haben
   const imHub = erzeugeHub({ ROOT, PUBLIC, hub, sites });

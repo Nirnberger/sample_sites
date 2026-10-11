@@ -52,6 +52,23 @@ Beim Domain-Anbieter einen A-Eintrag anlegen: `demo.deine-domain.at` → IP des 
 
 Ab jetzt reicht `git push` – nach 1–3 Minuten ist alles live.
 
+## Eigene (Sub-)Domain für eine Seite
+
+Eine Seite kann zusätzlich unter einer eigenen Domain laufen, z. B. `https://gruppe42.seitenschwung.com`
+statt nur `https://sample.seitenschwung.com/gruppe42/`:
+
+1. In `sites.json` beim Eintrag `"domain": "gruppe42.seitenschwung.com"` ergänzen. `build-all.js` erzeugt
+   daraus `nginx-domains.conf` (ein nginx-Serverblock, der direkt auf `public/<pfad>/` zeigt; das Dockerfile
+   kopiert ihn nach `conf.d/`) und setzt `website_url` auf `https://<domain>` (Canonical, Open Graph, Sitemap).
+2. **DNS:** A-Eintrag `gruppe42.seitenschwung.com` → IP des Coolify-Servers (oder einmalig ein Wildcard-Eintrag
+   `*.seitenschwung.com`).
+3. **Coolify:** bei der Ressource unter *Domains* die neue Adresse anhängen, durch Komma getrennt:
+   `https://sample.seitenschwung.com,https://gruppe42.seitenschwung.com` → speichern → neu deployen.
+   Traefik holt das Zertifikat automatisch.
+
+Lokal testen: `nginx -t` mit `hosting/nginx.conf` und `nginx-domains.conf`; im Browser mit
+`--host-resolver-rules="MAP gruppe42.seitenschwung.com 127.0.0.1:8080"`.
+
 ## Seiten im Browser anlegen und löschen
 
 Beliebig viele Seiten können parallel laufen – auch mehrere auf derselben Vorlage

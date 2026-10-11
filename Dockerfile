@@ -23,6 +23,9 @@ RUN --mount=type=cache,target=/app/.bildcache node build-all.js
 FROM nginx:1.27-alpine
 COPY hosting/nginx.conf /etc/nginx/conf.d/default.conf
 COPY hosting/nginx-sicherheit.conf /etc/nginx/snippets/sicherheit.conf
+COPY hosting/nginx-dateien.conf /etc/nginx/snippets/dateien.conf
+# Serverblöcke für Seiten mit eigener Domain ("domain" in sites.json), erzeugt von build-all.js
+COPY --from=build /app/nginx-domains.conf /etc/nginx/conf.d/domains.conf
 COPY --from=build /app/public /usr/share/nginx/html
 EXPOSE 80
 HEALTHCHECK --interval=30s --timeout=3s CMD wget -qO- http://127.0.0.1/robots.txt >/dev/null || exit 1

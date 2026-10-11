@@ -83,6 +83,13 @@
       "vorlage": "vorlagen/repertoire",
       "daten": "kunden/nora-solcher/schauspiel.json",
       "bilder": "kunden/nora-solcher/images"
+    },
+    {
+      "pfad": "gruppe42",
+      "vorlage": "vorlagen/beratung",
+      "daten": "kunden/gruppe42/gruppe42.json",
+      "bilder": "kunden/gruppe42/images",
+      "domain": "gruppe42.seitenschwung.com"
     }
   ]
 }

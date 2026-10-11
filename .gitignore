@@ -41,3 +41,6 @@ kunden/*/medien/
 # Lokale Zugangsdaten (MEDIEN_*, GITHUB_TOKEN) – nie committen
 .env
 .env.*
+
+# Von build-all.js erzeugte nginx-Serverblöcke für eigene Domains
+nginx-domains.conf

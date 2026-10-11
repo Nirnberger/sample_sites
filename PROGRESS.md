@@ -29,6 +29,12 @@
 - **2026-10-11:** Farb-Labor/buehne: Rollen „Bühne“ (dunkle Szenen) und „Schrift“ getrennt (fünfte feste Rolle `Bühne`, optional – ohne sie gilt die Schrift auch für die Bühne; Link `r:` mit 5 Farben, alte 4er-Links gehen weiter). Labor startet mit den Farben der Seite (Farbschema bzw. Standardfarben der Vorlage, Attribut `data-farben-start`), Knopf „Zurücksetzen“; bei festen Rollen ein Palettenfeld je Rolle (v1: 5), Felder fest an ihre Rolle gebunden; repertoire mit 5. Rolle „Abschnitte“ (`--sand`, optional), damit beide Vorlagen 5 Farben haben. Standardfarben v2 per `farbschema`: Hintergrund `#F6F1E9`, Abschnitte `#ECE3D5`, Schrift `#502D2B`, Akzent `#3D6651`, Flächen `#E7DEDD`
 - **2026-10-11:** Texte v1/v2 ohne Gedankenstriche als Satzzeichen (weniger KI-typisch): Fließtexte in `v1.json`/`schauspiel.json` umformuliert, feste Vorlagentexte angepasst (repertoire: Kontakt-Hinweis, Auszeichnungen; buehne: Manuskript, Berufe-Zeile). Striche bleiben nur in Werktiteln, Jahresspannen, Größen, Agenturname, Paragrafen, Browser-Titeln. Gepusht
 
+- **2026-10-11:** Recherche Gruppe 42 (gruppe42.at, Personalentwicklung, Mag. Ingrid Nirnberger, Wien): alle 45 Unterseiten gecrawlt, Zusammenfassung `recherche/gruppe42/info.md` (Leistungen, Workshops, Referenzen, Kundenstimmen, Blog, Schwächen, Fragen), Styleguide `recherche/gruppe42/styleguide.html` (Farben mit Kontrasten, Playfair + Open Sans, Komponenten, Bildsprache, Tokens). Quellen/Screenshots/Bilder dort, nur lokal
+
+- **2026-10-11:** Gruppe 42 Website-Entwurf als Design-Canvas (privat): https://claude.ai/artifact/SsyGRF4fsNWpsVBLaqxPt4 – Startseite, Leistungsseite Führungskräfte (Workshop-Filter), Styleguide. Look (warm): Honiggelb #F2B33D, Espresso #2E2520, Creme #FFFBF5, Sand #F8EEDF, Waldgrün #2F4A3F, Terrakotta #9A4E1A; Newsreader + Figtree (Regler: Hanken Grotesk, Instrument Serif + Plus Jakarta); alle Bilder Unsplash-Platzhalter, Hero-Foto (FORTYTWO, Quelle in `recherche/gruppe42/bilder/unsplash/`). Alter Ist-Styleguide jetzt `recherche/gruppe42/quellen/styleguide-bestand.html`
+
+- **2026-10-11:** Gruppe 42 Website gebaut: neue Vorlage `vorlagen/beratung/` (Design aus dem Entwurf, Newsreader + Figtree selbst gehostet, Unsplash-Bilder in der Vorlage), Inhalte `kunden/gruppe42/gruppe42.json` (Startseite, 4 Zielgruppen-Seiten mit Workshop-Filter, Unternehmenskultur, Employer Branding, Impressum, Datenschutz; Demo-Modus). Neues Feld `domain` in `sites.json` → `build-all.js` erzeugt `nginx-domains.conf` (Serverblock für `gruppe42.seitenschwung.com`), gemeinsame Datei-Regeln in `hosting/nginx-dateien.conf`. Lokal mit nginx getestet: Smoke-Test 68/68, Lighthouse gruppe42 96/100/100. Porträt (`ingring_nirnberger.png`) im S3
+
 ## Offen
 - Falls in den Branch-Regeln „Build, Docker & Smoke-Test“ Pflicht-Check ist: reine Doku-PRs warten dann ewig (wegen `paths-ignore`) – prüfen, ggf. auf Skip-Job umbauen
 - Mac: Claude-App (und Docker Desktop) in die Anmeldeobjekte eintragen, damit Handy-Anbindung nach Neustart von selbst klappt
@@ -44,10 +50,18 @@
 - CSP-Konsolenmeldung (Hash `Q00BMk9…`) stammt nicht von unseren Seiten – vermutlich Browser-Erweiterung; im privaten Fenster gegenprüfen
 - Aus früher: PageSpeed-API aktivieren (Leads)
 
+- Gruppe 42: offene Fragen an die Kundin in `recherche/gruppe42/info.md` (Umfang, Rechte an Illustrationen/Logo als Vektor, Online Seminare, Preise, Englisch)
+
+- Gruppe 42 Subdomain: DNS-A-Eintrag `gruppe42.seitenschwung.com` und Domain in Coolify ergänzen (siehe HOSTING.md „Eigene (Sub-)Domain“)
+- Gruppe 42 Impressum prüfen lassen: Aufsichtsbehörde (Magistratisches Bezirksamt 2. Bezirk angenommen), Rechtsform/Firmenbuch; Porträt nur 952 px
+- Gruppe 42: Workflow „Neue Seite anlegen“ kennt Vorlage `beratung` noch nicht
+
 ## Nächste Schritte
 1. Nora beide Fassungen zeigen (`/nora-solcher/v1/` und `/v2/`, Farb-Labor mit `#farben`) und Fragen klären: eigene E-Mail für Unterricht, Ort Präsenzunterricht, Texte der Angebote, Impressum-Anschrift, Fotorechte
 2. Pages CMS GitHub-App installieren und auf Branch `cms-test` testen (Bereiche-Listen, Farbschema-Feld, v1-Eintrag; danach `git diff` auf Datenverlust prüfen), dann Nora einladen
 3. SeaweedFS anonymes Lesen abstellen (aktive Konfiguration/Bucket-Regel prüfen, Ziel: `hero.jpg` ohne Schlüssel → 403), dann `MEDIEN_ZUGANG`/`MEDIEN_GEHEIMNIS` in Coolify und GitHub auf den lesenden Schlüssel `build` umstellen
+
+4. Gruppe 42: Styleguide mit Kundin abstimmen, danach eigene Vorlage (z. B. `vorlagen/beratung/`) aus den Tokens bauen
 
 ## Entscheidungen/Notizen
 - **Medien:** Kundenfotos und Videos nie in Git, nur im S3-Speicher; lizenzfreie Vorlagenbilder bleiben in Git

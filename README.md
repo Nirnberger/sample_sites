@@ -19,7 +19,8 @@ workspace/
 │   ├── angel-jagd/     Fachhandel mit Sortiment und Merkzettel
 │   ├── buehne/         künstlerisches Schauspiel-Portfolio („Website als Theaterabend“)
 │   ├── repertoire/     mehrseitiges Künstler-Portfolio mit Bereichsseiten (Nora Solcher)
-│   └── schauspiel/     nüchternes Schauspiel-Portfolio (gleiches Datenformat wie buehne)
+│   ├── schauspiel/     nüchternes Schauspiel-Portfolio (gleiches Datenformat wie buehne)
+│   └── beratung/       Beratung, Training, Coaching mit Workshop-Seiten (Gruppe 42)
 ├── lib/                gemeinsamer Code aller Vorlagen: helfer.js, bilder.js (WebP + AVIF),
 │                       schema.js (Inhaltsprüfung), s3.js + medien.js (Objektspeicher)
 ├── schemas/            JSON-Schemas der Inhalte (Betrieb, Portfolio) – auch für VS Code

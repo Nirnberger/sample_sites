@@ -1,0 +1,134 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Inhalte einer Website für Beratung, Training und Coaching (Vorlage beratung)",
+  "type": "object",
+  "required": ["name", "kontakt", "hero"],
+  "$defs": {
+    "textblock": {
+      "type": "object",
+      "required": ["titel"],
+      "properties": { "titel": { "type": "string", "minLength": 1 }, "text": { "type": "string" } }
+    },
+    "stimme": {
+      "type": "object",
+      "required": ["text", "wer"],
+      "properties": { "text": { "type": "string", "minLength": 1 }, "wer": { "type": "string", "minLength": 1 }, "rolle": { "type": "string" } }
+    },
+    "workshop": {
+      "type": "object",
+      "required": ["titel"],
+      "properties": {
+        "kategorie": { "type": "string", "description": "Gruppe für den Filter, z. B. Selbstkompetenz" },
+        "titel": { "type": "string", "minLength": 1 },
+        "text": { "type": "string" },
+        "dauer": { "type": "string", "description": "z. B. 2 Tage" }
+      }
+    }
+  },
+  "properties": {
+    "$schema": { "type": "string" },
+    "demo_modus": { "type": "boolean", "description": "true = Entwurf: noindex und Hinweisleiste oben" },
+    "ersteller": { "type": "string" },
+    "name": { "type": "string", "minLength": 1 },
+    "firma": { "type": "string", "description": "Vollständiger Firmenwortlaut, z. B. Gruppe 42 e.U." },
+    "kurzbeschreibung": { "type": "string", "description": "Für Suchmaschinen (max. 160 Zeichen)" },
+    "website_url": { "anyOf": [{ "type": "string", "pattern": "^https://" }, { "type": "string", "maxLength": 0 }] },
+    "kontakt": { "$ref": "gemeinsam.schema.json#/$defs/kontakt_basis" },
+    "hero": {
+      "type": "object",
+      "required": ["titel"],
+      "properties": {
+        "kicker": { "type": "string" },
+        "titel": { "type": "string", "minLength": 1, "description": "*Wort* wird kursiv hervorgehoben" },
+        "text": { "type": "string" },
+        "bild": { "$ref": "gemeinsam.schema.json#/$defs/bild" }
+      }
+    },
+    "zahlen": { "type": "array", "items": { "type": "object", "required": ["wert"], "properties": { "wert": { "type": "string" }, "text": { "type": "string" } } } },
+    "referenzen": {
+      "type": "object",
+      "properties": { "titel": { "type": "string" }, "namen": { "type": "array", "items": { "type": "string" } } }
+    },
+    "haltung": {
+      "type": "object",
+      "properties": { "kicker": { "type": "string" }, "text": { "type": "string" }, "nebentext": { "type": "string" } }
+    },
+    "geschichte": {
+      "type": "object",
+      "properties": {
+        "kicker": { "type": "string" }, "titel": { "type": "string" }, "text": { "type": "string" },
+        "qualifikationen": { "type": "array", "items": { "type": "string" } },
+        "stationen": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["jahr", "titel"],
+            "properties": { "jahr": { "type": "string" }, "titel": { "type": "string" }, "text": { "type": "string" }, "hervorheben": { "type": "boolean" } }
+          }
+        }
+      }
+    },
+    "leistungen": {
+      "type": "object",
+      "properties": {
+        "kicker": { "type": "string" }, "titel": { "type": "string" },
+        "eintraege": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "titel"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "Kleinbuchstaben und Bindestriche; mit abschnitte entsteht die Seite <id>.html" },
+              "titel": { "type": "string" }, "text": { "type": "string" },
+              "schlagworte": { "type": "array", "items": { "type": "string" } },
+              "bild": { "$ref": "gemeinsam.schema.json#/$defs/bild" },
+              "link": { "type": "string", "description": "Ziel ohne eigene Seite, z. B. #zielgruppen" },
+              "motto": { "type": "string" }, "intro": { "type": "string" },
+              "abschnitte": {
+                "type": "array",
+                "items": { "type": "object", "required": ["titel"], "properties": { "titel": { "type": "string" }, "untertitel": { "type": "string" }, "text": { "type": "string" } } }
+              }
+            }
+          }
+        }
+      }
+    },
+    "zielgruppen_kopf": { "type": "object", "properties": { "kicker": { "type": "string" }, "titel": { "type": "string" } } },
+    "zielgruppen": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "titel", "workshops"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "Kleinbuchstaben und Bindestriche; ergibt die Seite <id>.html" },
+          "titel": { "type": "string" }, "motto": { "type": "string" }, "teaser": { "type": "string" }, "intro": { "type": "string" },
+          "bild": { "$ref": "gemeinsam.schema.json#/$defs/bild" },
+          "foerderung": { "type": "string", "description": "Hinweis auf Förderung (Markdown-Links erlaubt)" },
+          "workshops": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/workshop" } },
+          "stimme": { "$ref": "#/$defs/stimme" }
+        }
+      }
+    },
+    "rahmen": { "type": "array", "items": { "$ref": "#/$defs/textblock" } },
+    "ablauf": {
+      "type": "object",
+      "properties": { "kicker": { "type": "string" }, "titel": { "type": "string" }, "schritte": { "type": "array", "items": { "$ref": "#/$defs/textblock" } } }
+    },
+    "stimmen": {
+      "type": "object",
+      "properties": { "kicker": { "type": "string" }, "haupt": { "$ref": "#/$defs/stimme" }, "weitere": { "type": "array", "items": { "$ref": "#/$defs/stimme" } } }
+    },
+    "person": {
+      "type": "object",
+      "properties": {
+        "kicker": { "type": "string" }, "name": { "type": "string" }, "rolle": { "type": "string" }, "text": { "type": "string" },
+        "bild": { "$ref": "gemeinsam.schema.json#/$defs/bild" },
+        "fakten": { "type": "array", "items": { "$ref": "#/$defs/textblock" } }
+      }
+    },
+    "kontaktband": { "type": "object", "properties": { "titel": { "type": "string" }, "text": { "type": "string" } } },
+    "impressum": { "type": "string", "description": "Markdown" },
+    "datenschutz": { "type": "string", "description": "Markdown" },
+    "bildnachweise": { "type": "array" }
+  }
+}
