@@ -18,6 +18,7 @@ workspace/
 │   ├── cafe/           Cafés, Bistros, Imbisse
 │   ├── angel-jagd/     Fachhandel mit Sortiment und Merkzettel
 │   ├── buehne/         künstlerisches Schauspiel-Portfolio („Website als Theaterabend“)
+│   ├── repertoire/     mehrseitiges Künstler-Portfolio mit Bereichsseiten (Nora Solcher)
 │   └── schauspiel/     nüchternes Schauspiel-Portfolio (gleiches Datenformat wie buehne)
 ├── lib/                gemeinsamer Code aller Vorlagen: helfer.js, bilder.js (WebP + AVIF),
 │                       schema.js (Inhaltsprüfung), s3.js + medien.js (Objektspeicher)

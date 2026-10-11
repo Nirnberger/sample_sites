@@ -74,7 +74,7 @@
     },
     {
       "pfad": "nora-solcher",
-      "vorlage": "vorlagen/buehne",
+      "vorlage": "vorlagen/repertoire",
       "daten": "kunden/nora-solcher/schauspiel.json",
       "bilder": "kunden/nora-solcher/images"
     }

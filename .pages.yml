@@ -21,45 +21,57 @@ content:
     items:
 
       - name: nora-start
-        label: Startseite
-        description: Großer Startbereich, Leitsatz und Pressezitat.
+        label: Startseite & Über mich
+        description: Startbereich, Biografie, Pressezitat und Auszeichnungen.
         type: file
         path: kunden/nora-solcher/schauspiel.json
         format: json
         fields:
-          - name: hero_rollen
-            label: Wechselnde Rollen im Startbereich
-            description: Erscheinen nacheinander unter dem Namen, jeweils mit einem Porträt.
+          - name: hero_text
+            label: Einleitung im Startbereich
+            type: text
+          - name: hero_bild
+            label: Foto im Startbereich
             type: object
-            list:
-              collapsible:
-                collapsed: true
-                summary: "{verb} {rolle}"
             fields:
-              - name: verb
-                label: Tätigkeit
-                type: select
-                options:
-                  values: [spielt, spricht, ist, singt, liest]
-              - name: rolle
-                label: Rolle
-                type: string
-                required: true
-              - name: werk
-                label: Stück / Produktion
-                description: z. B. „Dead vs. Alive“ · Schauspiel Frankfurt
-                type: string
-              - name: bild
+              - name: datei
                 label: Foto
                 type: select
                 options:
                   values: [hero.jpg, portrait.jpg, portrait-dunkel.jpg, portrait-farbe.jpg, portrait-hocker.jpg, portrait-lachend.jpg, portrait-profil.jpg, portrait-schulter.jpg, portrait-sofa.jpg, portrait-street.jpg, portrait-sw.jpg, szene-hertopia-1.jpg, szene-hertopia-2.jpg, szene-wintermaerchen-1.jpg, szene-wintermaerchen-2.jpg, szene-wintermaerchen-3.jpg]
-          - name: hero_zeile
-            label: Unterzeile (für Suchmaschinen und Vorschauen)
-            type: string
-          - name: prolog
-            label: Leitsatz (groß im Abschnitt „Prolog“)
+              - name: alt
+                label: Beschreibung (für blinde Menschen und Google)
+                type: string
+              - name: fokus
+                label: Bildausschnitt (technisch)
+                type: string
+                hidden: true
+              - name: credit
+                label: Foto von
+                type: string
+          - name: ueber_mich
+            label: Text „Über Nora“
+            description: Absätze durch eine Leerzeile trennen.
             type: text
+          - name: ueber_mich_bild
+            label: Foto bei „Über Nora“
+            type: object
+            fields:
+              - name: datei
+                label: Foto
+                type: select
+                options:
+                  values: [hero.jpg, portrait.jpg, portrait-dunkel.jpg, portrait-farbe.jpg, portrait-hocker.jpg, portrait-lachend.jpg, portrait-profil.jpg, portrait-schulter.jpg, portrait-sofa.jpg, portrait-street.jpg, portrait-sw.jpg, szene-hertopia-1.jpg, szene-hertopia-2.jpg, szene-wintermaerchen-1.jpg, szene-wintermaerchen-2.jpg, szene-wintermaerchen-3.jpg]
+              - name: alt
+                label: Beschreibung (für blinde Menschen und Google)
+                type: string
+              - name: fokus
+                label: Bildausschnitt (technisch)
+                type: string
+                hidden: true
+              - name: credit
+                label: Foto von
+                type: string
           - name: zitat
             label: Pressezitat
             type: object
@@ -70,251 +82,190 @@ content:
               - name: quelle
                 label: Quelle
                 type: string
+          - name: auszeichnungen
+            label: Auszeichnungen
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{jahr} {titel}"
+            fields:
+              - { name: jahr, label: Jahr, type: string }
+              - { name: titel, label: Preis, type: string, required: true }
+              - { name: text, label: "Zusatz (z. B. für „Hertopia“)", type: string }
           - name: kurzbeschreibung
             label: Kurzbeschreibung für Google (max. 160 Zeichen)
             type: text
 
-      - name: nora-ueber-mich
-        label: Über mich & Preise
-        type: file
-        path: kunden/nora-solcher/schauspiel.json
-        format: json
-        fields:
-          - name: ueber_mich
-            label: Text „Über mich“
-            description: Absätze durch eine Leerzeile trennen. Der erste Absatz erscheint größer.
-            type: text
-          - name: ueber_mich_fakten
-            label: Kennzahlen
-            type: object
-            list:
-              collapsible:
-                collapsed: true
-                summary: "{wert} – {text}"
-            fields:
-              - name: wert
-                label: Zahl / Wert (z. B. 15+)
-                type: string
-              - name: text
-                label: Bedeutung
-                type: string
-          - name: auszeichnungen
-            label: Auszeichnungen („Applaus“)
-            type: object
-            list:
-              collapsible:
-                collapsed: true
-                summary: "{jahr} · {titel}"
-            fields:
-              - name: jahr
-                label: Jahr
-                type: string
-              - name: titel
-                label: Preis
-                type: string
-                required: true
-              - name: text
-                label: Zusatz (z. B. für „Hertopia“)
-                type: string
-
       - name: nora-aktuell
         label: Neuigkeiten
-        description: Die ersten Einträge erscheinen unter „Zuletzt“. Neueste nach oben ziehen.
         type: file
         path: kunden/nora-solcher/schauspiel.json
         format: json
         fields:
           - name: aktuell
-            label: Neuigkeiten
+            label: Neuigkeiten (Startseite)
             type: object
             list:
               collapsible:
                 collapsed: true
                 summary: "{label}: {titel}"
             fields:
-              - name: label
-                label: Art
+              - { name: label, label: "Art (z. B. Hörspiel)", type: string }
+              - { name: titel, label: Überschrift, type: string, required: true }
+              - { name: text, label: Text, type: text }
+              - name: bereich
+                label: Verlinkt auf Seite
                 type: select
                 options:
-                  values: [Theater, Film, Fernsehen, Hörspiel, Hörbuch, Lesung, Auszeichnung, Premiere, Termin]
-              - name: titel
-                label: Überschrift
-                type: string
-                required: true
-              - name: text
-                label: Text
-                type: text
-              - name: bild
-                label: Bild (technisch)
-                type: object
-                hidden: true
-                fields:
-                  - { name: datei, label: Datei, type: string }
-                  - { name: alt, label: Beschreibung, type: string }
-                  - { name: credit, label: Foto von, type: string }
+                  values: [theater, film, audio, schreiben, unterrichten]
 
-      - name: nora-vita
-        label: Vita (Bühne, Kamera, Stimme, Feder)
-        description: Je Bereich eine Liste. Neueste Arbeiten nach oben ziehen.
+      - name: nora-bereiche
+        label: "Seiten: Theater, Film, Audio, Schreiben, Unterrichten"
+        description: Jede Seite hat Einleitung, Foto und Listen mit Arbeiten. Die Reihenfolge hier ist die Reihenfolge im Menü.
         type: file
         path: kunden/nora-solcher/schauspiel.json
         format: json
         fields:
-          - name: vita
-            label: Bereiche
-            type: object
-            list:
-              collapsible:
-                collapsed: true
-                summary: "{kategorie}"
-            fields:
-              - name: kategorie
-                label: Bereich
-                type: string
-                required: true
-              - name: akt
-                label: Darstellung
-                type: object
-                fields:
-                  - name: intro
-                    label: Einleitungstext des Bereichs
-                    type: text
-                  - { name: nr, label: Akt-Nummer, type: string, hidden: true }
-                  - { name: titel, label: Akt-Titel, type: string, hidden: true }
-                  - { name: stil, label: Stil, type: string, hidden: true }
-                  - { name: gehoert_zu, label: Gehört zu, type: string, hidden: true }
-              - name: eintraege
-                label: Arbeiten
-                type: object
-                list:
-                  collapsible:
-                    collapsed: true
-                    summary: "{jahr} · {titel}"
-                fields:
-                  - name: jahr
-                    label: Jahr
-                    description: z. B. 2024 oder 2022–25
-                    type: string
-                  - name: titel
-                    label: Titel
-                    type: string
-                    required: true
-                  - name: rolle
-                    label: Rolle / Funktion
-                    type: string
-                  - name: regie
-                    label: Regie
-                    type: string
-                  - name: ort
-                    label: Haus / Sender / Ort
-                    type: string
-                  - name: auszeichnung
-                    label: Auszeichnung (erscheint als Stempel)
-                    type: string
-
-      - name: nora-profil
-        label: Profil & Fähigkeiten
-        type: file
-        path: kunden/nora-solcher/schauspiel.json
-        format: json
-        fields:
-          - name: steckbrief
-            label: Besetzungszettel
-            type: object
-            list:
-              collapsible:
-                collapsed: true
-                summary: "{label}: {wert}"
-            fields:
-              - name: label
-                label: Merkmal
-                type: string
-                required: true
-              - name: wert
-                label: Angabe
-                type: string
-                required: true
-          - name: register
-            label: Laufbänder (Sprachen, Körper, Klang …)
-            type: object
-            list:
-              collapsible:
-                collapsed: true
-                summary: "{gruppe}"
-            fields:
-              - name: gruppe
-                label: Überschrift
-                type: string
-                required: true
-              - name: werte
-                label: Begriffe
-                type: string
-                list: true
-
-      - name: nora-medien
-        label: Showreels & Profile
-        type: file
-        path: kunden/nora-solcher/schauspiel.json
-        format: json
-        fields:
-          - name: medien
-            label: Showreels und Hörproben (Links)
+          - name: bereiche
+            label: Seiten
             type: object
             list:
               collapsible:
                 collapsed: true
                 summary: "{titel}"
             fields:
-              - name: titel
-                label: Titel
-                type: string
-                required: true
-              - name: text
-                label: Beschreibung
-                type: string
-              - name: url
-                label: Link
-                type: string
-                required: true
-                pattern:
-                  regex: "^https://"
-                  message: Der Link muss mit https:// beginnen.
-              - name: art
-                label: Art
-                type: select
-                options:
-                  values:
-                    - { name: video, label: Video }
-                    - { name: audio, label: Audio }
-          - name: profile
-            label: Profile (Instagram, Filmmakers …)
-            type: object
-            list:
-              collapsible:
-                collapsed: true
-                summary: "{name}"
-            fields:
-              - name: name
-                label: Name
-                type: string
-                required: true
-              - name: url
-                label: Link
-                type: string
-                required: true
-                pattern:
-                  regex: "^https://"
-                  message: Der Link muss mit https:// beginnen.
+              - { name: id, label: Adresse (technisch), type: string, hidden: true }
+              - { name: titel, label: Name im Menü, type: string, required: true }
+              - { name: untertitel, label: Untertitel, type: string }
+              - { name: teaser, label: Kurztext auf der Startseite, type: text }
+              - { name: intro, label: Einleitung oben auf der Seite, type: text }
+              - name: bild
+                label: Foto oben auf der Seite
+                type: object
+                fields:
+                  - name: datei
+                    label: Foto
+                    type: select
+                    options:
+                      values: [hero.jpg, portrait.jpg, portrait-dunkel.jpg, portrait-farbe.jpg, portrait-hocker.jpg, portrait-lachend.jpg, portrait-profil.jpg, portrait-schulter.jpg, portrait-sofa.jpg, portrait-street.jpg, portrait-sw.jpg, szene-hertopia-1.jpg, szene-hertopia-2.jpg, szene-wintermaerchen-1.jpg, szene-wintermaerchen-2.jpg, szene-wintermaerchen-3.jpg]
+                  - name: alt
+                    label: Beschreibung (für blinde Menschen und Google)
+                    type: string
+                  - name: fokus
+                    label: Bildausschnitt (technisch)
+                    type: string
+                    hidden: true
+                  - name: credit
+                    label: Foto von
+                    type: string
+              - name: gruppen
+                label: Listen (z. B. Hörspiel, Hörbuch …)
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{titel}"
+                fields:
+                  - { name: titel, label: Überschrift, type: string, required: true }
+                  - name: darstellung
+                    label: Darstellung
+                    type: select
+                    options:
+                      values:
+                        - { name: liste, label: Liste }
+                        - { name: projekte, label: Große Projektkarten (wie bei Film) }
+                  - name: eintraege
+                    label: Arbeiten
+                    type: object
+                    list:
+                      collapsible:
+                        collapsed: true
+                        summary: "{jahr} {titel}"
+                    fields:
+                      - { name: jahr, label: Jahr, type: string }
+                      - { name: titel, label: Titel, type: string, required: true }
+                      - { name: rolle, label: Rolle / Funktion, type: string }
+                      - { name: regie, label: Regie, type: string }
+                      - { name: ort, label: Haus / Sender / Produktion, type: string }
+                      - { name: text, label: Kurzbeschreibung, type: text }
+                      - { name: auszeichnung, label: Auszeichnung, type: string }
+                      - { name: art, label: "Format (nur Projektkarten, z. B. Kinofilm)", type: string }
+                      - { name: rollentyp, label: "Rollengröße (nur Projektkarten, z. B. Hauptrolle)", type: string }
+                      - { name: ausstrahlung, label: Ausstrahlung (nur Projektkarten), type: string }
+              - { name: hinweis, label: Hinweis unter der letzten Liste, type: text }
+              - { name: angebote_titel, label: Überschrift der Angebote (nur Unterrichten), type: string }
+              - name: angebote
+                label: Angebote (nur Unterrichten)
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{titel}"
+                fields:
+                  - { name: titel, label: Angebot, type: string, required: true }
+                  - { name: text, label: Beschreibung, type: text }
+              - { name: hervorhebung, label: Hervorgehobener Satz (nur Unterrichten), type: text }
+              - name: zitat
+                label: Zitat
+                type: object
+                fields:
+                  - name: text
+                    label: Zitat (ohne Anführungszeichen)
+                    type: text
+                  - name: quelle
+                    label: Quelle
+                    type: string
+              - name: fotos
+                label: Szenenfotos
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{alt}"
+                fields:
+                  - name: datei
+                    label: Foto
+                    type: select
+                    required: true
+                    options:
+                      values: [hero.jpg, portrait.jpg, portrait-dunkel.jpg, portrait-farbe.jpg, portrait-hocker.jpg, portrait-lachend.jpg, portrait-profil.jpg, portrait-schulter.jpg, portrait-sofa.jpg, portrait-street.jpg, portrait-sw.jpg, szene-hertopia-1.jpg, szene-hertopia-2.jpg, szene-wintermaerchen-1.jpg, szene-wintermaerchen-2.jpg, szene-wintermaerchen-3.jpg]
+                  - { name: alt, label: Beschreibung (für blinde Menschen und Google), type: string }
+                  - { name: credit, label: Foto von, type: string }
+              - name: medien
+                label: Showreels & Hörproben (Links)
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{titel}"
+                fields:
+                  - { name: titel, label: Titel, type: string, required: true }
+                  - { name: text, label: Beschreibung, type: string }
+                  - name: url
+                    label: Link
+                    type: string
+                    required: true
+                    pattern:
+                      regex: "^https://"
+                      message: Der Link muss mit https:// beginnen.
+                  - name: art
+                    label: Art
+                    type: select
+                    options:
+                      values:
+                        - { name: video, label: Video }
+                        - { name: audio, label: Audio }
 
       - name: nora-fotos
-        label: Fotos (Auswahl & Beschriftung)
+        label: Fotogalerie (Startseite)
         description: Neue Fotos bitte an Philipp schicken – sie werden im Speicher abgelegt und erscheinen dann hier in der Auswahl.
         type: file
         path: kunden/nora-solcher/schauspiel.json
         format: json
         fields:
           - name: galerie
-            label: Kontaktbogen
+            label: Fotos
             type: object
             list:
               collapsible:
@@ -327,18 +278,11 @@ content:
                 required: true
                 options:
                   values: [hero.jpg, portrait.jpg, portrait-dunkel.jpg, portrait-farbe.jpg, portrait-hocker.jpg, portrait-lachend.jpg, portrait-profil.jpg, portrait-schulter.jpg, portrait-sofa.jpg, portrait-street.jpg, portrait-sw.jpg, szene-hertopia-1.jpg, szene-hertopia-2.jpg, szene-wintermaerchen-1.jpg, szene-wintermaerchen-2.jpg, szene-wintermaerchen-3.jpg]
-              - name: alt
-                label: Beschreibung (für blinde Menschen und Google)
-                type: string
-              - name: credit
-                label: Foto von
-                type: string
-              - name: markiert
-                label: Mit Rotstift einkreisen (Favorit)
-                type: boolean
+              - { name: alt, label: Beschreibung (für blinde Menschen und Google), type: string }
+              - { name: credit, label: Foto von, type: string }
 
       - name: nora-kontakt
-        label: Kontakt & Rechtliches
+        label: Kontakt, Casting-Angaben & Rechtliches
         type: file
         path: kunden/nora-solcher/schauspiel.json
         format: json
@@ -351,13 +295,13 @@ content:
                 label: Einleitungstext
                 type: text
               - name: email_direkt
-                label: Eigene E-Mail (leer = Agentur)
+                label: Eigene E-Mail (für Unterricht & Kooperationen; leer = Management)
                 type: string
                 pattern:
                   regex: "^$|^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
                   message: Bitte eine gültige E-Mail-Adresse eingeben.
               - name: agentur
-                label: Agentur
+                label: Management
                 type: object
                 fields:
                   - { name: name, label: Name, type: string }
@@ -370,6 +314,50 @@ content:
                     pattern:
                       regex: "^$|^https?://"
                       message: Der Link muss mit https:// beginnen.
+              - name: anliegen
+                label: Anliegen (Karten auf der Kontaktseite)
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{titel}"
+                fields:
+                  - { name: titel, label: Anliegen, type: string, required: true }
+                  - { name: text, label: Beschreibung, type: text }
+                  - name: weg
+                    label: E-Mail geht an
+                    type: select
+                    options:
+                      values:
+                        - { name: agentur, label: Management }
+                        - { name: direkt, label: Nora direkt }
+                  - { name: hilfreich, label: Hilfreich für die Anfrage, type: string }
+          - name: steckbrief
+            label: Casting-Angaben („Auf einen Blick“)
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{label}: {wert}"
+            fields:
+              - { name: label, label: Merkmal, type: string, required: true }
+              - { name: wert, label: Angabe, type: string, required: true }
+          - name: profile
+            label: Profile (Instagram, Filmmakers …)
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{name}"
+            fields:
+              - { name: name, label: Name, type: string, required: true }
+              - name: url
+                label: Link
+                type: string
+                required: true
+                pattern:
+                  regex: "^https://"
+                  message: Der Link muss mit https:// beginnen.
           - name: impressum
             label: Impressum
             description: "Überschriften mit ## am Zeilenanfang."

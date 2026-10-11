@@ -105,5 +105,6 @@ Ordnerübersicht in `README.md`. Kurz: `vorlagen/` (Website-Vorlagen), `kunden/`
   - `barber/` – Barbershops („bodenständig“, Du-Ansprache), `barber.json`.
   - `cafe/` – Cafés, Bistros, Imbisse („hell & herzlich“), `cafe.json`, mit Speisekarte, Highlights, Reservieren/Bestellen.
   - `angel-jagd/` – Shop für Angel- & Jagdgeschäfte (auch Outdoor/Fachhandel), `shop.json`, Sortiment mit Filter, Suche, Merkzettel (Click & Collect per WhatsApp/E-Mail).
-  - `buehne/` – künstlerisches Portfolio für Schauspieler:innen („die Website als Theaterabend“: Ouvertüre mit Rollenwechsel, Besetzungszettel, vier Akte Bühne/Kamera/Stimme/Feder, Kontaktbogen, Vorhang). Aktuell für Nora Solcher (`kunden/nora-solcher/schauspiel.json`, Recherche in `recherche/nora-solcher/`).
-  - `schauspiel/` – nüchterne Schwester-Vorlage mit demselben Datenformat (in `sites.json` austauschbar).
+  - `repertoire/` – ruhiges, mehrseitiges Künstler-Portfolio (Creme/Braun/Mint): Startseite, je Arbeitsfeld eine Seite (`bereiche[]` → `<id>.html`), ausführliche Kontaktseite; Menü immer sichtbar. Aktuell für Nora Solcher (`kunden/nora-solcher/schauspiel.json`, Bereiche Theater, Film, Audio, Schreiben, Unterrichten; Recherche in `recherche/nora-solcher/`).
+  - `buehne/` – künstlerisches Portfolio für Schauspieler:innen („die Website als Theaterabend“). Noras frühere Fassung damit liegt auf dem Branch `nora-buehne-archiv`.
+  - `schauspiel/` – nüchterne Schwester-Vorlage von `buehne` mit demselben Datenformat (in `sites.json` austauschbar).

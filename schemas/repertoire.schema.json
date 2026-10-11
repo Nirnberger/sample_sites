@@ -1,0 +1,137 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Inhalte einer Portfolio-Website mit Bereichsseiten (Vorlage repertoire)",
+  "type": "object",
+  "required": ["name", "bereiche"],
+  "$defs": {
+    "eintrag": {
+      "type": "object",
+      "required": ["titel"],
+      "properties": {
+        "jahr": { "type": "string" }, "titel": { "type": "string", "minLength": 1 }, "rolle": { "type": "string" },
+        "regie": { "type": "string" }, "ort": { "type": "string" }, "text": { "type": "string" },
+        "auszeichnung": { "type": "string" },
+        "art": { "type": "string", "description": "z. B. Fernsehfilm, Kinofilm (nur bei darstellung = projekte sichtbar)" },
+        "rollentyp": { "type": "string", "description": "z. B. Hauptrolle, Episodenhauptrolle, Nebenrolle" },
+        "ausstrahlung": { "type": "string" }
+      }
+    },
+    "zitat": { "type": "object", "properties": { "text": { "type": "string" }, "quelle": { "type": "string" } } },
+    "medium": {
+      "type": "object",
+      "required": ["titel", "url"],
+      "properties": {
+        "titel": { "type": "string" }, "text": { "type": "string" },
+        "url": { "type": "string", "pattern": "^https://", "description": "Link muss mit https:// beginnen" },
+        "art": { "enum": ["video", "audio"] }
+      }
+    },
+    "foto": {
+      "type": "object",
+      "required": ["datei"],
+      "properties": { "datei": { "$ref": "gemeinsam.schema.json#/$defs/bilddatei" }, "alt": { "type": "string" }, "credit": { "type": "string" } }
+    }
+  },
+  "properties": {
+    "demo_modus": { "type": "boolean" },
+    "ersteller": { "type": "string" },
+    "website_url": { "$ref": "gemeinsam.schema.json#/$defs/link" },
+    "name": { "type": "string", "minLength": 1 },
+    "berufe": { "type": "array", "items": { "type": "string" } },
+    "kurzbeschreibung": { "type": "string" },
+    "hero_bild": { "$ref": "gemeinsam.schema.json#/$defs/bild" },
+    "hero_text": { "type": "string" },
+    "ueber_mich_bild": { "$ref": "gemeinsam.schema.json#/$defs/bild" },
+    "ueber_mich": { "type": "string" },
+    "zitat": { "$ref": "#/$defs/zitat" },
+    "aktuell": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["titel"],
+        "properties": { "label": { "type": "string" }, "titel": { "type": "string" }, "text": { "type": "string" }, "bereich": { "type": "string" } }
+      }
+    },
+    "auszeichnungen": {
+      "type": "array",
+      "items": { "type": "object", "required": ["titel"], "properties": { "jahr": { "type": "string" }, "titel": { "type": "string" }, "text": { "type": "string" } } }
+    },
+    "bereiche": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "titel"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "Kleinbuchstaben und Bindestriche – wird zum Dateinamen <id>.html" },
+          "titel": { "type": "string", "minLength": 1 }, "untertitel": { "type": "string" },
+          "teaser": { "type": "string" }, "intro": { "type": "string" },
+          "bild": { "$ref": "gemeinsam.schema.json#/$defs/bild" },
+          "gruppen": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["titel", "eintraege"],
+              "properties": {
+                "titel": { "type": "string" },
+                "darstellung": { "enum": ["liste", "projekte"] },
+                "eintraege": { "type": "array", "items": { "$ref": "#/$defs/eintrag" } }
+              }
+            }
+          },
+          "hinweis": { "type": "string" },
+          "angebote_titel": { "type": "string" },
+          "angebote": {
+            "type": "array",
+            "items": { "type": "object", "required": ["titel"], "properties": { "titel": { "type": "string" }, "text": { "type": "string" } } }
+          },
+          "hervorhebung": { "type": "string" },
+          "zitat": { "$ref": "#/$defs/zitat" },
+          "fotos": { "type": "array", "items": { "$ref": "#/$defs/foto" } },
+          "medien": { "type": "array", "items": { "$ref": "#/$defs/medium" } }
+        }
+      }
+    },
+    "steckbrief": {
+      "type": "array",
+      "items": { "type": "object", "required": ["label", "wert"], "properties": { "label": { "type": "string" }, "wert": { "type": "string" } } }
+    },
+    "galerie": { "type": "array", "items": { "$ref": "#/$defs/foto" } },
+    "kontakt": {
+      "type": "object",
+      "properties": {
+        "text": { "type": "string" },
+        "email_direkt": { "type": "string" },
+        "agentur": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" }, "person": { "type": "string" }, "telefon": { "type": "string" },
+            "email": { "type": "string" }, "website": { "$ref": "gemeinsam.schema.json#/$defs/link" }
+          }
+        },
+        "anliegen": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["titel"],
+            "properties": {
+              "titel": { "type": "string" }, "text": { "type": "string" },
+              "weg": { "enum": ["agentur", "direkt"], "description": "agentur = über das Management, direkt = an email_direkt" },
+              "hilfreich": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "profile": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "url"],
+        "properties": { "name": { "type": "string" }, "url": { "type": "string", "pattern": "^https://", "description": "Link muss mit https:// beginnen" } }
+      }
+    },
+    "impressum": { "type": "string" },
+    "datenschutz": { "type": "string" }
+  }
+}

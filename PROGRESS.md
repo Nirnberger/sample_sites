@@ -16,9 +16,12 @@
 - **2026-10-11:** SeaweedFS auf Coolify (`https://medien.seitenschwung.com`, Port 8333 am Dienst seaweedfs-master), Bucket `kunden-medien`, Noras 16 Fotos hochgeladen, übersteht Neustart; `MEDIEN_*` als Coolify-Build-Variablen → Fotos live auf `/nora-solcher/`
 - **2026-10-11:** `node scripts/medien.js sync`: lädt neue/geänderte Fotos aller Kundenseiten hoch und startet die Pipeline (GitHub-Token via `gh` oder `GITHUB_TOKEN`) – lokal mit SeaweedFS + simuliertem GitHub getestet
 - **2026-10-11:** `.env` (lokale Schlüssel: Schreibschlüssel S3 + `GITHUB_TOKEN`) in `.gitignore`/`.dockerignore`; Laden mit `set -a; source .env; set +a`. Alles gepusht
+- **2026-10-11:** Noras Seite neu: Vorlage `vorlagen/repertoire` (mehrseitig, Menü Theater · Film · Audio · Schreiben · Unterrichten immer sichtbar, ausführliche Kontaktseite, Creme/Braun/Mint, keine Animationen). Projekte nach Filmmakers, Film als Projektkarten, Unterricht mit Angeboten/Referenzen. Alte Fassung auf Branch `nora-buehne-archiv` (lokal). `.pages.yml` aufs neue Format umgestellt, Smoke-Test prüft jetzt auch Unterseiten. Lokal getestet: Smoke (nginx) grün, Lighthouse 99–100
 - **2026-10-11:** Abgesicherte Compose-Datei `hosting/seaweedfs.yml` (kein anonymer Zugriff, kein Admin-UI, nur lesender Schlüssel `build`) – lokal getestet: ohne Schlüssel 403, `build` liest/listet, darf nicht schreiben
 
 ## Offen
+- **Noras Neufassung noch nicht gepusht** (Commit auf `main` lokal, Branch `nora-buehne-archiv` lokal) – Push nach OK von Philipp
+- Fragen an Nora zur Neufassung: eigene E-Mail für Unterricht/Kooperationen (`kontakt.email_direkt`, bis dahin geht alles ans Management), Ort des Präsenzunterrichts, Rollengröße Tatort, Texte der Unterrichtsangebote freigeben, Film-Standbilder vorhanden?
 - Noras Entwurf (Demo-Modus, noindex) wartet auf ihre Freigabe: Fotorechte/Credits, Texte, Impressum-Anschrift, ggf. Größe 163/165 cm, bessere „Hertopia“-Fotos (nur 960 px)
 - **SeaweedFS liefert Dateien ohne Schlüssel aus** (`hero.jpg` → 200). Compose in Coolify durch `hosting/seaweedfs.yml` ersetzt, Dienst jetzt **„degraded“**, alte Konfiguration antwortet weiter. Ursache unklar: neuer Container startet nicht oder verwaister Admin-Container – Container-Liste/Logs von seaweedfs-master ansehen. Fotos und Schreibschlüssel funktionieren weiterhin
 - Unklar, ob Coolify/GitHub den schreibenden Schlüssel (`SERVICE_USER_S3`) statt eines nur lesenden nutzen
@@ -34,7 +37,7 @@
 ## Entscheidungen/Notizen
 - **Medien:** Kundenfotos und Videos nie in Git, nur im S3-Speicher; lizenzfreie Vorlagenbilder bleiben in Git
 - **CMS:** Pages CMS, weil Nora kein JSON bearbeiten kann; Fotos nicht übers CMS. Listen werden beim Speichern ersetzt → neue Listenfelder immer auch in `.pages.yml` (ggf. `hidden: true`)
-- **Nora-Design:** Bühnenschwarz `#100E0D`, Papier `#EDE5D6`, Vorhangrot aus `farben.akzent`; Instrument Serif + JetBrains Mono + Manrope (selbst gehostet); Texte in 3. Person. `vorlagen/schauspiel/` bleibt als nüchterne Alternative (Tausch in `sites.json`)
+- **Nora-Design (ab 2026-10-11, Vorlage repertoire):** Creme `#F6F1E9`, Sand `#ECE3D5`, Mint `#D5E8DD`/`#A9CBB8`, Salbei `#3D6651` (Text-Akzent), Braun `#3A2C24`/`#6B5242`; Fraunces + Manrope; Texte in 3. Person; Tanz läuft unter „Theater“ (Gruppe „Tanz & Choreografie“). Frühere Bühnen-Fassung (schwarz/rot, Instrument Serif) auf Branch `nora-buehne-archiv`
 - **Videos/Hörproben:** verlinkt oder selbst gehostet unter `/<pfad>/medien/`, nie eingebettet von Drittanbietern (CSP nur eigene Domain)
 - **Qualität:** Pipeline-Grenzwerte Lighthouse Leistung ≥ 80, Barrierefreiheit/Best Practices ≥ 90 (`tests/lighthouse.js`)
 - **S3/SeaweedFS:** nur über `https://medien.seitenschwung.com` (keine sslip-Domains, keine Port-Mappings, kein Admin-UI); ohne Schlüssel nichts lesbar; Build nur mit lesendem Schlüssel. Live-Seite baut Coolify (dessen Variablen zählen), GitHub-Secrets nur für den Pipeline-Test

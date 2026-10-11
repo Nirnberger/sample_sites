@@ -6,7 +6,7 @@
  *   node tests/smoke.js http://localhost:8080          (z. B. gegen den Docker-Container)
  *   node tests/smoke.js https://sample.seitenschwung.com
  *
- * Prüft je Seite (Startseite, Impressum, Datenschutz) und Hub, mobil (360 px) und Desktop:
+ * Prüft je Seite (Startseite, alle von dort verlinkten Unterseiten, Impressum, Datenschutz) und Hub, mobil (360 px) und Desktop:
  *   - Seite lädt mit Status 200, keine JavaScript-Fehler
  *   - keine Datei (Bild, Schrift, Skript) antwortet mit Fehler
  *   - kein seitliches Scrollen (Layout passt in die Breite)
@@ -31,6 +31,16 @@ const BREITEN = [['mobil', 360, 780], ['desktop', 1366, 900]];
 
   const seiten = ['/'];
   for (const s of sites) seiten.push(`/${s.pfad}/`, `/${s.pfad}/impressum.html`, `/${s.pfad}/datenschutz.html`);
+
+  // Mehrseitige Vorlagen (z. B. repertoire): alle Unterseiten, die die Startseite verlinkt, mitprüfen
+  const anfrage = await browser.newPage();
+  for (const s of sites) {
+    const html = await (await anfrage.request.get(`${BASIS}/${s.pfad}/`)).text();
+    for (const [, datei] of html.matchAll(/href="([a-z0-9-]+\.html)"/g)) {
+      if (!seiten.includes(`/${s.pfad}/${datei}`)) seiten.push(`/${s.pfad}/${datei}`);
+    }
+  }
+  await anfrage.close();
 
   for (const [name, w, h] of BREITEN) {
     const ctx = await browser.newContext({ viewport: { width: w, height: h } });

@@ -1,7 +1,7 @@
 # Bühnen-Vorlage
 
 Künstlerisches Portfolio für Schauspieler:innen und Sprecher:innen – die Website als Theaterabend.
-Erste Kundin: Nora Solcher (`kunden/nora-solcher/`, unter `/nora-solcher/`).
+Erste Kundin: Nora Solcher – bis 2026-10-11, die Fassung liegt auf dem Branch `nora-buehne-archiv` (Nora nutzt jetzt `vorlagen/repertoire`).
 
 Gleiches Datenformat wie die nüchterne `vorlagen/schauspiel` – in `sites.json` lässt sich die Vorlage
 tauschen, ohne die Inhalte anzufassen. Zusätzliche, optionale Felder steuern die Inszenierung.

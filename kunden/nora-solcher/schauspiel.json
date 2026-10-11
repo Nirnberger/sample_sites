@@ -1,625 +1,312 @@
 {
-  "_hinweis": "Inhalte der Website von Nora Solcher. Zusammengestellt am 2026-10-10 aus Filmmakers, Schauspielervideos, Theaterseiten (HfMDK, Mainz, Darmstadt, Frankfurt, Wiesbaden) und Presse – Quellen und offene Fragen in recherche/nora-solcher/info.md (nicht im Repository). Texte sind Entwürfe und müssen von Nora freigegeben werden.",
+  "_hinweis": "Inhalte der Website von Nora Solcher (Vorlage vorlagen/repertoire). Projekte nach Filmmakers (Stand 2026-10-11), Unterricht nach Angaben von Nora, Ergänzungen aus Theaterseiten und Presse – Quellen in recherche/nora-solcher/info.md (nicht im Repository). Texte sind Entwürfe und müssen von Nora freigegeben werden. Die alte Fassung (Vorlage buehne) liegt auf dem Branch nora-buehne-archiv.",
   "demo_modus": true,
   "ersteller": "",
   "website_url": "",
   "name": "Nora Solcher",
-  "berufe": [
-    "Schauspielerin",
-    "Sprecherin",
-    "Autorin"
-  ],
-  "slogan": "Theater · Film · Stimme",
-  "kurzbeschreibung": "Nora Solcher – Schauspielerin und Sprecherin aus Frankfurt am Main und Berlin. Theater, Film und Fernsehen, Hörspiel, Hörbuch und Synchron.",
-  "farben": {
-    "akzent": "#A84B2A"
-  },
+  "berufe": ["Schauspielerin", "Sprecherin", "Autorin"],
+  "kurzbeschreibung": "Nora Solcher – Schauspielerin und Sprecherin aus Frankfurt am Main und Berlin. Theater, Tanz, Film und Fernsehen, Hörspiel, Hörbuch und Synchron, eigene Texte und Unterricht.",
   "hero_bild": {
-    "datei": "hero.jpg",
-    "alt": "Nora Solcher, Halbporträt vor dunklem Hintergrund",
-    "fokus": "50% 30%",
+    "datei": "portrait.jpg",
+    "alt": "Porträt von Nora Solcher vor rostbraunem Hintergrund",
+    "fokus": "50% 25%",
+    "credit": "Simon Hegenberg"
+  },
+  "hero_text": "Schauspielerin und Sprecherin in Frankfurt am Main und Berlin. Auf der Bühne, vor der Kamera und am Mikrofon – dazu eigene Texte, Regie und Unterricht.",
+  "ueber_mich_bild": {
+    "datei": "portrait-lachend.jpg",
+    "alt": "Nora Solcher lachend im salbeigrünen Blazer",
     "credit": "Nils Schwarz"
   },
-  "hero_zeile": "Schauspielerin und Sprecherin in Frankfurt am Main und Berlin",
-  "hero_rollen": [
-    {
-      "verb": "spielt",
-      "rolle": "Etty Hillesum",
-      "werk": "„Dead vs. Alive“ · Schauspiel Frankfurt",
-      "bild": "portrait-sw.jpg"
-    },
-    {
-      "verb": "spricht",
-      "rolle": "Königin Susan",
-      "werk": "Narnia-Hörspiele · SWR",
-      "bild": "portrait-farbe.jpg"
-    },
-    {
-      "verb": "spielt",
-      "rolle": "Ivy",
-      "werk": "„Homo faber“ · Staatstheater Darmstadt",
-      "bild": "portrait-dunkel.jpg"
-    },
-    {
-      "verb": "ist",
-      "rolle": "Saskia Voss",
-      "werk": "„Morden im Norden“ · ARD",
-      "bild": "portrait-hocker.jpg"
-    },
-    {
-      "verb": "spricht",
-      "rolle": "Loveless",
-      "werk": "„Borderlands 4“ · Synchron",
-      "bild": "portrait-street.jpg"
-    },
-    {
-      "verb": "spielt",
-      "rolle": "Melek",
-      "werk": "„Mats und Milad“ · Staatstheater Mainz",
-      "bild": "portrait-lachend.jpg"
-    }
-  ],
-  "prolog": "Geboren in Hamburg. Ausgebildet in Frankfurt. Zu Hause auf der Bühne, vor der Kamera und hinter dem Mikrofon.",
+  "ueber_mich": "Nora Solcher, geboren 1999 in Hamburg, studierte von 2018 bis 2022 Schauspiel an der Hochschule für Musik und Darstellende Kunst Frankfurt am Main. Schon während des Studiums spielte sie in der freien Szene und im Studiojahr am Schauspiel Frankfurt.\n\nSeitdem stand sie unter anderem am Staatstheater Mainz, am Staatstheater Darmstadt, am Theater Bielefeld und am Theater Kiel auf der Bühne – in Formen zwischen Schauspiel, Performance und Tanz. Mit „Hertopia“ von Pia Epping gewann sie 2026 den Publikumspreis der Hessischen Theatertage.\n\nVor der Kamera spielte sie in „Morden im Norden“ (ARD), im „Tatort“ (SWR) und in „Marie Brand“ (ZDF). Als Sprecherin ist sie in Hörspielen, Hörbüchern und Features für SWR und hr zu hören, außerdem in Games, Audioguides und Ausstellungen.\n\nSie schreibt eigene Texte, führt Regie und unterrichtet Schauspiel und Sprechen. Sie lebt in Frankfurt am Main und Berlin.",
   "zitat": {
     "text": "spielen eindringlich und eindrücklich",
     "quelle": "Journal Frankfurt über das Ensemble von „Innere Sicherheit“, 2024"
   },
-  "ueber_mich_bild": {
-    "datei": "portrait.jpg",
-    "alt": "Porträt von Nora Solcher vor rostrotem Hintergrund",
-    "credit": "Simon Hegenberg"
-  },
-  "ueber_mich": "Nora Solcher ist Schauspielerin und Sprecherin. Geboren 1999 in Hamburg, studierte sie von 2018 bis 2022 Schauspiel an der Hochschule für Musik und Darstellende Kunst Frankfurt am Main. Schon während des Studiums spielte sie in der freien Szene und im Studiojahr am Schauspiel Frankfurt.\n\nSeitdem stand sie unter anderem am Staatstheater Mainz, am Staatstheater Darmstadt, am Theater Bielefeld und am Theater Kiel auf der Bühne. Mit der Performance „Hertopia“ von Pia Epping gewann sie 2026 den Publikumspreis der Hessischen Theatertage. Im Dokumentartheater „Innere Sicherheit“ von Marie Schwesinger über die „NSU 2.0“-Drohschreiben ist sie seit 2024 an wechselnden Orten zu sehen.\n\nVor der Kamera spielte sie im „Tatort“ (SWR), in „Morden im Norden“ (ARD) und in „Marie Brand“ (ZDF). Als Sprecherin ist sie in Hörspielen und Hörbüchern für SWR und hr zu hören – darunter die Narnia-Hörspiele – sowie in Games, Audioguides und Ausstellungen.\n\nSie schreibt eigene Texte, führt Regie, gewann 2025 den Poetry-Slam beim Sommerwerft Theater Festival und unterrichtet Jugendliche in Schauspiel und Sprechen. Sie lebt in Frankfurt am Main und Berlin.",
-  "ueber_mich_fakten": [
-    {
-      "wert": "2018–22",
-      "text": "Schauspielstudium HfMDK Frankfurt"
-    },
-    {
-      "wert": "15+",
-      "text": "Theaterproduktionen"
-    },
-    {
-      "wert": "20+",
-      "text": "Hörspiele, Hörbücher, Features"
-    }
-  ],
   "aktuell": [
     {
       "label": "Auszeichnung",
       "titel": "Publikumspreis für „Hertopia“",
-      "text": "Die Performance über elf Frauen in Führungspositionen gewinnt bei den Hessischen Theatertagen 2026 in Wiesbaden den Publikumspreis. Regie: Pia Epping, mit Sandra Domnick, Camilla Fiumara und Nora Solcher.",
-      "bild": {
-        "datei": "szene-hertopia-2.jpg",
-        "alt": "Szene aus Hertopia: drei Performerinnen zwischen Bürostühlen",
-        "credit": "Ilayda Dağlı"
-      }
-    },
-    {
-      "label": "Theater",
-      "titel": "„Innere Sicherheit“",
-      "text": "Dokumentartheater von Marie Schwesinger über die „NSU 2.0“-Drohschreiben – gespielt u. a. in den Landungsbrücken Frankfurt, im Landgericht Hamburg und im Heimathafen Neukölln. „Eindringlich und eindrücklich“ (Journal Frankfurt).",
-      "bild": null
+      "text": "Die Performance über elf Frauen in Führungspositionen gewinnt bei den Hessischen Theatertagen 2026 den Publikumspreis.",
+      "bereich": "theater"
     },
     {
       "label": "Hörspiel",
       "titel": "„NARNIA – Der letzte Kampf“",
-      "text": "Der siebte Teil der SWR-Hörspielreihe, Ostern 2026 auf SWR Kultur. Nora spricht Maus, Zwerg, Kalormene und diverse Fabelwesen. Regie: Robert Schoen.",
-      "bild": null
-    }
-  ],
-  "vita": [
-    {
-      "kategorie": "Theater",
-      "eintraege": [
-        {
-          "jahr": "2025–26",
-          "titel": "Hertopia",
-          "rolle": "Performerin",
-          "regie": "Pia Epping",
-          "ort": "Produktionshaus Naxos / Staatstheater Wiesbaden",
-          "auszeichnung": "Publikumspreis 2026"
-        },
-        {
-          "jahr": "2024–26",
-          "titel": "Innere Sicherheit",
-          "rolle": "",
-          "regie": "Marie Schwesinger",
-          "ort": "Landungsbrücken Frankfurt, Landgericht Hamburg, Heimathafen Neukölln u. a."
-        },
-        {
-          "jahr": "2025",
-          "titel": "Dead vs. Alive",
-          "rolle": "Etty Hillesum",
-          "regie": "Eigenregie",
-          "ort": "Schauspiel Frankfurt"
-        },
-        {
-          "jahr": "2022–25",
-          "titel": "Mats und Milad",
-          "rolle": "Melek, Lisa, Polizistin",
-          "regie": "Alexander Nerlich",
-          "ort": "Staatstheater Mainz"
-        },
-        {
-          "jahr": "2024",
-          "titel": "Colosseum ESC",
-          "rolle": "Choreografie",
-          "regie": "Maria Kobzeva",
-          "ort": "Offenes Haus der Kulturen Frankfurt"
-        },
-        {
-          "jahr": "2023",
-          "titel": "Take a Stand – Akademie Musiktheater Heute",
-          "rolle": "",
-          "regie": "Max Koch, Rafael Ossami Saidy",
-          "ort": "Frankfurt LAB"
-        },
-        {
-          "jahr": "2022–23",
-          "titel": "Homo faber",
-          "rolle": "Ivy",
-          "regie": "Jakob Weiss",
-          "ort": "Staatstheater Darmstadt"
-        },
-        {
-          "jahr": "2022–23",
-          "titel": "Becoming Luise Büchner",
-          "rolle": "",
-          "regie": "Lara Yilmaz",
-          "ort": "Staatstheater Darmstadt"
-        },
-        {
-          "jahr": "2022",
-          "titel": "Gegen alle Widerstände",
-          "rolle": "",
-          "regie": "Marie Schwesinger",
-          "ort": "Theater Bielefeld, Theater Kiel"
-        },
-        {
-          "jahr": "2022",
-          "titel": "Strichcode",
-          "rolle": "Stückentwicklung",
-          "regie": "Nora Solcher",
-          "ort": "Landungsbrücken Frankfurt"
-        },
-        {
-          "jahr": "2021",
-          "titel": "ODE",
-          "rolle": "Magda",
-          "regie": "Anne Bader",
-          "ort": "Schauspiel Frankfurt"
-        },
-        {
-          "jahr": "2021",
-          "titel": "Ich bin der Wind",
-          "rolle": "Der Andere",
-          "regie": "Kornelius Eich",
-          "ort": "Landungsbrücken Frankfurt"
-        },
-        {
-          "jahr": "2020–21",
-          "titel": "Deutschland 2020. Ein Wintermärchen",
-          "rolle": "",
-          "regie": "Regina Wenig",
-          "ort": "Schauspiel Frankfurt"
-        },
-        {
-          "jahr": "2019–21",
-          "titel": "Dear ___ 3319 Analysis",
-          "rolle": "",
-          "regie": "Joël-Conrad Hieronymus",
-          "ort": "Kunstverein Familie Montez / Schauspiel Frankfurt"
-        }
-      ],
-      "akt": {
-        "nr": "I",
-        "titel": "Bühne",
-        "stil": "buehne",
-        "intro": "Vom Staatstheater bis zur freien Szene, vom Klassiker bis zum Dokumentartheater: Auf der Bühne arbeitet Nora mit Körper, Text und Raum – oft in Formen zwischen Schauspiel, Performance und Tanz."
-      }
+      "text": "Der siebte Teil der SWR-Hörspielreihe, Ostern 2026 auf SWR Kultur. Regie: Robert Schoen.",
+      "bereich": "audio"
     },
     {
-      "kategorie": "Film & Fernsehen",
-      "eintraege": [
-        {
-          "jahr": "2024",
-          "titel": "Morden im Norden – Alles Gute",
-          "rolle": "Saskia Voss",
-          "regie": "Christoph Eichhorn",
-          "ort": "ARD"
-        },
-        {
-          "jahr": "2023",
-          "titel": "Tatort – Dein gutes Recht",
-          "rolle": "Elif Arslan",
-          "regie": "Martin Eigler",
-          "ort": "SWR"
-        },
-        {
-          "jahr": "2022",
-          "titel": "Marie Brand und die falsche Wahrheit",
-          "rolle": "Melanie Josten",
-          "regie": "Michael Zens",
-          "ort": "ZDF"
-        },
-        {
-          "jahr": "2019–21",
-          "titel": "Sem Dhul – Die Wiederkehr",
-          "rolle": "Lizzy",
-          "regie": "Ralf Bauer",
-          "ort": "Kinofilm"
-        }
-      ],
-      "akt": {
-        "nr": "II",
-        "titel": "Kamera",
-        "stil": "kamera",
-        "intro": "Krimis zur Primetime bei ARD, SWR und ZDF und ein Kinofilm."
-      }
-    },
-    {
-      "kategorie": "Hörspiel & Hörbuch",
-      "eintraege": [
-        {
-          "jahr": "2026",
-          "titel": "NARNIA – Der letzte Kampf",
-          "rolle": "Maus, Zwerg, Kalormene, Fabelwesen",
-          "regie": "Robert Schoen",
-          "ort": "SWR"
-        },
-        {
-          "jahr": "2026",
-          "titel": "Madame / Kältebrand",
-          "rolle": "Sprecherin",
-          "regie": "Marlene Breuer",
-          "ort": "hr, Hörbuch"
-        },
-        {
-          "jahr": "2026",
-          "titel": "Twelve Months of Romance",
-          "rolle": "Sprecherin",
-          "regie": "Marlene Breuer",
-          "ort": "hr, Hörbuch"
-        },
-        {
-          "jahr": "2026",
-          "titel": "Rezitation mit Klavier",
-          "rolle": "Rezitation",
-          "regie": "",
-          "ort": "mit Catalina Butcaru (Klavier), Villa Bonn Frankfurt"
-        },
-        {
-          "jahr": "2025",
-          "titel": "Fineline, Schwimmen macht hungrig",
-          "rolle": "Sprecherin",
-          "regie": "Marlene Breuer",
-          "ort": "Hörbuch"
-        },
-        {
-          "jahr": "2024",
-          "titel": "Märchen & Verbrechen – Staffel IV",
-          "rolle": "Theresia von Gronwald u. a.",
-          "regie": "Viviane Koppelmann",
-          "ort": "hr, Hörspiel"
-        },
-        {
-          "jahr": "2024",
-          "titel": "Das Paradies ist zahm",
-          "rolle": "Sprecherin",
-          "regie": "Marlene Breuer",
-          "ort": "Hörbuch"
-        },
-        {
-          "jahr": "2024",
-          "titel": "Die Entdeckung der Wolken",
-          "rolle": "Sprecherin",
-          "regie": "Marlene Breuer",
-          "ort": "Feature"
-        },
-        {
-          "jahr": "2023",
-          "titel": "Prinz Kaspian von Narnia",
-          "rolle": "Königin Susan, Pattertwig",
-          "regie": "",
-          "ort": "SWR"
-        },
-        {
-          "jahr": "2023",
-          "titel": "Im Frühling sterben",
-          "rolle": "Sybel",
-          "regie": "",
-          "ort": "Hörspiel"
-        },
-        {
-          "jahr": "2023",
-          "titel": "100 Jahre Schweigen – Giftgas in Marokko",
-          "rolle": "Sprecherin",
-          "regie": "",
-          "ort": "Feature"
-        },
-        {
-          "jahr": "2022",
-          "titel": "Der Ritt nach Narnia",
-          "rolle": "Königin Susan, Zibbe",
-          "regie": "",
-          "ort": "SWR"
-        },
-        {
-          "jahr": "2022",
-          "titel": "Die Amazonas-Detektive",
-          "rolle": "Aktivistin",
-          "regie": "",
-          "ort": "Hörspiel"
-        },
-        {
-          "jahr": "2021",
-          "titel": "Der König von Narnia",
-          "rolle": "Zwerg Etzel, Fabelwesen",
-          "regie": "",
-          "ort": "SWR"
-        }
-      ],
-      "akt": {
-        "nr": "III",
-        "titel": "Stimme",
-        "stil": "stimme",
-        "intro": "Eine Stimme, viele Figuren: Königinnen, Zwerge, Mäuse und Fabelwesen. Hörspiele und Hörbücher für SWR und hr, Synchron, Audioguides – und Rezitation mit Klavier."
-      }
-    },
-    {
-      "kategorie": "Synchron & Voice-Over",
-      "eintraege": [
-        {
-          "jahr": "2026",
-          "titel": "Borderlands 4",
-          "rolle": "Loveless",
-          "regie": "Romana Gutsche u. a.",
-          "ort": "2K Games, Synchron"
-        },
-        {
-          "jahr": "2025–26",
-          "titel": "Sargassum – Sonderausstellung",
-          "rolle": "Voice-Over",
-          "regie": "",
-          "ort": "Senckenberg Museum"
-        },
-        {
-          "jahr": "2025–26",
-          "titel": "Meet me at the Villa!",
-          "rolle": "Audioguide",
-          "regie": "",
-          "ort": "KfW Stiftung"
-        }
-      ],
-      "akt": {
-        "stil": "stimme",
-        "gehoert_zu": "Hörspiel & Hörbuch"
-      }
-    },
-    {
-      "kategorie": "Regie & Text",
-      "eintraege": [
-        {
-          "jahr": "2025",
-          "titel": "Sommerwerft Poetry-Slam",
-          "rolle": "Siegerin",
-          "regie": "",
-          "ort": "Sommerwerft Theater Festival, Frankfurt"
-        },
-        {
-          "jahr": "2024",
-          "titel": "Yesterday war gestern",
-          "rolle": "Regie & Text",
-          "regie": "",
-          "ort": "Jugend-Musical, Frankfurter Spatzen"
-        },
-        {
-          "jahr": "2023",
-          "titel": "SPOTLIGHT",
-          "rolle": "Regie",
-          "regie": "",
-          "ort": "Jugend-Musical, Frankfurter Spatzen"
-        },
-        {
-          "jahr": "2022",
-          "titel": "Strichcode",
-          "rolle": "Stückentwicklung & Regie",
-          "regie": "",
-          "ort": "Landungsbrücken Frankfurt"
-        },
-        {
-          "jahr": "2022",
-          "titel": "Barcode",
-          "rolle": "Songwriting",
-          "regie": "",
-          "ort": "mit Lioba Brändle, Jakob Boyny"
-        },
-        {
-          "jahr": "2021",
-          "titel": "Blindgänger",
-          "rolle": "Songtext",
-          "regie": "",
-          "ort": "Musik: Günter Lehr, Schauspiel Frankfurt"
-        },
-        {
-          "jahr": "seit 2023",
-          "titel": "Frankfurter Spatzen",
-          "rolle": "Schauspiel- & Sprechunterricht, Probenleitung",
-          "regie": "",
-          "ort": "Jugendarbeit, Frankfurt"
-        }
-      ],
-      "akt": {
-        "nr": "IV",
-        "titel": "Feder",
-        "stil": "feder",
-        "intro": "Sie schreibt, inszeniert und unterrichtet: eigene Stückentwicklungen, Songtexte, Jugend-Musicals – und 2025 den Siegertext beim Sommerwerft-Poetry-Slam."
-      }
+      "label": "Fernsehen",
+      "titel": "„Morden im Norden – Alles Gute“",
+      "text": "Episodenhauptrolle als Saskia Voss, erstmals ausgestrahlt am 22.12.2025 im Ersten.",
+      "bereich": "film"
     }
   ],
   "auszeichnungen": [
+    { "jahr": "2026", "titel": "Publikumspreis der Hessischen Theatertage", "text": "für „Hertopia“" },
+    { "jahr": "2025", "titel": "Siegerin Poetry-Slam", "text": "Sommerwerft Theater Festival, Frankfurt" },
+    { "jahr": "2021", "titel": "Walter-H.-Krämer-Förderpreis", "text": "Schauspiel" },
+    { "jahr": "2018–2020", "titel": "Deutschlandstipendium", "text": "" }
+  ],
+  "bereiche": [
     {
-      "jahr": "2026",
-      "titel": "Publikumspreis der Hessischen Theatertage",
-      "text": "für „Hertopia“"
+      "id": "theater",
+      "titel": "Theater",
+      "untertitel": "Bühne, Performance & Tanz",
+      "teaser": "Vom Staatstheater bis zur freien Szene – Schauspiel, Performance und Tanz.",
+      "intro": "Vom Staatstheater bis zur freien Szene, vom Klassiker bis zum Dokumentartheater: Auf der Bühne arbeitet Nora mit Körper, Text und Raum – oft in Formen zwischen Schauspiel, Performance und Tanz.",
+      "bild": {
+        "datei": "portrait-hocker.jpg",
+        "alt": "Nora Solcher in Schwarz auf einem Hocker",
+        "fokus": "50% 30%",
+        "credit": "Simon Hegenberg"
+      },
+      "gruppen": [
+        {
+          "titel": "Theater & Performance",
+          "darstellung": "liste",
+          "eintraege": [
+            { "jahr": "2025–26", "titel": "Hertopia", "rolle": "Performerin (Hauptrolle)", "regie": "Pia Epping", "ort": "Produktionshaus Naxos / Staatstheater Wiesbaden", "auszeichnung": "Publikumspreis der Hessischen Theatertage 2026" },
+            { "jahr": "2024–26", "titel": "Innere Sicherheit", "rolle": "Hauptrolle", "regie": "Marie Schwesinger", "ort": "Landungsbrücken Frankfurt, Landgericht Hamburg, Heimathafen Neukölln u. a.", "text": "Dokumentartheater über die „NSU 2.0“-Drohschreiben." },
+            { "jahr": "2025", "titel": "Dead vs. Alive", "rolle": "Etty Hillesum", "regie": "Eigenregie", "ort": "Schauspiel Frankfurt" },
+            { "jahr": "2022–25", "titel": "Mats und Milad", "rolle": "Melek, Lisa, Polizistin", "regie": "Alexander Nerlich", "ort": "Staatstheater Mainz" },
+            { "jahr": "2023", "titel": "Take a Stand – Akademie Musiktheater Heute", "rolle": "Hauptrolle", "regie": "Max Koch, Rafael Ossami Saidy", "ort": "Frankfurt LAB" },
+            { "jahr": "2022–23", "titel": "Homo faber", "rolle": "Ivy", "regie": "Jakob Weiss", "ort": "Staatstheater Darmstadt" },
+            { "jahr": "2022–23", "titel": "Becoming Luise Büchner", "rolle": "Hauptrolle", "regie": "Lara Yilmaz", "ort": "Staatstheater Darmstadt / Goldene Krone" },
+            { "jahr": "2022", "titel": "Gegen alle Widerstände", "rolle": "Hauptrolle", "regie": "Marie Schwesinger", "ort": "Theater Bielefeld, Theater Kiel" },
+            { "jahr": "2022", "titel": "Strichcode", "rolle": "Hauptrolle, Stückentwicklung", "regie": "Nora Solcher", "ort": "Landungsbrücken Frankfurt" },
+            { "jahr": "2021", "titel": "ODE", "rolle": "Magda, Schauspielerin, Die Wehr", "regie": "Anne Bader", "ort": "Schauspiel Frankfurt" },
+            { "jahr": "2021", "titel": "Ich bin der Wind", "rolle": "Der Andere", "regie": "Kornelius Eich", "ort": "Landungsbrücken Frankfurt" },
+            { "jahr": "2020–21", "titel": "Deutschland 2020. Ein Wintermärchen", "rolle": "Hauptrolle", "regie": "Regina Wenig", "ort": "Schauspiel Frankfurt" },
+            { "jahr": "2019–21", "titel": "Dear ___ 3319 Analysis", "rolle": "", "regie": "Joël-Conrad Hieronymus", "ort": "Kunstverein Familie Montez / Schauspiel Frankfurt" }
+          ]
+        },
+        {
+          "titel": "Tanz & Choreografie",
+          "darstellung": "liste",
+          "eintraege": [
+            { "jahr": "2024", "titel": "Colosseum ESC", "rolle": "Choreografie; Elf, Chloe, Vanessa", "regie": "Maria Kobzeva", "ort": "Offenes Haus der Kulturen Frankfurt" },
+            { "jahr": "2019", "titel": "Still", "rolle": "Tanz", "regie": "Choreografie: Hojoon Moon", "ort": "KOTID Tanzfestival" }
+          ]
+        }
+      ],
+      "fotos": [
+        { "datei": "szene-wintermaerchen-3.jpg", "alt": "Szene aus „Deutschland 2020. Ein Wintermärchen“ im Foyer", "credit": "Jessica Schäfer" },
+        { "datei": "szene-hertopia-2.jpg", "alt": "Szene aus „Hertopia“: drei Performerinnen zwischen Bürostühlen", "credit": "Ilayda Dağlı" },
+        { "datei": "szene-wintermaerchen-2.jpg", "alt": "Szene aus „Deutschland 2020. Ein Wintermärchen“, Schauspiel Frankfurt", "credit": "Jessica Schäfer" }
+      ],
+      "medien": []
     },
     {
-      "jahr": "2025",
-      "titel": "Siegerin Poetry-Slam",
-      "text": "Sommerwerft Theater Festival"
+      "id": "film",
+      "titel": "Film",
+      "untertitel": "Film & Fernsehen",
+      "teaser": "Primetime-Krimis bei ARD, SWR und ZDF und ein Kinofilm.",
+      "intro": "Vor der Kamera spielte Nora in Fernsehfilmen für ARD, SWR und ZDF und in einem Kinofilm – dazu Kurzfilme, unter anderem mit hessischen Filmhochschulen.",
+      "bild": {
+        "datei": "portrait-schulter.jpg",
+        "alt": "Nora Solcher blickt über die Schulter, dunkler Hintergrund",
+        "fokus": "60% 40%",
+        "credit": "Nils Schwarz"
+      },
+      "gruppen": [
+        {
+          "titel": "Produktionen",
+          "darstellung": "projekte",
+          "eintraege": [
+            { "jahr": "2024", "titel": "Morden im Norden – Alles Gute", "art": "Fernsehfilm · Krimireihe", "rolle": "Saskia Voss", "rollentyp": "Episodenhauptrolle", "regie": "Christoph Eichhorn", "ort": "ARD · ndF Berlin", "ausstrahlung": "Erstausstrahlung 22.12.2025, Das Erste", "text": "Saskia Voss ist eine junge Musikerin, Tochter des Gitarristen „Joe“ Voss." },
+            { "jahr": "2023", "titel": "Tatort – Dein gutes Recht", "art": "Fernsehfilm · Krimireihe", "rolle": "Elif Arslan", "rollentyp": "", "regie": "Martin Eigler", "ort": "SWR", "ausstrahlung": "Premiere beim Festival des deutschen Films 2024, Das Erste 27.10.2024", "text": "Ein Fall für das Ludwigshafener Team um Lena Odenthal und Johanna Stern." },
+            { "jahr": "2022", "titel": "Marie Brand und die falsche Wahrheit", "art": "Fernsehfilm · Krimireihe", "rolle": "Melanie Josten", "rollentyp": "Nebenrolle", "regie": "Michael Zens", "ort": "ZDF · Warner Bros. ITVP", "ausstrahlung": "Erstausstrahlung 08.04.2023, ZDF", "text": "" },
+            { "jahr": "2019–21", "titel": "Sem Dhul – Die Wiederkehr", "art": "Kinofilm", "rolle": "Lizzy", "rollentyp": "Nebenrolle", "regie": "Ralf Bauer", "ort": "Ralle Films", "ausstrahlung": "", "text": "" }
+          ]
+        }
+      ],
+      "hinweis": "Seit 2014 außerdem zahlreiche Kurzfilme, unter anderem mit hessischen Filmhochschulen.",
+      "fotos": [],
+      "medien": [
+        { "titel": "Showreel TV/Film", "text": "Ausschnitte aus Film- und Fernsehproduktionen auf Filmmakers.", "url": "https://www.filmmakers.eu/de/actors/nora-solcher", "art": "video" },
+        { "titel": "Weitere Showreels", "text": "Eigenarbeiten, Gesang und English auf Schauspielervideos.", "url": "https://www.schauspielervideos.de/fullprofile/schauspielerin-nora-solcher.html", "art": "video" }
+      ]
     },
     {
-      "jahr": "2021",
-      "titel": "Walter-H.-Krämer-Förderpreis",
-      "text": "Schauspiel"
+      "id": "audio",
+      "titel": "Audio",
+      "untertitel": "Hörspiel, Hörbuch & Synchron",
+      "teaser": "Hörspiele und Hörbücher für SWR und hr, Synchron, Voice-Over und Rezitation.",
+      "intro": "Eine Stimme, viele Figuren: Königinnen, Zwerge, Mäuse und Fabelwesen in den Narnia-Hörspielen des SWR, Hörbücher und Features für den hr, Synchron für Games, Voice-Over für Ausstellungen – und Rezitation mit Klavier.",
+      "bild": {
+        "datei": "portrait-profil.jpg",
+        "alt": "Nora Solcher im Profil im Abendlicht",
+        "fokus": "55% 40%",
+        "credit": "Nils Schwarz"
+      },
+      "gruppen": [
+        {
+          "titel": "Hörspiel",
+          "darstellung": "liste",
+          "eintraege": [
+            { "jahr": "2026", "titel": "NARNIA – Der letzte Kampf", "rolle": "Maus, Zwerg, Kalormene u. a.", "regie": "Robert Schoen", "ort": "SWR" },
+            { "jahr": "2024", "titel": "Märchen & Verbrechen – Staffel IV", "rolle": "Theresia von Gronwald, Schwester, Angelique, Frau 1", "regie": "Viviane Koppelmann", "ort": "hr" },
+            { "jahr": "2023", "titel": "Märchen & Verbrechen – Die zertanzten Schuhe", "rolle": "Sprecherin", "regie": "", "ort": "hr" },
+            { "jahr": "2023", "titel": "Im Frühling sterben", "rolle": "Sybel", "regie": "", "ort": "hr" },
+            { "jahr": "2023", "titel": "Prinz Kaspian von Narnia", "rolle": "Königin Susan, Eichhörnchen Pattertwig", "regie": "", "ort": "SWR" },
+            { "jahr": "2022", "titel": "Der Ritt nach Narnia", "rolle": "Königin Susan, Kaninchen Zibbe", "regie": "", "ort": "SWR" },
+            { "jahr": "2022", "titel": "Die Amazonas-Detektive", "rolle": "Aktivistin", "regie": "", "ort": "hr" },
+            { "jahr": "2021", "titel": "Der König von Narnia", "rolle": "Zwerg Etzel, diverse Fabelwesen", "regie": "", "ort": "SWR" }
+          ]
+        },
+        {
+          "titel": "Hörbuch",
+          "darstellung": "liste",
+          "eintraege": [
+            { "jahr": "2026", "titel": "Madame / Kältebrand", "rolle": "Sprecherin", "regie": "Marlene Breuer", "ort": "hr" },
+            { "jahr": "2026", "titel": "Twelve Months of Romance – Ein Match kommt selten allein", "rolle": "Sprecherin", "regie": "Marlene Breuer", "ort": "hr" },
+            { "jahr": "2025", "titel": "Fineline, Schwimmen macht hungrig", "rolle": "Sprecherin", "regie": "Marlene Breuer", "ort": "hr" },
+            { "jahr": "2024", "titel": "Das Paradies ist zahm", "rolle": "Sprecherin", "regie": "Marlene Breuer", "ort": "hr" },
+            { "jahr": "2024", "titel": "Dein Auto riecht noch immer nach Neuwagen", "rolle": "Sprecherin", "regie": "Marlene Breuer", "ort": "hr" },
+            { "jahr": "2023", "titel": "gaerten", "rolle": "Sprecherin", "regie": "", "ort": "hr" },
+            { "jahr": "2022", "titel": "Märchen aus meinem Luftschutzkeller", "rolle": "Sprecherin", "regie": "", "ort": "hr / NDR" },
+            { "jahr": "2022", "titel": "Säure auf Keramik", "rolle": "Sprecherin", "regie": "", "ort": "hr" }
+          ]
+        },
+        {
+          "titel": "Feature & Dokumentation",
+          "darstellung": "liste",
+          "eintraege": [
+            { "jahr": "2024", "titel": "Die Entdeckung der Wolken", "rolle": "Sprecherin", "regie": "Marlene Breuer", "ort": "hr" },
+            { "jahr": "2023", "titel": "100 Jahre Schweigen – Giftgas in Marokko", "rolle": "Sprecherin", "regie": "", "ort": "hr" },
+            { "jahr": "2023", "titel": "Toreras", "rolle": "Sprecherin", "regie": "", "ort": "SWR" },
+            { "jahr": "2022", "titel": "Und heute mild und morgen wild", "rolle": "Sprecherin", "regie": "", "ort": "hr" }
+          ]
+        },
+        {
+          "titel": "Synchron, Voice-Over & Rezitation",
+          "darstellung": "liste",
+          "eintraege": [
+            { "jahr": "2026", "titel": "Borderlands 4", "rolle": "Loveless (Synchron)", "regie": "Romana Gutsche u. a.", "ort": "2K Games · m&s studio" },
+            { "jahr": "2026", "titel": "Rezitation mit Klavier", "rolle": "Rezitation", "regie": "", "ort": "mit Catalina Butcaru (Klavier), Villa Bonn Frankfurt" },
+            { "jahr": "2025–26", "titel": "Sargassum – Sonderausstellung", "rolle": "Voice-Over", "regie": "", "ort": "Senckenberg Museum" },
+            { "jahr": "2025–26", "titel": "Meet me at the Villa!", "rolle": "Audioguide", "regie": "", "ort": "KfW Stiftung" }
+          ]
+        }
+      ],
+      "fotos": [],
+      "medien": [
+        { "titel": "Hörproben", "text": "Sprachaufnahmen auf Deutsch und Englisch.", "url": "https://www.schauspielervideos.de/fullprofile/schauspielerin-nora-solcher.html", "art": "audio" }
+      ]
     },
     {
-      "jahr": "2018 & 2019",
-      "titel": "Deutschlandstipendium",
-      "text": ""
+      "id": "schreiben",
+      "titel": "Schreiben",
+      "untertitel": "Texte, Songs & Regie",
+      "teaser": "Eigene Stücke, Songtexte, Jugend-Musicals und Poetry-Slam.",
+      "intro": "Nora schreibt und inszeniert: eigene Stückentwicklungen, Songtexte, Jugend-Musicals – und 2025 den Siegertext beim Poetry-Slam des Sommerwerft Theater Festivals.",
+      "bild": {
+        "datei": "portrait-sofa.jpg",
+        "alt": "Nora Solcher auf einem Ledersofa in hellem Raum",
+        "fokus": "50% 55%",
+        "credit": "Jessica Schäfer"
+      },
+      "gruppen": [
+        {
+          "titel": "Texte & Stückentwicklung",
+          "darstellung": "liste",
+          "eintraege": [
+            { "jahr": "2025", "titel": "Sommerwerft Poetry-Slam", "rolle": "Text & Vortrag – Siegerin", "regie": "", "ort": "Sommerwerft Theater Festival, Frankfurt" },
+            { "jahr": "2024", "titel": "Yesterday war gestern", "rolle": "Text & Regie", "regie": "", "ort": "Internationales Jugend-Musical, Frankfurter Spatzen e. V." },
+            { "jahr": "2022", "titel": "Strichcode", "rolle": "Stückentwicklung & Regie (Diplomprojekt)", "regie": "", "ort": "Landungsbrücken Frankfurt" }
+          ]
+        },
+        {
+          "titel": "Songtexte",
+          "darstellung": "liste",
+          "eintraege": [
+            { "jahr": "2022", "titel": "Barcode", "rolle": "Songwriting mit Lioba Brändle und Jakob Boyny", "regie": "", "ort": "Landungsbrücken Frankfurt (Uraufführung)" },
+            { "jahr": "2021", "titel": "Blindgänger", "rolle": "Songtext, Musik: Günter Lehr", "regie": "", "ort": "Schauspiel Frankfurt" }
+          ]
+        },
+        {
+          "titel": "Regie",
+          "darstellung": "liste",
+          "eintraege": [
+            { "jahr": "2025", "titel": "Dead vs. Alive", "rolle": "Eigenregie, spielt Etty Hillesum", "regie": "", "ort": "Schauspiel Frankfurt" },
+            { "jahr": "2024", "titel": "Yesterday war gestern", "rolle": "Regie & Text", "regie": "", "ort": "Frankfurter Spatzen e. V." },
+            { "jahr": "2023", "titel": "SPOTLIGHT", "rolle": "Regie", "regie": "", "ort": "Internationales Jugend-Musical, Frankfurter Spatzen e. V." }
+          ]
+        }
+      ],
+      "fotos": [],
+      "medien": [
+        { "titel": "Poetry-Slam Sommerwerft 2025", "text": "Der Siegertext als Video in der Mediathek Hessen.", "url": "https://www.mediathek-hessen.de/medienview_37782_Sommerwerft-2025-Poetry-Slam-mit-Nora-Solcher-.html", "art": "video" }
+      ]
+    },
+    {
+      "id": "unterrichten",
+      "titel": "Unterrichten",
+      "untertitel": "Schauspiel- & Sprechunterricht",
+      "teaser": "Einzelunterricht online oder in Präsenz, Workshops und Theater-AGs.",
+      "intro": "Seit 2022 unterrichtet Nora Schauspiel und Sprechen – im Verein, an Schulen und im Einzelunterricht. Wichtig sind ihr saubere Sprechtechnik, echtes Zuhören und dass der Humor nie verloren geht.",
+      "bild": {
+        "datei": "portrait-farbe.jpg",
+        "alt": "Nora Solcher mit Armen über dem Kopf vor bunt bemalter Wand",
+        "fokus": "50% 25%",
+        "credit": "Simon Hegenberg"
+      },
+      "angebote_titel": "Einzelunterricht – online oder in Präsenz",
+      "angebote": [
+        { "titel": "Vorsprechtraining", "text": "Gezielte Vorbereitung auf Vorsprechen an Schauspielschulen und Theatern: passende Rollen finden, Monologe erarbeiten, unter Vorsprechbedingungen proben." },
+        { "titel": "Sprechen & Artikulation", "text": "Atem, Stimme und Artikulation – für klares, tragfähiges Sprechen auf der Bühne, am Mikrofon oder im Beruf." },
+        { "titel": "Auftritts- & Prüfungsangst, Präsenz", "text": "Präsenzübungen und Strategien gegen Lampenfieber, damit Auftritte und Prüfungen gelingen." }
+      ],
+      "hervorhebung": "Regelmäßig bereitet Nora Vorsprechende auf ihr Vorsprechen vor – die zuletzt vorbereitete Person hat daraufhin das Engagement bekommen.",
+      "zitat": {
+        "text": "dass die Jugendlichen durch ehrliches einander Zuhören zu einem authentischen Ton auf der Bühne gelangen",
+        "quelle": "Frankfurter Spatzen e. V. über Noras Unterricht"
+      },
+      "gruppen": [
+        {
+          "titel": "Referenzen",
+          "darstellung": "liste",
+          "eintraege": [
+            { "jahr": "2026", "titel": "Theater-AG", "rolle": "Leitung", "regie": "", "ort": "Käthe-Kollwitz-Schule, Frankfurt-Zeilsheim" },
+            { "jahr": "seit 2023", "titel": "Sprechworkshops", "rolle": "Workshopleitung", "regie": "", "ort": "Gymnasium Nord" },
+            { "jahr": "seit 2022", "titel": "Frankfurter Spatzen e. V.", "rolle": "Schauspiel- & Sprechunterricht, Einstudierung, Probenleitung", "regie": "", "ort": "Kinder- und Jugendtheater mit Musik und Tanz, Frankfurt", "text": "Szenenarbeit mit Jugendlichen vom Einzeltraining über Dialoge bis zur choreografierten Gruppenszene; Regie der Jugend-Musicals „SPOTLIGHT“ (2023) und „Yesterday war gestern“ (2024)." },
+            { "jahr": "regelmäßig", "titel": "Einzelunterricht für Vorsprechende", "rolle": "Vorsprechtraining", "regie": "", "ort": "online und in Präsenz" }
+          ]
+        }
+      ],
+      "fotos": [],
+      "medien": []
     }
   ],
   "steckbrief": [
-    {
-      "label": "Spielalter",
-      "wert": "19–31"
-    },
-    {
-      "label": "Größe",
-      "wert": "163 cm"
-    },
-    {
-      "label": "Haare / Augen",
-      "wert": "braun / braun"
-    },
-    {
-      "label": "Wohnorte",
-      "wert": "Frankfurt am Main, Berlin"
-    },
-    {
-      "label": "Wohnmöglichkeiten",
-      "wert": "Hamburg, Köln, München, Wien"
-    },
-    {
-      "label": "Ausbildung",
-      "wert": "HfMDK Frankfurt am Main, 2018–2022"
-    },
-    {
-      "label": "Sprachen",
-      "wert": "Deutsch (Muttersprache), Englisch (fließend), Spanisch (gut), Französisch (Grundkenntnisse)"
-    },
-    {
-      "label": "Dialekte",
-      "wert": "Hamburgisch (Heimatdialekt), Berlinerisch, Britisches Englisch"
-    },
-    {
-      "label": "Stimme & Gesang",
-      "wert": "Mezzosopran, Chanson"
-    },
-    {
-      "label": "Tanz",
-      "wert": "Streetdance, Modern Dance, Contact Improvisation, Steppen, Charleston"
-    },
-    {
-      "label": "Sport",
-      "wert": "Akrobatik, Bühnenkampf, Bühnenfechten, Reiten, Basketball, Fußball"
-    },
-    {
-      "label": "Instrument",
-      "wert": "Schlagzeug"
-    },
-    {
-      "label": "Verband",
-      "wert": "GDBA"
-    }
-  ],
-  "medien": [
-    {
-      "titel": "Showreels",
-      "text": "TV/Film, Eigenarbeiten, Gesang und English auf Filmmakers.",
-      "url": "https://www.filmmakers.eu/de/actors/nora-solcher",
-      "art": "video"
-    },
-    {
-      "titel": "Stimme & Sprachaufnahmen",
-      "text": "Hörproben auf Deutsch und Englisch.",
-      "url": "https://www.schauspielervideos.de/fullprofile/schauspielerin-nora-solcher.html",
-      "art": "audio"
-    },
-    {
-      "titel": "Poetry-Slam Sommerwerft 2025",
-      "text": "Der Siegertext beim Sommerwerft Theater Festival – Mediathek Hessen.",
-      "url": "https://www.mediathek-hessen.de/medienview_37782_Sommerwerft-2025-Poetry-Slam-mit-Nora-Solcher-.html",
-      "art": "video"
-    }
+    { "label": "Spielalter", "wert": "19–31" },
+    { "label": "Größe", "wert": "163 cm" },
+    { "label": "Haare / Augen", "wert": "braun / braun" },
+    { "label": "Wohnorte", "wert": "Frankfurt am Main, Berlin" },
+    { "label": "Wohnmöglichkeiten", "wert": "Hamburg, Köln, München, Wien" },
+    { "label": "Ausbildung", "wert": "Schauspiel, HfMDK Frankfurt am Main, 2018–2022" },
+    { "label": "Sprachen", "wert": "Deutsch (Muttersprache), Englisch (fließend), Spanisch (gut), Französisch (Grundkenntnisse)" },
+    { "label": "Dialekte", "wert": "Hamburgisch (Heimatdialekt), Berlinerisch, Britisches Englisch" },
+    { "label": "Stimme & Gesang", "wert": "Mezzosopran, Chanson" },
+    { "label": "Tanz", "wert": "Contact Improvisation, Modern Dance, Streetdance, Charleston, Steppen" },
+    { "label": "Sport", "wert": "Akrobatik, Bühnenkampf, Bühnenfechten, Reiten, Basketball, Fußball" },
+    { "label": "Instrument", "wert": "Schlagzeug" },
+    { "label": "Verband", "wert": "GDBA" }
   ],
   "galerie": [
-    {
-      "datei": "portrait-dunkel.jpg",
-      "alt": "Nahes Porträt vor schwarzem Hintergrund",
-      "credit": "Simon Hegenberg",
-      "markiert": true
-    },
-    {
-      "datei": "portrait-lachend.jpg",
-      "alt": "Lachend im grünen Blazer",
-      "credit": "Nils Schwarz",
-      "markiert": true
-    },
-    {
-      "datei": "portrait-farbe.jpg",
-      "alt": "Arme über dem Kopf vor bunt bemalter Wand",
-      "credit": "Simon Hegenberg"
-    },
-    {
-      "datei": "portrait-street.jpg",
-      "alt": "Hockend im roten Shirt auf der Straße",
-      "credit": "Nils Schwarz"
-    },
-    {
-      "datei": "portrait-schulter.jpg",
-      "alt": "Blick über die Schulter",
-      "credit": "Nils Schwarz"
-    },
-    {
-      "datei": "portrait-sw.jpg",
-      "alt": "Schwarzweiß, Arme verschränkt",
-      "credit": "Jessica Schäfer"
-    },
-    {
-      "datei": "portrait-hocker.jpg",
-      "alt": "Ganzkörper in Schwarz auf einem Hocker",
-      "credit": "Simon Hegenberg"
-    },
-    {
-      "datei": "portrait-sofa.jpg",
-      "alt": "Auf einem Ledersofa in hellem Raum",
-      "credit": "Jessica Schäfer"
-    },
-    {
-      "datei": "portrait-profil.jpg",
-      "alt": "Profil im Abendlicht",
-      "credit": "Nils Schwarz"
-    },
-    {
-      "datei": "szene-wintermaerchen-2.jpg",
-      "alt": "Szene aus „Deutschland 2020. Ein Wintermärchen“, Schauspiel Frankfurt",
-      "credit": "Jessica Schäfer"
-    },
-    {
-      "datei": "szene-wintermaerchen-3.jpg",
-      "alt": "Szene aus „Deutschland 2020. Ein Wintermärchen“ im Foyer",
-      "credit": "Jessica Schäfer"
-    },
-    {
-      "datei": "szene-hertopia-1.jpg",
-      "alt": "Szene aus „Hertopia“",
-      "credit": "Ilayda Dağlı"
-    }
+    { "datei": "portrait-dunkel.jpg", "alt": "Nahes Porträt vor schwarzem Hintergrund", "credit": "Simon Hegenberg" },
+    { "datei": "portrait-lachend.jpg", "alt": "Lachend im salbeigrünen Blazer", "credit": "Nils Schwarz" },
+    { "datei": "portrait-sw.jpg", "alt": "Schwarzweiß, Arme verschränkt", "credit": "Jessica Schäfer" },
+    { "datei": "portrait-street.jpg", "alt": "Hockend im roten Shirt auf der Straße", "credit": "Nils Schwarz" },
+    { "datei": "portrait-farbe.jpg", "alt": "Arme über dem Kopf vor bunt bemalter Wand", "credit": "Simon Hegenberg" },
+    { "datei": "portrait-hocker.jpg", "alt": "Ganzkörper in Schwarz auf einem Hocker", "credit": "Simon Hegenberg" },
+    { "datei": "portrait-sofa.jpg", "alt": "Auf einem Ledersofa in hellem Raum", "credit": "Jessica Schäfer" },
+    { "datei": "hero.jpg", "alt": "Halbporträt vor dunklem Hintergrund", "credit": "Nils Schwarz" }
   ],
   "kontakt": {
-    "text": "Für Anfragen zu Theater, Film, Fernsehen und Sprecharbeiten wenden Sie sich bitte an die Agentur.",
+    "text": "Ob Besetzung, Sprechaufnahme oder Unterricht – hier finden Sie den passenden Weg zu Nora. Anfragen für Theater, Film, Fernsehen und Sprecharbeiten laufen über ihr Management.",
     "agentur": {
       "name": "Andi Slawinski – Management",
       "person": "Andi Slawinski",
@@ -627,77 +314,21 @@
       "email": "mail@andislawinski.de",
       "website": "https://www.andislawinski.de"
     },
-    "email_direkt": ""
+    "email_direkt": "",
+    "anliegen": [
+      { "titel": "Theater, Film & Fernsehen", "text": "Besetzungsanfragen, Castings, Gastverträge und Drehtage.", "weg": "agentur", "hilfreich": "Projekt und Rolle, Zeitraum und Ort, Produktion oder Haus" },
+      { "titel": "Sprechaufnahmen", "text": "Hörspiel, Hörbuch, Feature, Synchron, Voice-Over, Audioguide und Rezitation.", "weg": "agentur", "hilfreich": "Art der Aufnahme, Umfang, Termin, Studio oder Remote-Aufnahme" },
+      { "titel": "Unterricht & Workshops", "text": "Einzelunterricht online oder in Präsenz, Workshops und Theater-AGs für Schulen und Vereine.", "weg": "direkt", "hilfreich": "Ziel (z. B. Vorsprechen am …), Vorerfahrung, online oder in Präsenz" },
+      { "titel": "Texte, Lesungen & Kooperationen", "text": "Poetry-Slam, Lesungen, Stückentwicklungen und gemeinsame Projekte.", "weg": "direkt", "hilfreich": "Anlass, Datum, Ort und Rahmen" }
+    ]
   },
   "profile": [
-    {
-      "name": "Instagram",
-      "url": "https://www.instagram.com/nora_slchr/"
-    },
-    {
-      "name": "Filmmakers",
-      "url": "https://www.filmmakers.eu/de/actors/nora-solcher"
-    },
-    {
-      "name": "Crew United",
-      "url": "https://www.crew-united.com/de/Nora-Solcher_543158.html"
-    },
-    {
-      "name": "Schauspielervideos",
-      "url": "https://www.schauspielervideos.de/fullprofile/schauspielerin-nora-solcher.html"
-    },
-    {
-      "name": "Spotlight",
-      "url": "https://app.spotlight.com/profiles/view/fm/46873"
-    }
+    { "name": "Filmmakers", "url": "https://www.filmmakers.eu/de/actors/nora-solcher" },
+    { "name": "Schauspielervideos", "url": "https://www.schauspielervideos.de/fullprofile/schauspielerin-nora-solcher.html" },
+    { "name": "Crew United", "url": "https://www.crew-united.com/de/Nora-Solcher_543158.html" },
+    { "name": "Spotlight", "url": "https://app.spotlight.com/profiles/view/fm/46873" },
+    { "name": "Instagram", "url": "https://www.instagram.com/nora_slchr/" }
   ],
   "impressum": "",
-  "datenschutz": "## 1. Verantwortliche\n\nNora Solcher (Anschrift siehe Impressum)\n\n## 2. Grundsätzliches\n\nDiese Website verwendet **keine Cookies**, **kein Tracking** und **keine Analyse-Werkzeuge**. Schriftarten und Bilder werden ausschließlich vom eigenen Server geladen. Videos und Hörproben sind nicht eingebettet, sondern verlinkt – es werden keine Daten an Dritte übertragen, solange Sie nicht selbst einen externen Link anklicken.\n\n## 3. Hosting und Server-Logfiles\n\nBeim Aufruf der Website speichert der Hosting-Anbieter technisch notwendige Daten (z. B. IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browsertyp) in Server-Logfiles. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einem sicheren und stabilen Betrieb). Die Logfiles werden nach spätestens 14 Tagen gelöscht.\n\n## 4. Kontaktaufnahme\n\nWenn Sie per E-Mail oder Telefon Kontakt aufnehmen, werden Ihre Angaben zur Bearbeitung der Anfrage verarbeitet (Art. 6 Abs. 1 lit. b DSGVO).\n\n## 5. Externe Links\n\nDie Website enthält Links zu externen Angeboten (z. B. Filmmakers, Schauspielervideos, Mediathek Hessen, Instagram, Agentur). Erst wenn Sie einen solchen Link anklicken, werden Daten an den jeweiligen Anbieter übertragen. Für dessen Datenverarbeitung ist ausschließlich der jeweilige Anbieter verantwortlich.\n\n## 6. Ihre Rechte\n\nSie haben jederzeit das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer Daten sowie auf Datenübertragbarkeit und Widerspruch (Art. 15–21 DSGVO). Außerdem können Sie sich bei einer Datenschutz-Aufsichtsbehörde beschweren, zum Beispiel beim Hessischen Beauftragten für Datenschutz und Informationsfreiheit.",
-  "register": [
-    {
-      "gruppe": "Sprache",
-      "werte": [
-        "Deutsch",
-        "Englisch (fließend)",
-        "Spanisch",
-        "Französisch",
-        "Hamburgisch",
-        "Berlinerisch",
-        "British English"
-      ]
-    },
-    {
-      "gruppe": "Körper",
-      "werte": [
-        "Akrobatik",
-        "Bühnenkampf",
-        "Bühnenfechten",
-        "Contact Improvisation",
-        "Modern Dance",
-        "Streetdance",
-        "Steppen",
-        "Charleston",
-        "Reiten"
-      ]
-    },
-    {
-      "gruppe": "Klang",
-      "werte": [
-        "Mezzosopran",
-        "Chanson",
-        "Schlagzeug",
-        "Rezitation",
-        "Hörspiel",
-        "Synchron"
-      ]
-    },
-    {
-      "gruppe": "Was ihr wichtig ist",
-      "werte": [
-        "Sprechtechnik",
-        "Echtes Zuhören",
-        "Humor"
-      ]
-    }
-  ]
+  "datenschutz": "## 1. Verantwortliche\n\nNora Solcher (Anschrift siehe Impressum)\n\n## 2. Grundsätzliches\n\nDiese Website verwendet **keine Cookies**, **kein Tracking** und **keine Analyse-Werkzeuge**. Schriftarten und Bilder werden ausschließlich vom eigenen Server geladen. Videos und Hörproben sind nicht eingebettet, sondern verlinkt – es werden keine Daten an Dritte übertragen, solange Sie nicht selbst einen externen Link anklicken.\n\n## 3. Hosting und Server-Logfiles\n\nBeim Aufruf der Website speichert der Hosting-Anbieter technisch notwendige Daten (z. B. IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browsertyp) in Server-Logfiles. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einem sicheren und stabilen Betrieb). Die Logfiles werden nach spätestens 14 Tagen gelöscht.\n\n## 4. Kontaktaufnahme\n\nWenn Sie per E-Mail oder Telefon Kontakt aufnehmen, werden Ihre Angaben zur Bearbeitung der Anfrage verarbeitet (Art. 6 Abs. 1 lit. b DSGVO).\n\n## 5. Externe Links\n\nDie Website enthält Links zu externen Angeboten (z. B. Filmmakers, Schauspielervideos, Mediathek Hessen, Instagram, Agentur). Erst wenn Sie einen solchen Link anklicken, werden Daten an den jeweiligen Anbieter übertragen. Für dessen Datenverarbeitung ist ausschließlich der jeweilige Anbieter verantwortlich.\n\n## 6. Ihre Rechte\n\nSie haben jederzeit das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer Daten sowie auf Datenübertragbarkeit und Widerspruch (Art. 15–21 DSGVO). Außerdem können Sie sich bei einer Datenschutz-Aufsichtsbehörde beschweren, zum Beispiel beim Hessischen Beauftragten für Datenschutz und Informationsfreiheit."
 }
