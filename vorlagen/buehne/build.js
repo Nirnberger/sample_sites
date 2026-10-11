@@ -203,7 +203,7 @@ function ouvertuere() {
 <section class="ouvertuere" data-scheinwerfer data-suchen aria-labelledby="name">
   <div class="scheinwerfer" aria-hidden="true"></div>
   <div class="scheinwerfer scheinwerfer--klein" aria-hidden="true"></div>
-  <p class="mono berufe">${s.berufe.map(esc).join('<span aria-hidden="true"> — </span>')}</p>
+  <p class="mono berufe">${s.berufe.map(esc).join('<span aria-hidden="true"> · </span>')}</p>
   <div class="buehnenbild">
     <div class="portal">${bilder}</div>
     <h1 id="name" class="riesenname"><span>${esc(vorname)}</span>${nachname ? ` <em>${esc(nachname)}</em>` : ''}</h1>
@@ -396,7 +396,7 @@ function aktFeder(a) {
     <div class="manuskript" data-einblenden>
       <p class="mono manuskript-kopf">manuskript_${esc(h.slug(s.name))}.txt</p>
       <ol>${a.eintraege.map((e) => `
-        <li><span class="mono">${esc(e.jahr)}</span><p><strong>${esc(e.titel)}</strong> — ${esc([e.rolle, e.ort].filter(Boolean).join(', '))}</p></li>`).join('')}
+        <li><span class="mono">${esc(e.jahr)}</span><p><strong>${esc(e.titel)}</strong>, ${esc([e.rolle, e.ort].filter(Boolean).join(', '))}</p></li>`).join('')}
       </ol>
       <span class="cursor" aria-hidden="true"></span>
     </div>
@@ -446,7 +446,7 @@ function gesichter() {
     <h2 class="szenen-titel">Galerie</h2>
     <ul class="kontaktbogen">${bilder.map((g, i) => `
       <li class="${g.markiert ? 'ist-markiert' : ''}" data-einblenden>
-        <a href="${g.info.groesste}" data-lightbox data-credit="${esc(g.credit ? `Foto: ${g.credit}` : '')}" aria-label="${esc(g.alt || 'Foto')} – groß anzeigen">
+        <a href="${g.info.groesste}" data-lightbox data-credit="${esc(g.credit ? `Foto: ${g.credit}` : '')}" aria-label="${esc(g.alt || 'Foto')}, groß anzeigen">
           ${bild(g, { sizes: '(min-width: 1100px) 25vw, (min-width: 640px) 33vw, 50vw' })}
         </a>
         <p class="mono bild-nr"><span>${zwei(i + 1)}A</span><span>${esc(g.credit || '')}</span></p>
@@ -545,7 +545,7 @@ ${og}
 </head>
 <body id="top"${startseite ? ' class="startseite"' : ''}>
 <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
-${demo ? `<div class="entwurf mono" role="note">Entwurf für ${esc(s.name)}${s.ersteller ? ` – erstellt von ${esc(s.ersteller)}` : ''}</div>` : ''}
+${demo ? `<div class="entwurf mono" role="note">Entwurf für ${esc(s.name)}${s.ersteller ? `, erstellt von ${esc(s.ersteller)}` : ''}</div>` : ''}
 <header class="kopf" data-kopf>
   <a class="marke" href="${startseite ? '#top' : 'index.html'}">${esc(vorname)} <em>${esc(nachname)}</em></a>
   <nav class="reiter" aria-label="Programm">

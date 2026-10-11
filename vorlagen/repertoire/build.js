@@ -133,7 +133,7 @@ function fotoRaster(fotos, sizes) {
   const liste = fotos.map((f) => ({ ...normBild(f), info: verarbeiteBild(f.datei) })).filter((f) => f.info);
   if (!liste.length) return '';
   return `<ul class="fotos">${liste.map((f) => `
-    <li><a href="${f.info.groesste}" data-lightbox data-credit="${esc(f.credit ? `Foto: ${f.credit}` : '')}" aria-label="${esc(f.alt || 'Foto')} – groß anzeigen">${bild(f, { sizes })}</a></li>`).join('')}
+    <li><a href="${f.info.groesste}" data-lightbox data-credit="${esc(f.credit ? `Foto: ${f.credit}` : '')}" aria-label="${esc(f.alt || 'Foto')}, groß anzeigen">${bild(f, { sizes })}</a></li>`).join('')}
   </ul>`;
 }
 
@@ -223,7 +223,7 @@ function kontaktBand() {
   <div class="container band-innen">
     <div>
       <h2>Zusammenarbeiten?</h2>
-      <p>Besetzung, Sprechaufnahme oder Unterricht – auf der Kontaktseite finden Sie den passenden Weg.</p>
+      <p>Für Besetzung, Sprechaufnahme oder Unterricht finden Sie auf der Kontaktseite den passenden Weg.</p>
     </div>
     <a class="knopf" href="kontakt.html">Kontakt aufnehmen ${icon('pfeil')}</a>
   </div>
@@ -277,7 +277,7 @@ function startseite() {
       ${absaetze.map((p) => `<p>${esc(p)}</p>`).join('')}
       ${zitatBlock(s.zitat)}
       ${s.auszeichnungen.length ? `<h3 class="klein-titel">Auszeichnungen</h3>
-      <ul class="preise">${s.auszeichnungen.map((p) => `<li><span>${esc(p.jahr || '')}</span><span><strong>${esc(p.titel)}</strong>${p.text ? ` – ${esc(p.text)}` : ''}</span></li>`).join('')}</ul>` : ''}
+      <ul class="preise">${s.auszeichnungen.map((p) => `<li><span>${esc(p.jahr || '')}</span><span><strong>${esc(p.titel)}</strong>${p.text ? `<br>${esc(p.text)}` : ''}</span></li>`).join('')}</ul>` : ''}
     </div>
   </div>
 </section>` : '';
@@ -395,7 +395,7 @@ function kontaktSeite() {
         <h3>${esc(a.titel)}</h3>
         ${a.text ? `<p>${esc(a.text)}</p>` : ''}
         ${a.hilfreich ? `<p class="hilfreich"><span class="kicker">Hilfreich für Ihre Anfrage</span>${esc(a.hilfreich)}</p>` : ''}
-        ${adresse ? `<a class="knopf knopf--rand" href="${mailto(adresse, `${a.titel} – Anfrage für ${s.name}`)}">${icon('mail')} E-Mail ${esc(ueber)}</a>` : ''}
+        ${adresse ? `<a class="knopf knopf--rand" href="${mailto(adresse, `Anfrage für ${s.name} (${a.titel})`)}">${icon('mail')} E-Mail ${esc(ueber)}</a>` : ''}
       </li>`;
     }).join('')}
     </ul>
@@ -486,7 +486,7 @@ ${og}
 </head>
 <body>
 <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
-${demo ? `<div class="entwurf" role="note">Entwurf für ${esc(s.name)}${s.ersteller ? ` – erstellt von ${esc(s.ersteller)}` : ''}</div>` : ''}
+${demo ? `<div class="entwurf" role="note">Entwurf für ${esc(s.name)}${s.ersteller ? `, erstellt von ${esc(s.ersteller)}` : ''}</div>` : ''}
 <header class="kopf">
   <div class="container kopf-innen">
     <a class="marke" href="./"${aktiv === 'start' ? ' aria-current="page"' : ''}>${esc(vorname)} <span>${esc(nachname)}</span></a>

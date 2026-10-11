@@ -6,20 +6,20 @@
   "name": "Nora Solcher",
   "farbschema": "{\"Hintergrund\":\"#F6F1E9\",\"Abschnitte\":\"#ECE3D5\",\"Schrift\":\"#502D2B\",\"Akzent\":\"#3D6651\",\"Flächen\":\"#E7DEDD\"}",
   "berufe": ["Schauspielerin", "Sprecherin", "Autorin"],
-  "kurzbeschreibung": "Nora Solcher – Schauspielerin und Sprecherin aus Frankfurt am Main und Berlin. Theater, Tanz, Film und Fernsehen, Hörspiel, Hörbuch und Synchron, eigene Texte und Unterricht.",
+  "kurzbeschreibung": "Nora Solcher, Schauspielerin und Sprecherin aus Frankfurt am Main und Berlin. Theater, Tanz, Film und Fernsehen, Hörspiel, Hörbuch und Synchron, eigene Texte und Unterricht.",
   "hero_bild": {
     "datei": "portrait.jpg",
     "alt": "Porträt von Nora Solcher vor rostbraunem Hintergrund",
     "fokus": "50% 25%",
     "credit": "Simon Hegenberg"
   },
-  "hero_text": "Schauspielerin und Sprecherin in Frankfurt am Main und Berlin. Auf der Bühne, vor der Kamera und am Mikrofon – dazu eigene Texte, Regie und Unterricht.",
+  "hero_text": "Schauspielerin und Sprecherin in Frankfurt am Main und Berlin. Sie steht auf der Bühne, vor der Kamera und am Mikrofon, schreibt eigene Texte, führt Regie und unterrichtet.",
   "ueber_mich_bild": {
     "datei": "portrait-lachend.jpg",
     "alt": "Nora Solcher lachend im salbeigrünen Blazer",
     "credit": "Nils Schwarz"
   },
-  "ueber_mich": "Nora Solcher, geboren 1999 in Hamburg, studierte von 2018 bis 2022 Schauspiel an der Hochschule für Musik und Darstellende Kunst Frankfurt am Main. Schon während des Studiums spielte sie in der freien Szene und im Studiojahr am Schauspiel Frankfurt.\n\nSeitdem stand sie unter anderem am Staatstheater Mainz, am Staatstheater Darmstadt, am Theater Bielefeld und am Theater Kiel auf der Bühne – in Formen zwischen Schauspiel, Performance und Tanz. Mit „Hertopia“ von Pia Epping gewann sie 2026 den Publikumspreis der Hessischen Theatertage.\n\nVor der Kamera spielte sie in „Morden im Norden“ (ARD), im „Tatort“ (SWR) und in „Marie Brand“ (ZDF). Als Sprecherin ist sie in Hörspielen, Hörbüchern und Features für SWR und hr zu hören, außerdem in Games, Audioguides und Ausstellungen.\n\nSie schreibt eigene Texte, führt Regie und unterrichtet Schauspiel und Sprechen. Sie lebt in Frankfurt am Main und Berlin.",
+  "ueber_mich": "Nora Solcher, geboren 1999 in Hamburg, studierte von 2018 bis 2022 Schauspiel an der Hochschule für Musik und Darstellende Kunst Frankfurt am Main. Schon während des Studiums spielte sie in der freien Szene und im Studiojahr am Schauspiel Frankfurt.\n\nSeitdem stand sie unter anderem am Staatstheater Mainz, am Staatstheater Darmstadt, am Theater Bielefeld und am Theater Kiel auf der Bühne, oft in Formen zwischen Schauspiel, Performance und Tanz. Mit „Hertopia“ von Pia Epping gewann sie 2026 den Publikumspreis der Hessischen Theatertage.\n\nVor der Kamera spielte sie in „Morden im Norden“ (ARD), im „Tatort“ (SWR) und in „Marie Brand“ (ZDF). Als Sprecherin ist sie in Hörspielen, Hörbüchern und Features für SWR und hr zu hören, außerdem in Games, Audioguides und Ausstellungen.\n\nSie schreibt eigene Texte, führt Regie und unterrichtet Schauspiel und Sprechen. Sie lebt in Frankfurt am Main und Berlin.",
   "zitat": {
     "text": "spielen eindringlich und eindrücklich",
     "quelle": "Journal Frankfurt über das Ensemble von „Innere Sicherheit“, 2024"
@@ -55,8 +55,8 @@
       "id": "theater",
       "titel": "Theater",
       "untertitel": "Bühne, Performance & Tanz",
-      "teaser": "Vom Staatstheater bis zur freien Szene – Schauspiel, Performance und Tanz.",
-      "intro": "Vom Staatstheater bis zur freien Szene, vom Klassiker bis zum Dokumentartheater: Auf der Bühne arbeitet Nora mit Körper, Text und Raum – oft in Formen zwischen Schauspiel, Performance und Tanz.",
+      "teaser": "Schauspiel, Performance und Tanz vom Staatstheater bis zur freien Szene.",
+      "intro": "Vom Staatstheater bis zur freien Szene, vom Klassiker bis zum Dokumentartheater: Auf der Bühne arbeitet Nora mit Körper, Text und Raum, oft in Formen zwischen Schauspiel, Performance und Tanz.",
       "bild": {
         "datei": "portrait-hocker.jpg",
         "alt": "Nora Solcher in Schwarz auf einem Hocker",
@@ -104,7 +104,7 @@
       "titel": "Film",
       "untertitel": "Film & Fernsehen",
       "teaser": "Primetime-Krimis bei ARD, SWR und ZDF und ein Kinofilm.",
-      "intro": "Vor der Kamera spielte Nora in Fernsehfilmen für ARD, SWR und ZDF und in einem Kinofilm – dazu Kurzfilme, unter anderem mit hessischen Filmhochschulen.",
+      "intro": "Vor der Kamera spielte Nora in Fernsehfilmen für ARD, SWR und ZDF und in einem Kinofilm. Dazu kommen Kurzfilme, unter anderem mit hessischen Filmhochschulen.",
       "bild": {
         "datei": "portrait-schulter.jpg",
         "alt": "Nora Solcher blickt über die Schulter, dunkler Hintergrund",
@@ -135,7 +135,7 @@
       "titel": "Audio",
       "untertitel": "Hörspiel, Hörbuch & Synchron",
       "teaser": "Hörspiele und Hörbücher für SWR und hr, Synchron, Voice-Over und Rezitation.",
-      "intro": "Eine Stimme, viele Figuren: Königinnen, Zwerge, Mäuse und Fabelwesen in den Narnia-Hörspielen des SWR, Hörbücher und Features für den hr, Synchron für Games, Voice-Over für Ausstellungen – und Rezitation mit Klavier.",
+      "intro": "Eine Stimme, viele Figuren: Königinnen, Zwerge, Mäuse und Fabelwesen in den Narnia-Hörspielen des SWR, Hörbücher und Features für den hr, Synchron für Games, Voice-Over für Ausstellungen und Rezitation mit Klavier.",
       "bild": {
         "datei": "portrait-profil.jpg",
         "alt": "Nora Solcher im Profil im Abendlicht",
@@ -202,7 +202,7 @@
       "titel": "Schreiben",
       "untertitel": "Texte, Songs & Regie",
       "teaser": "Eigene Stücke, Songtexte, Jugend-Musicals und Poetry-Slam.",
-      "intro": "Nora schreibt und inszeniert: eigene Stückentwicklungen, Songtexte, Jugend-Musicals – und 2025 den Siegertext beim Poetry-Slam des Sommerwerft Theater Festivals.",
+      "intro": "Nora schreibt und inszeniert eigene Stückentwicklungen, Songtexte und Jugend-Musicals. 2025 gewann sie mit ihrem Text den Poetry-Slam des Sommerwerft Theater Festivals.",
       "bild": {
         "datei": "portrait-sofa.jpg",
         "alt": "Nora Solcher auf einem Ledersofa in hellem Raum",
@@ -214,7 +214,7 @@
           "titel": "Texte & Stückentwicklung",
           "darstellung": "liste",
           "eintraege": [
-            { "jahr": "2025", "titel": "Sommerwerft Poetry-Slam", "rolle": "Text & Vortrag – Siegerin", "regie": "", "ort": "Sommerwerft Theater Festival, Frankfurt" },
+            { "jahr": "2025", "titel": "Sommerwerft Poetry-Slam", "rolle": "Text & Vortrag, Siegerin", "regie": "", "ort": "Sommerwerft Theater Festival, Frankfurt" },
             { "jahr": "2024", "titel": "Yesterday war gestern", "rolle": "Text & Regie", "regie": "", "ort": "Internationales Jugend-Musical, Frankfurter Spatzen e. V." },
             { "jahr": "2022", "titel": "Strichcode", "rolle": "Stückentwicklung & Regie (Diplomprojekt)", "regie": "", "ort": "Landungsbrücken Frankfurt" }
           ]
@@ -247,20 +247,20 @@
       "titel": "Unterrichten",
       "untertitel": "Schauspiel- & Sprechunterricht",
       "teaser": "Einzelunterricht online oder in Präsenz, Workshops und Theater-AGs.",
-      "intro": "Seit 2022 unterrichtet Nora Schauspiel und Sprechen – im Verein, an Schulen und im Einzelunterricht. Wichtig sind ihr saubere Sprechtechnik, echtes Zuhören und dass der Humor nie verloren geht.",
+      "intro": "Seit 2022 unterrichtet Nora Schauspiel und Sprechen im Verein, an Schulen und im Einzelunterricht. Wichtig sind ihr saubere Sprechtechnik, echtes Zuhören und dass der Humor nie verloren geht.",
       "bild": {
         "datei": "portrait-farbe.jpg",
         "alt": "Nora Solcher mit Armen über dem Kopf vor bunt bemalter Wand",
         "fokus": "50% 25%",
         "credit": "Simon Hegenberg"
       },
-      "angebote_titel": "Einzelunterricht – online oder in Präsenz",
+      "angebote_titel": "Einzelunterricht online oder in Präsenz",
       "angebote": [
         { "titel": "Vorsprechtraining", "text": "Gezielte Vorbereitung auf Vorsprechen an Schauspielschulen und Theatern: passende Rollen finden, Monologe erarbeiten, unter Vorsprechbedingungen proben." },
-        { "titel": "Sprechen & Artikulation", "text": "Atem, Stimme und Artikulation – für klares, tragfähiges Sprechen auf der Bühne, am Mikrofon oder im Beruf." },
+        { "titel": "Sprechen & Artikulation", "text": "Atem, Stimme und Artikulation für klares, tragfähiges Sprechen auf der Bühne, am Mikrofon oder im Beruf." },
         { "titel": "Auftritts- & Prüfungsangst, Präsenz", "text": "Präsenzübungen und Strategien gegen Lampenfieber, damit Auftritte und Prüfungen gelingen." }
       ],
-      "hervorhebung": "Regelmäßig bereitet Nora Vorsprechende auf ihr Vorsprechen vor – die zuletzt vorbereitete Person hat daraufhin das Engagement bekommen.",
+      "hervorhebung": "Regelmäßig bereitet Nora Vorsprechende auf ihr Vorsprechen vor. Die zuletzt vorbereitete Person hat daraufhin das Engagement bekommen.",
       "zitat": {
         "text": "dass die Jugendlichen durch ehrliches einander Zuhören zu einem authentischen Ton auf der Bühne gelangen",
         "quelle": "Frankfurter Spatzen e. V. über Noras Unterricht"
@@ -307,7 +307,7 @@
     { "datei": "hero.jpg", "alt": "Halbporträt vor dunklem Hintergrund", "credit": "Nils Schwarz" }
   ],
   "kontakt": {
-    "text": "Ob Besetzung, Sprechaufnahme oder Unterricht – hier finden Sie den passenden Weg zu Nora. Anfragen für Theater, Film, Fernsehen und Sprecharbeiten laufen über ihr Management.",
+    "text": "Hier finden Sie den passenden Weg zu Nora, ob für eine Besetzung, eine Sprechaufnahme oder Unterricht. Anfragen für Theater, Film, Fernsehen und Sprecharbeiten laufen über ihr Management.",
     "agentur": {
       "name": "Andi Slawinski – Management",
       "person": "Andi Slawinski",
@@ -331,5 +331,5 @@
     { "name": "Instagram", "url": "https://www.instagram.com/nora_slchr/" }
   ],
   "impressum": "",
-  "datenschutz": "## 1. Verantwortliche\n\nNora Solcher (Anschrift siehe Impressum)\n\n## 2. Grundsätzliches\n\nDiese Website verwendet **keine Cookies**, **kein Tracking** und **keine Analyse-Werkzeuge**. Schriftarten und Bilder werden ausschließlich vom eigenen Server geladen. Videos und Hörproben sind nicht eingebettet, sondern verlinkt – es werden keine Daten an Dritte übertragen, solange Sie nicht selbst einen externen Link anklicken.\n\n## 3. Hosting und Server-Logfiles\n\nBeim Aufruf der Website speichert der Hosting-Anbieter technisch notwendige Daten (z. B. IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browsertyp) in Server-Logfiles. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einem sicheren und stabilen Betrieb). Die Logfiles werden nach spätestens 14 Tagen gelöscht.\n\n## 4. Kontaktaufnahme\n\nWenn Sie per E-Mail oder Telefon Kontakt aufnehmen, werden Ihre Angaben zur Bearbeitung der Anfrage verarbeitet (Art. 6 Abs. 1 lit. b DSGVO).\n\n## 5. Externe Links\n\nDie Website enthält Links zu externen Angeboten (z. B. Filmmakers, Schauspielervideos, Mediathek Hessen, Instagram, Agentur). Erst wenn Sie einen solchen Link anklicken, werden Daten an den jeweiligen Anbieter übertragen. Für dessen Datenverarbeitung ist ausschließlich der jeweilige Anbieter verantwortlich.\n\n## 6. Ihre Rechte\n\nSie haben jederzeit das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer Daten sowie auf Datenübertragbarkeit und Widerspruch (Art. 15–21 DSGVO). Außerdem können Sie sich bei einer Datenschutz-Aufsichtsbehörde beschweren, zum Beispiel beim Hessischen Beauftragten für Datenschutz und Informationsfreiheit."
+  "datenschutz": "## 1. Verantwortliche\n\nNora Solcher (Anschrift siehe Impressum)\n\n## 2. Grundsätzliches\n\nDiese Website verwendet **keine Cookies**, **kein Tracking** und **keine Analyse-Werkzeuge**. Schriftarten und Bilder werden ausschließlich vom eigenen Server geladen. Videos und Hörproben sind nicht eingebettet, sondern verlinkt. Es werden keine Daten an Dritte übertragen, solange Sie nicht selbst einen externen Link anklicken.\n\n## 3. Hosting und Server-Logfiles\n\nBeim Aufruf der Website speichert der Hosting-Anbieter technisch notwendige Daten (z. B. IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browsertyp) in Server-Logfiles. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einem sicheren und stabilen Betrieb). Die Logfiles werden nach spätestens 14 Tagen gelöscht.\n\n## 4. Kontaktaufnahme\n\nWenn Sie per E-Mail oder Telefon Kontakt aufnehmen, werden Ihre Angaben zur Bearbeitung der Anfrage verarbeitet (Art. 6 Abs. 1 lit. b DSGVO).\n\n## 5. Externe Links\n\nDie Website enthält Links zu externen Angeboten (z. B. Filmmakers, Schauspielervideos, Mediathek Hessen, Instagram, Agentur). Erst wenn Sie einen solchen Link anklicken, werden Daten an den jeweiligen Anbieter übertragen. Für dessen Datenverarbeitung ist ausschließlich der jeweilige Anbieter verantwortlich.\n\n## 6. Ihre Rechte\n\nSie haben jederzeit das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer Daten sowie auf Datenübertragbarkeit und Widerspruch (Art. 15–21 DSGVO). Außerdem können Sie sich bei einer Datenschutz-Aufsichtsbehörde beschweren, zum Beispiel beim Hessischen Beauftragten für Datenschutz und Informationsfreiheit."
 }

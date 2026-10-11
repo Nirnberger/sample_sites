@@ -10,7 +10,7 @@
     "Autorin"
   ],
   "slogan": "Theater · Film · Stimme",
-  "kurzbeschreibung": "Nora Solcher – Schauspielerin und Sprecherin aus Frankfurt am Main und Berlin. Theater, Film und Fernsehen, Hörspiel, Hörbuch und Synchron.",
+  "kurzbeschreibung": "Nora Solcher, Schauspielerin und Sprecherin aus Frankfurt am Main und Berlin. Theater, Film und Fernsehen, Hörspiel, Hörbuch und Synchron.",
   "farben": {
     "akzent": "#A84B2A"
   },
@@ -70,7 +70,7 @@
     "alt": "Porträt von Nora Solcher vor rostrotem Hintergrund",
     "credit": "Simon Hegenberg"
   },
-  "ueber_mich": "Nora Solcher ist Schauspielerin und Sprecherin. Geboren 1999 in Hamburg, studierte sie von 2018 bis 2022 Schauspiel an der Hochschule für Musik und Darstellende Kunst Frankfurt am Main. Schon während des Studiums spielte sie in der freien Szene und im Studiojahr am Schauspiel Frankfurt.\n\nSeitdem stand sie unter anderem am Staatstheater Mainz, am Staatstheater Darmstadt, am Theater Bielefeld und am Theater Kiel auf der Bühne. Mit der Performance „Hertopia“ von Pia Epping gewann sie 2026 den Publikumspreis der Hessischen Theatertage. Im Dokumentartheater „Innere Sicherheit“ von Marie Schwesinger über die „NSU 2.0“-Drohschreiben ist sie seit 2024 an wechselnden Orten zu sehen.\n\nVor der Kamera spielte sie im „Tatort“ (SWR), in „Morden im Norden“ (ARD) und in „Marie Brand“ (ZDF). Als Sprecherin ist sie in Hörspielen und Hörbüchern für SWR und hr zu hören – darunter die Narnia-Hörspiele – sowie in Games, Audioguides und Ausstellungen.\n\nSie schreibt eigene Texte, führt Regie, gewann 2025 den Poetry-Slam beim Sommerwerft Theater Festival und unterrichtet Jugendliche in Schauspiel und Sprechen. Sie lebt in Frankfurt am Main und Berlin.",
+  "ueber_mich": "Nora Solcher ist Schauspielerin und Sprecherin. Geboren 1999 in Hamburg, studierte sie von 2018 bis 2022 Schauspiel an der Hochschule für Musik und Darstellende Kunst Frankfurt am Main. Schon während des Studiums spielte sie in der freien Szene und im Studiojahr am Schauspiel Frankfurt.\n\nSeitdem stand sie unter anderem am Staatstheater Mainz, am Staatstheater Darmstadt, am Theater Bielefeld und am Theater Kiel auf der Bühne. Mit der Performance „Hertopia“ von Pia Epping gewann sie 2026 den Publikumspreis der Hessischen Theatertage. Im Dokumentartheater „Innere Sicherheit“ von Marie Schwesinger über die „NSU 2.0“-Drohschreiben ist sie seit 2024 an wechselnden Orten zu sehen.\n\nVor der Kamera spielte sie im „Tatort“ (SWR), in „Morden im Norden“ (ARD) und in „Marie Brand“ (ZDF). Als Sprecherin ist sie in Hörspielen und Hörbüchern für SWR und hr zu hören, darunter die Narnia-Hörspiele, außerdem in Games, Audioguides und Ausstellungen.\n\nSie schreibt eigene Texte, führt Regie, gewann 2025 den Poetry-Slam beim Sommerwerft Theater Festival und unterrichtet Jugendliche in Schauspiel und Sprechen. Sie lebt in Frankfurt am Main und Berlin.",
   "ueber_mich_fakten": [
     {
       "wert": "2018–22",
@@ -99,7 +99,7 @@
     {
       "label": "Theater",
       "titel": "„Innere Sicherheit“",
-      "text": "Dokumentartheater von Marie Schwesinger über die „NSU 2.0“-Drohschreiben – gespielt u. a. in den Landungsbrücken Frankfurt, im Landgericht Hamburg und im Heimathafen Neukölln. „Eindringlich und eindrücklich“ (Journal Frankfurt).",
+      "text": "Dokumentartheater von Marie Schwesinger über die „NSU 2.0“-Drohschreiben. Gespielt wurde es u. a. in den Landungsbrücken Frankfurt, im Landgericht Hamburg und im Heimathafen Neukölln. „Eindringlich und eindrücklich“ (Journal Frankfurt).",
       "bild": null
     },
     {
@@ -224,7 +224,7 @@
         "nr": "I",
         "titel": "Theater",
         "stil": "buehne",
-        "intro": "Vom Staatstheater bis zur freien Szene, vom Klassiker bis zum Dokumentartheater: Auf der Bühne arbeitet Nora mit Körper, Text und Raum – oft in Formen zwischen Schauspiel, Performance und Tanz."
+        "intro": "Vom Staatstheater bis zur freien Szene, vom Klassiker bis zum Dokumentartheater: Auf der Bühne arbeitet Nora mit Körper, Text und Raum, oft in Formen zwischen Schauspiel, Performance und Tanz."
       }
     },
     {
@@ -421,7 +421,7 @@
         "nr": "III",
         "titel": "Audio",
         "stil": "stimme",
-        "intro": "Eine Stimme, viele Figuren: Königinnen, Zwerge, Mäuse und Fabelwesen. Hörspiele und Hörbücher für SWR und hr, Synchron, Audioguides – und Rezitation mit Klavier."
+        "intro": "Eine Stimme, viele Figuren: Königinnen, Zwerge, Mäuse und Fabelwesen. Hörspiele und Hörbücher für SWR und hr, Synchron, Audioguides und Rezitation mit Klavier."
       }
     },
     {
@@ -511,7 +511,7 @@
         "nr": "IV",
         "titel": "Schreiben",
         "stil": "feder",
-        "intro": "Sie schreibt und inszeniert: eigene Stückentwicklungen, Songtexte, Jugend-Musicals – und 2025 den Siegertext beim Sommerwerft-Poetry-Slam.",
+        "intro": "Sie schreibt und inszeniert eigene Stückentwicklungen, Songtexte und Jugend-Musicals. 2025 gewann sie mit ihrem Text den Poetry-Slam beim Sommerwerft Theater Festival.",
         "bild": {
           "datei": "szene-poetry-slam.jpg",
           "alt": "Nora Solcher liest beim Poetry-Slam Sommerwerft 2025 ihren Text vom Blatt",
@@ -555,16 +555,16 @@
         "nr": "V",
         "titel": "Unterrichten",
         "stil": "unterricht",
-        "intro": "Seit 2022 unterrichtet Nora Schauspiel und Sprechen – einzeln, an Schulen und im Verein.",
-        "angebote_titel": "Einzelunterricht – online oder in Präsenz",
+        "intro": "Seit 2022 unterrichtet Nora Schauspiel und Sprechen im Einzelunterricht, an Schulen und im Verein.",
+        "angebote_titel": "Einzelunterricht online oder in Präsenz",
         "angebote": [
           {
             "titel": "Vorsprechtraining",
-            "text": "Rollen finden, Monologe erarbeiten, unter echten Bedingungen proben – für Schauspielschulen und Theater."
+            "text": "Vorbereitung auf das Vorsprechen an Schauspielschulen und Theatern: Rollen finden, Monologe erarbeiten, unter echten Bedingungen proben."
           },
           {
             "titel": "Sprechen & Artikulation",
-            "text": "Atem, Stimme, Artikulation – klar sprechen auf der Bühne, am Mikrofon oder im Beruf."
+            "text": "Atem, Stimme und Artikulation für klares Sprechen auf der Bühne, am Mikrofon oder im Beruf."
           },
           {
             "titel": "Auftritts- & Prüfungsangst, Präsenz",
@@ -670,7 +670,7 @@
     },
     {
       "titel": "Poetry-Slam Sommerwerft 2025",
-      "text": "Der Siegertext beim Sommerwerft Theater Festival – Mediathek Hessen.",
+      "text": "Der Siegertext beim Sommerwerft Theater Festival in der Mediathek Hessen.",
       "url": "https://www.mediathek-hessen.de/medienview_37782_Sommerwerft-2025-Poetry-Slam-mit-Nora-Solcher-.html",
       "art": "video"
     }
@@ -771,7 +771,7 @@
     }
   ],
   "impressum": "",
-  "datenschutz": "## 1. Verantwortliche\n\nNora Solcher (Anschrift siehe Impressum)\n\n## 2. Grundsätzliches\n\nDiese Website verwendet **keine Cookies**, **kein Tracking** und **keine Analyse-Werkzeuge**. Schriftarten und Bilder werden ausschließlich vom eigenen Server geladen. Videos und Hörproben sind nicht eingebettet, sondern verlinkt – es werden keine Daten an Dritte übertragen, solange Sie nicht selbst einen externen Link anklicken.\n\n## 3. Hosting und Server-Logfiles\n\nBeim Aufruf der Website speichert der Hosting-Anbieter technisch notwendige Daten (z. B. IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browsertyp) in Server-Logfiles. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einem sicheren und stabilen Betrieb). Die Logfiles werden nach spätestens 14 Tagen gelöscht.\n\n## 4. Kontaktaufnahme\n\nWenn Sie per E-Mail oder Telefon Kontakt aufnehmen, werden Ihre Angaben zur Bearbeitung der Anfrage verarbeitet (Art. 6 Abs. 1 lit. b DSGVO).\n\n## 5. Externe Links\n\nDie Website enthält Links zu externen Angeboten (z. B. Filmmakers, Schauspielervideos, Mediathek Hessen, Instagram, Agentur). Erst wenn Sie einen solchen Link anklicken, werden Daten an den jeweiligen Anbieter übertragen. Für dessen Datenverarbeitung ist ausschließlich der jeweilige Anbieter verantwortlich.\n\n## 6. Ihre Rechte\n\nSie haben jederzeit das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer Daten sowie auf Datenübertragbarkeit und Widerspruch (Art. 15–21 DSGVO). Außerdem können Sie sich bei einer Datenschutz-Aufsichtsbehörde beschweren, zum Beispiel beim Hessischen Beauftragten für Datenschutz und Informationsfreiheit.",
+  "datenschutz": "## 1. Verantwortliche\n\nNora Solcher (Anschrift siehe Impressum)\n\n## 2. Grundsätzliches\n\nDiese Website verwendet **keine Cookies**, **kein Tracking** und **keine Analyse-Werkzeuge**. Schriftarten und Bilder werden ausschließlich vom eigenen Server geladen. Videos und Hörproben sind nicht eingebettet, sondern verlinkt. Es werden keine Daten an Dritte übertragen, solange Sie nicht selbst einen externen Link anklicken.\n\n## 3. Hosting und Server-Logfiles\n\nBeim Aufruf der Website speichert der Hosting-Anbieter technisch notwendige Daten (z. B. IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browsertyp) in Server-Logfiles. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einem sicheren und stabilen Betrieb). Die Logfiles werden nach spätestens 14 Tagen gelöscht.\n\n## 4. Kontaktaufnahme\n\nWenn Sie per E-Mail oder Telefon Kontakt aufnehmen, werden Ihre Angaben zur Bearbeitung der Anfrage verarbeitet (Art. 6 Abs. 1 lit. b DSGVO).\n\n## 5. Externe Links\n\nDie Website enthält Links zu externen Angeboten (z. B. Filmmakers, Schauspielervideos, Mediathek Hessen, Instagram, Agentur). Erst wenn Sie einen solchen Link anklicken, werden Daten an den jeweiligen Anbieter übertragen. Für dessen Datenverarbeitung ist ausschließlich der jeweilige Anbieter verantwortlich.\n\n## 6. Ihre Rechte\n\nSie haben jederzeit das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer Daten sowie auf Datenübertragbarkeit und Widerspruch (Art. 15–21 DSGVO). Außerdem können Sie sich bei einer Datenschutz-Aufsichtsbehörde beschweren, zum Beispiel beim Hessischen Beauftragten für Datenschutz und Informationsfreiheit.",
   "register": [
     {
       "gruppe": "Sprache",
